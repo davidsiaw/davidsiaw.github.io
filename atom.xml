@@ -4,7 +4,7 @@
   <title><![CDATA[./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2013-10-12T18:31:58+13:00</updated>
+  <updated>2013-10-12T18:34:08+13:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<p>As all of you may have noticed the theme has changed and the URL seems to have been redirected to Github. I decided to try out this github pages thing and it seems to work pretty well. The static content idea is really attractive to me and really gives me much more power over the pages with a small tradeoff for convenience. But convenience is a non-issue for most programmers who can write tools to make the inconvenient convenient.</p>
 
 <p>What I want to talk about here is actually how I started doing this and why I ended up moving my blog across, along with what I learned along the way about Jekyll-Bootstrap, Octopress, Jekyll, the annoying problems and the process of migrating from a WordPress blog to a Octopress/Disqus duo.</p>
+
+<!--more-->
+
 
 <h2>1. Github Pages</h2>
 
