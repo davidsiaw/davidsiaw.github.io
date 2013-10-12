@@ -4,7 +4,7 @@
   <title><![CDATA[./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2013-10-12T15:53:33+13:00</updated>
+  <updated>2013-10-12T18:31:58+13:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -12,6 +12,146 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[New Blog]]></title>
+    <link href="http://davidsiaw.github.io/blog/2013/10/12/new-blog/"/>
+    <updated>2013-10-12T16:03:00+13:00</updated>
+    <id>http://davidsiaw.github.io/blog/2013/10/12/new-blog</id>
+    <content type="html"><![CDATA[<p>As all of you may have noticed the theme has changed and the URL seems to have been redirected to Github. I decided to try out this github pages thing and it seems to work pretty well. The static content idea is really attractive to me and really gives me much more power over the pages with a small tradeoff for convenience. But convenience is a non-issue for most programmers who can write tools to make the inconvenient convenient.</p>
+
+<p>What I want to talk about here is actually how I started doing this and why I ended up moving my blog across, along with what I learned along the way about Jekyll-Bootstrap, Octopress, Jekyll, the annoying problems and the process of migrating from a WordPress blog to a Octopress/Disqus duo.</p>
+
+<h2>1. Github Pages</h2>
+
+<p>After a friend of mine started up his blog, I decided to give it a shot too. From searching around most of the Github pages around were set up as blogs. It seemed like that was a natural thing to do so I went on and used the Github automatic page generator.</p>
+
+<p>The themes provided were incredibly high quality, and were easy to read on the iPhone. The syntax highlighting seemed to just work too so it seemed like everything was going to be good.</p>
+
+<p>I soon realized that all the automatic page generator did was set up an index.html on the repository. I had to begin editing the html page myself and if I wanted an automatically updated sidebar of pages and posts, there needed to be some Liquid code in the pages that required that.</p>
+
+<p>It started to seem like a pain for a blogging environment.</p>
+
+<h2>2. Jekyll-bootstrap</h2>
+
+<p>Believing in the power of existing tools, I was sure someone out there would have solved this problem for me. After googling around I found Jekyll-Bootstrap. It seemed fairly simple to set up, since it was simply a starting point with Rakefiles and preset templates for blogging. It also used pygments for syntax highlighting, and had theming support and plugins.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake new_post <span class="nv">title</span><span class="o">=</span><span class="s2">&quot;Rants of today&quot;</span>
+</span><span class='line'><span class="nv">$ </span>rake new_page <span class="nv">title</span><span class="o">=</span><span class="s2">&quot;My new page&quot;</span>
+</span><span class='line'><span class="nv">$ </span>rake preview
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You had to have an empty repository to start with Jekyll-bootstrap because it needs to dictate how things are in your blog. The easiest way to do this it seems is to begin your repository contents with the contents of Jekyll-bootstrap.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone https://github.com/plusjade/jekyll-bootstrap.git USERNAME.github.com
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>USERNAME.github.com
+</span><span class='line'><span class="nv">$ </span>git remote <span class="nb">set</span>-url origin git@github.com:USERNAME/USERNAME.github.com.git
+</span><span class='line'><span class="nv">$ </span>git push origin master
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The site, being a set of markdown and html files with Liquid markups would then simply be checked in to github where it would automatically be run through Jekyll and displayed.</p>
+
+<p>The themes for Jekyll-bootstrap weren&rsquo;t as good as the ones you could find for Github, but that did not pose much of a problem. There also weren&rsquo;t many of them. It also turned out that besides the automatic page and post file generation and theme application, there wasn&rsquo;t much in terms of defaults. The index.md only had a simple example of listing posts, and if you wanted a sidebar and show posts on the index.html, or apply disqus to it, you had to do all of that yourself.</p>
+
+<p><a href="http://themes.jekyllbootstrap.com/">Jekyll-bootstrap Themes</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake theme:install <span class="nv">git</span><span class="o">=</span><span class="s2">&quot;https://github.com/dhulihan/hooligan.git&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I was surprised at the seeming lack of extra examples that can be copy-pasted in to set the blog up. As it turns out jekyll-bootstrap hasn&rsquo;t been maintained for a while, since its maintainer has moved on to create another static site generator.</p>
+
+<p>I set this aside on a different folder and proceeded to try the other alternative which seemed more used and still had an active community and maintainers.</p>
+
+<h2>3. Octopress</h2>
+
+<p>The alternative was Octopress. Octopress is different from Jekyll-bootstrap in the sense that it wasn&rsquo;t just a template for blogging sites. It is a small collection of tools that allow you to set themes and generate your site locally. Another difference is that the static site generation is actually done on your own PC, and you push the result to github. This means it would work for any other site, which was fairly attractive. Similar to Jekyll-bootstrap, you would fork Octopress and clone your modifications in to another repository, and not your site.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone git://github.com/davidsiaw/octopress.git Octopress   <span class="c"># from my forked repository</span>
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>octopress
+</span><span class='line'><span class="nv">$ </span>gem install bundler
+</span><span class='line'><span class="nv">$ </span>rbenv rehash
+</span><span class='line'><span class="nv">$ </span>bundle install        <span class="c"># prepares the set of tools required to maintain your site</span>
+</span><span class='line'><span class="nv">$ </span>rake install          <span class="c"># generates your site&#39;s bootstrap sources</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>rake generate
+</span><span class='line'><span class="nv">$ </span>rake deploy           <span class="c"># automatically creates a _deploy folder and pushes that to your site</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>git add .             <span class="c"># add the created sources and sass folders that contain the real sources for your site</span>
+</span><span class='line'><span class="nv">$ </span>git commit -m <span class="s2">&quot;update sources&quot;</span>
+</span><span class='line'><span class="nv">$ </span>git pushes            <span class="c"># push your site&#39;s sources</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Octopress also has a much larger set of themes available to use to customize your site. Like Jekyll-bootstrap, the theme is on a github repository that you can clone and install with.</p>
+
+<p><a href="http://opthemes.com/">Octopress Theme Site</a></p>
+
+<p>One big headache with Octopress was that its syntax highlighting was not part of the theme, and that the default theme was the Solarize theme which was fairly ugly and bluish. It also wasn&rsquo;t straightforward to configure. It turned out that the syntax configuration is in sass/<em>syntax.scss and the variables in it are stored in sass/</em>solarized.scss.</p>
+
+<p><img src="http://davidsiaw.github.io/images/blogimages/solarized.png"></p>
+
+<p>In order to solve this problem, some googling turned up some people solving this issue by <a href="http://blog.codebykat.com/2013/05/23/gorgeous-octopress-codeblocks-with-coderay/">switching the markdown generator to CodeRay</a>. But it did not change the theme for me and it seemed like a very messy change to have, so I decided to roll my sleeves up and edit the scss files myself, which came out pretty well.</p>
+
+<h2>4. Wordpress Migration</h2>
+
+<p>The final part of my blog setup was to see if I could transfer all the data from my old WordPress blog to this one. It turns out I could. <a href="http://jekyllrb.com/docs/migrations/">Jekyll had a set of tools</a> that allowed me to import the XML file produced by the WordPress export function. This automatically added the pages to source/<em>pages and posts to source/</em>posts in html format.</p>
+
+<p>This is not desirable because in HTML format the newlines are ignored and the posts look fairly retarded, so I renamed all the extensions to .md.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>gem install jekyll-import --pre
+</span><span class='line'><span class="nv">$ </span>gem install hpricot
+</span><span class='line'><span class="nv">$ </span>ruby -rubygems -e <span class="s1">&#39;require &quot;jekyll/jekyll-import/wordpressdotcom&quot;;</span>
+</span><span class='line'><span class="s1">    JekyllImport::WordpressDotCom.process({ :source =&gt; &quot;wordpress.xml&quot; })&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, the export was far from perfect. My WordPress install used a lot of plugins, meaning the content was littered with shortcodes that did not look like part of any content. I had to touch nearly every generated file that was imported to get everything nice and polished again.</p>
+
+<h2>5. Disqus</h2>
+
+<p>Disqus is a hosted commenting system that provides a very nice commenting theme that blends in to most Jekyll sites, that&rsquo;s the sole reason I chose it. I thought facebook comments were nice and would provide me with more exposure but it just looked ugly.</p>
+
+<p>Setting Disqus up was fairly easy. It involved registering on Disqus and adding the shortcode of Disqus to the _config.yml. There was one very undocumented frustration though, the comments were not showing up. It turns out that instead of having trailing &lsquo;/&rsquo; on the URLs like other people who had this problem, the imported posts had no &lsquo;comments: true&rsquo; line on them! This meant Disqus was disabled for all those posts. I had to then go through all of the posts and add comments to enable Disqus.</p>
+
+<p>Importing the Wordpress comments into Disqus was fairly trivial as there was a Disqus plugin for Wordpress that allowed us to pull all of the Wordpress plugins in. In addition, I could then rename the domains on all the comments that were associated with the Wordpress site to being associated to my site, which was a really handy tool to have.</p>
+
+<h2>Conclusion</h2>
+
+<p>Overall, this actually took an entire Saturday morning, which is pretty heavy for a &ldquo;Simple&rdquo; framework for blogging on static sites. The only thing that looked simple was the amount of stuff that you end up with on the website, which gives the impression that not a lot of work went into building the site.</p>
+
+<p>I guess it wouldn&rsquo;t be too far fetched to say that even with top grade tools, if a little customization is required, the amount of work to set up a website increases exponentially in relation to the customization you do.</p>
+
+<p>With blogging on the site, one of the things I miss is the ability to see images next to the text that I type, that Wordpress&rsquo;s web interface or <a href="http://labs.astrobunny.net/bunnyblogger">Bunnyblogger</a> affords.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Online vs Batch learning]]></title>
@@ -1167,15 +1307,6 @@ Sometimes code that was written back then may be correct back then, but may not 
     <updated>2009-03-20T00:00:00+13:00</updated>
     <id>http://davidsiaw.github.io/blog/2009/03/20/updated-the-b_pool</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve updated the b_pool again! This one has got some new features such as string functions (not yet complete) and a new b_resize function, which basically acts the same as realloc, except that if you are resizing the last block created on the pool, it will resize it without freeing. This makes it a lot faster and is perfect for string functions. I haven&rsquo;t tested it yet and its too late at night for me to test it. If anyone would be so keen to write some tests that will break the b_resize function?</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[GIS data for topography and shorelines and more]]></title>
-    <link href="http://davidsiaw.github.io/blog/2009/03/20/gis-data-for-topography-and-shorelines-and-more/"/>
-    <updated>2009-03-20T00:00:00+13:00</updated>
-    <id>http://davidsiaw.github.io/blog/2009/03/20/gis-data-for-topography-and-shorelines-and-more</id>
-    <content type="html"><![CDATA[<p>I&rsquo;ve <a href="http://www.ngdc.noaa.gov/mgg/topo/topo.html">found a site </a>recently that provides data for free on the world&rsquo;s shorelines and topography. They have got other datasets too that aren&rsquo;t as complete, but would probably be of interest to those of you who wish to do research on it. For me, when I look at data like this I get the itch to write programs that process and present it. I might just do that eventually. <em>keeps a note to self</em></p>
 ]]></content>
   </entry>
   

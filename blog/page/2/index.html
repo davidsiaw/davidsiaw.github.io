@@ -9,29 +9,11 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="I always prefer initializing my class through the use of a constructor like this: 1
+  <meta name="description" content="When you compile the glew_static project from glew on Visual Studio and link it with your program, you may get something like this: 1
 2
 3
 4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-class &hellip;">
+5 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -126,6 +108,60 @@ class &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/06/help-glew-compiles-but-doesnt-link/">Help! GLEW Compiles but Doesn&#8217;t Link!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-06T00:00:00+13:00" pubdate data-updated="true">Oct 6<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/10/06/help-glew-compiles-but-doesnt-link/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When you compile the glew_static project from glew on Visual Studio and link it with your program, you may get something like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>app_init.obj : error LNK2001: unresolved external symbol __imp__glewInit
+</span><span class='line'>worldscene.obj : error LNK2001: unresolved external symbol __imp____glewBufferSubData
+</span><span class='line'>worldscene.obj : error LNK2001: unresolved external symbol __imp____glewBufferData
+</span><span class='line'>worldscene.obj : error LNK2001: unresolved external symbol __imp____glewBindBuffer
+</span><span class='line'>worldscene.obj : error LNK2001: unresolved external symbol __imp____glewGenBuffers</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://labs.astrobunny.net/wp-content/uploads/2011/10/wpid-glewstatic.jpg" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2011/10/wpid-glewstatic.jpg" alt="" title="Picture" width="487" height="359" class="alignnone size-medium wp-image-1204" /></a></p>
+
+<p>It&rsquo;s easy to fix. Just add GLEW_STATIC to the preprocessor definitions and you&rsquo;re done. This is because without it the header specifies dllimport instead of just extern, which is needed for static linkage.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -991,44 +1027,6 @@ Sometimes code that was written back then may be correct back then, but may not 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/03/20/gis-data-for-topography-and-shorelines-and-more/">GIS Data for Topography and Shorelines and More</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-03-20T00:00:00+13:00" pubdate data-updated="true">Mar 20<span>th</span>, 2009</time>
-        
-         | <a href="/blog/2009/03/20/gis-data-for-topography-and-shorelines-and-more/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&rsquo;ve <a href="http://www.ngdc.noaa.gov/mgg/topo/topo.html">found a site </a>recently that provides data for free on the world&rsquo;s shorelines and topography. They have got other datasets too that aren&rsquo;t as complete, but would probably be of interest to those of you who wish to do research on it. For me, when I look at data like this I get the itch to write programs that process and present it. I might just do that eventually. <em>keeps a note to self</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1071,11 +1069,15 @@ Sometimes code that was written back then may be correct back then, but may not 
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (5)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/10/12/new-blog/">New Blog</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/03/18/online-vs-batch-learning/">Online vs Batch learning</a>
@@ -1093,15 +1095,11 @@ Sometimes code that was written back then may be correct back then, but may not 
         <a href="/blog/2012/11/28/exceptionless-programming/">Exceptionless Programming</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/11/18/nice-visualization-of-a-cross-product/">Nice Visualization of a Cross Product</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Tag Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/graphics' style='font-size: 110.34482758620689%'>Graphics(5)</a> <a href='/blog/categories/programming' style='font-size: 160.0%'>Programming(29)</a> <a href='/blog/categories/random' style='font-size: 110.34482758620689%'>Random(5)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/graphics' style='font-size: 110.34482758620689%'>Graphics(5)</a> <a href='/blog/categories/programming' style='font-size: 160.0%'>Programming(29)</a> <a href='/blog/categories/random' style='font-size: 112.41379310344827%'>Random(6)</a> </span>
 </section>
 
 <section>
