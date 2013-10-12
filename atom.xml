@@ -1,16 +1,1182 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2013-10-12T02:20:14+13:00</updated>
+  <updated>2013-10-12T14:09:04+13:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[davidsiaw]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Online vs Batch learning]]></title>
+    <link href="http://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning/"/>
+    <updated>2013-03-18T00:00:00+13:00</updated>
+    <id>http://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning</id>
+    <content type="html"><![CDATA[<p>While debugging neuron, my new neural network simulation application, I found some (visually) interesting differences between online and batch learning. While batch learning is usually touted as a better form of learning, I found that the two don&rsquo;t seem to make much difference, except for a steppy curve from online learning, as I would expect as the gradient changes differently if you keep calculating the values in a cycle instead of calculating the combined gradient of all the training data.</p>
+
+<p>Here are the results from training a 2-2-1 network with biases with XOR as training data:</p>
+
+<p><a href="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron2.jpg" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron2-500x81.jpg" alt="" title="Picture" width="500" height="81" class="alignnone size-medium wp-image-1204" /></a></p>
+
+<p>with the weights initialized to:</p>
+
+<p>double[] wx0 = { 0.1, 0.2 };
+double[] wx1 = { 0.3, 0.4 };
+double[] wx2 = { 0.5, 0.6 };</p>
+
+<p>double wh0 = 0.7;
+double wh1 = 0.9;
+double wh2 = 1.1;</p>
+
+<p>Where wx are the values between the input and hidden layer and wh are the values between the hidden and output layer.</p>
+
+<p>Here is the network topography:</p>
+
+<p><a href="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron1.jpg" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron1-500x361.jpg" alt="" title="Picture" width="500" height="361" class="alignnone size-medium wp-image-1204" /></a></p>
+
+<p>Here is the training error:</p>
+
+<p><a href="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-chart_1-1.png" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-chart_1-1-500x272.png" alt="" title="Picture" width="500" height="272" class="alignnone size-medium wp-image-1204" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[This seems to make Cappuccino faster...]]></title>
+    <link href="http://davidsiaw.github.io/blog/2012/12/19/this-seems-to-make-cappuccino-faster/"/>
+    <updated>2012-12-19T00:00:00+13:00</updated>
+    <id>http://davidsiaw.github.io/blog/2012/12/19/this-seems-to-make-cappuccino-faster</id>
+    <content type="html"><![CDATA[<p>My lack of knowledge about Cappuccino&rsquo;s implementation details may play a role, but</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">setNativeTimeout</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Seems to make my Cappuccino apps more responsive.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Identity of an Array]]></title>
+    <link href="http://davidsiaw.github.io/blog/2012/12/12/the-identity-of-an-array/"/>
+    <updated>2012-12-12T00:00:00+13:00</updated>
+    <id>http://davidsiaw.github.io/blog/2012/12/12/the-identity-of-an-array</id>
+    <content type="html"><![CDATA[<p>Given two arrays of integers: a and b, what does (a == b) mean?</p>
+
+<p>Most of us will say, it depends on the programming language you are using, and that is true. In the case of C, it means a and b are the pointers to the start of the same array. In Java and C# it means the arrays are Reference Equal, basically meaning that the pointer to the arrays a and b are the same.</p>
+
+<p>But how is that really useful? If you passed around these two arrays and checked if the references are the same, you are really just comparing the object with itself or not. The object is never going to be equal to anything else but itself. Even another array created in a different part of the program that has exactly the same integers in it in the same order will be a different array.</p>
+
+<p>One would agree that [1, 2, 3] and [1, 2, 3] are the same but if these two arrays were created at different places the == operator will return false. Why is the extra information that the arrays are made in two different places important to the == operator? It makes no sense when you look at arrays as a list of numbers, and not a pointer into memory, which is an implementation detail.</p>
+
+<p>So if we were to write a better == operator for arrays, what would it be?</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[1,2,3,3] == [1,2,3,3] -&gt; true
+</span><span class='line'>[1,2,3,3] == [3,2,1,3] -&gt; ?
+</span><span class='line'>[1,2,3,3] == [1,2,3,1,2,3] -&gt; ?
+</span><span class='line'>[1,2,3,3] == [2,3,1] -&gt; ?
+</span><span class='line'>[1,2,3,3] == [1,2,3] -&gt; ?
+</span><span class='line'>[1,2,3,3] == [1233] -&gt; ?
+</span><span class='line'>[1,2,3,3] == "1233" -&gt; ?</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We suddenly see that the array&rsquo;s identity changes depending on what you are using it for. Let us replace those question marks with context.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[1,2,3,3] == [1,2,3,3] -&gt; true if the array is an ordered list
+</span><span class='line'>[1,2,3,3] == [3,2,1,3] -&gt; true if the array is an unordered list
+</span><span class='line'>[1,2,3,3] == [1,2,3,1,2,3] -&gt; true if the array is a bag of numbers
+</span><span class='line'>[1,2,3,3] == [2,3,1] -&gt; true if the array is an unordered set
+</span><span class='line'>[1,2,3,3] == [1,2,3] -&gt; true if the array is an ordered set
+</span><span class='line'>[1,2,3,3] == [1233] -&gt; true if the array is a collection of digits
+</span><span class='line'>[1,2,3,3] == "1233" -&gt; true if the array is a string</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The array is too general. It is actually really important that we know what the array represents. A whole bunch of things are arrays but are passed around as plain arrays. This causes maintainer programmers to wonder what exactly they represent.</p>
+
+<p>Some cite performance reasons. Fair enough, passing a struct that contains an array and a set of methods to manipulate it in C is slower than just passing the struct around. C is a very low level language where implementation detail really mixes with requirements.</p>
+
+<p>But why is it that so many other modern languages have this problem? Why isn&rsquo;t there a language that treats a set like a set, and has a compiler that really just compiles it down into an array?</p>
+
+<p>Interestingly enough, this problem does not stop at arrays. Numbers have different meanings in different contexts too. Take for example the function Math.Cos in C#. This function takes a double in <i>radians</i>.</p>
+
+<p>Why is it that the function signature is</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="kt">double</span> <span class="nf">Cos</span><span class="p">(</span><span class="kt">double</span> <span class="n">angle</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and not</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">ratio</span> <span class="nf">Cos</span><span class="p">(</span><span class="n">radians</span> <span class="n">angle</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>where radians is just a type of double?</p>
+
+<p>If the compiler was fed this information the first place, programs like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">degrees</span> <span class="n">a</span> <span class="p">=</span> <span class="m">40</span><span class="p">;</span>
+</span><span class='line'><span class="n">ratio</span> <span class="n">r</span> <span class="p">=</span> <span class="n">Cos</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>will cause the compiler to either throw a compiler error for passing degrees into a radians parameter, or generate code to convert degrees to radians.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Exceptionless Programming]]></title>
+    <link href="http://davidsiaw.github.io/blog/2012/11/28/exceptionless-programming/"/>
+    <updated>2012-11-28T00:00:00+13:00</updated>
+    <id>http://davidsiaw.github.io/blog/2012/11/28/exceptionless-programming</id>
+    <content type="html"><![CDATA[<p>I am a big fan of writing code that generates no runtime errors. This is an implementation of a function that takes the first element of an array.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span><span class='line'><span class="n">T</span> <span class="n">first</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="k">throw</span> <span class="n">EmptyArrayException</span><span class="p">();</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is the standard way we are taught to write programs. However, there is another way to write this function that makes the exception unneccessary.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">first</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">returnCallback</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="n">returnCallback</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Suddenly the program flow is dictated by the emptiness of the array. Besides knowing well that this function will never throw an exception, the program that uses it will be structured in such a way that you can guarantee within the scope of the returnCallback function that was passed in, the function will always have the first element of the array. You don&rsquo;t even have to check for nullness.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">int</span> <span class="n">calcCheckSum</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sorted</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">first</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">sorted</span><span class="p">,</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;](</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="kt">int</span><span class="o">&amp;</span> <span class="n">res</span> <span class="o">=</span> <span class="n">result</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">last</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">sorted</span><span class="p">,</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;](</span><span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">res</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">});</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And as a perk, if this function compiles, you know that it will run without errors.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Nice Visualization of a Cross Product]]></title>
+    <link href="http://davidsiaw.github.io/blog/2012/11/18/nice-visualization-of-a-cross-product/"/>
+    <updated>2012-11-18T00:00:00+13:00</updated>
+    <id>http://davidsiaw.github.io/blog/2012/11/18/nice-visualization-of-a-cross-product</id>
+    <content type="html"><![CDATA[<p><a href="http://www.phy.syr.edu/courses/java-suite/crosspro.html">[This]</a> is a very nice Java applet that allows you to see what a cross product is. The applet shows A x B = C (i.e. C is the cross product of A and B) in 3 dimensions. You can drag A and B around to see the effects on C.</p>
+
+<p>This UI is an example of very good interactivity. It makes it very easy for the user to see what happens and since its interactive, the feedback is instant and a little playing around with it gives the user an intuition of how cross products work (not how they are done).</p>
+
+<p>Instead of a program where you enter numbers, dragging arrows around give you a much better view of whats going on, and allows the user to relate a real-life situation to it better too.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Blurred Text Effect]]></title>
+    <link href="http://davidsiaw.github.io/blog/2012/08/13/blurred-text-effect/"/>
+    <updated>2012-08-13T00:00:00+12:00</updated>
+    <id>http://davidsiaw.github.io/blog/2012/08/13/blurred-text-effect</id>
+    <content type="html"><![CDATA[<p>I came across a strange site that blurred the text of answers and asked the reader to sign up to see it. It was strange because the text was already there, just blurred via css. I thought it was an interesting little snippet so I decided to record it.</p>
+
+<p><span style="color:transparent; text-shadow:0 0 7px #777">This is how it blurs</span>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nc">.blurred_text</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">color</span><span class="o">:</span> <span class="k">transparent</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">text-shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">7px</span> <span class="m">#777</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Regex Escapees]]></title>
+    <link href="http://davidsiaw.github.io/blog/2011/11/22/regex-escapees/"/>
+    <updated>2011-11-22T00:00:00+13:00</updated>
+    <id>http://davidsiaw.github.io/blog/2011/11/22/regex-escapees</id>
+    <content type="html"><![CDATA[<p>Sometimes when one writes regexes, Its hard to know what needs to be escaped and what doesn&rsquo;t. But I&rsquo;ve solved that problem while I was writing a program that generated my regexes for me. Now I have a snippet that both humans and programs can use to write regexes!</p>
+
+<p>This is for the .NET flavor of Regex.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">private</span> <span class="k">static</span> <span class="kt">string</span> <span class="nf">SanitizeToken</span><span class="p">(</span><span class="kt">string</span> <span class="n">token</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">token</span>
+</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">@&quot;\&quot;</span><span class="p">,</span> <span class="s">@&quot;\\&quot;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">@&quot;\*&quot;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;?&quot;</span><span class="p">,</span> <span class="s">@&quot;\?&quot;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;+&quot;</span><span class="p">,</span> <span class="s">@&quot;\+&quot;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;{&quot;</span><span class="p">,</span> <span class="s">@&quot;\{&quot;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;}&quot;</span><span class="p">,</span> <span class="s">@&quot;\}&quot;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;^&quot;</span><span class="p">,</span> <span class="s">@&quot;\^&quot;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;$&quot;</span><span class="p">,</span> <span class="s">@&quot;\$&quot;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">,</span> <span class="s">@&quot;\.&quot;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;[&quot;</span><span class="p">,</span> <span class="s">@&quot;\[&quot;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;]&quot;</span><span class="p">,</span> <span class="s">@&quot;\]&quot;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;(&quot;</span><span class="p">,</span> <span class="s">@&quot;\(&quot;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;)&quot;</span><span class="p">,</span> <span class="s">@&quot;\)&quot;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;|&quot;</span><span class="p">,</span> <span class="s">@&quot;\|&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Making Color From Alpha, Hue, Saturation and Brightness]]></title>
+    <link href="http://davidsiaw.github.io/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness/"/>
+    <updated>2011-11-22T00:00:00+13:00</updated>
+    <id>http://davidsiaw.github.io/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness</id>
+    <content type="html"><![CDATA[<p>I find myself wanting to do this sometimes, so here&rsquo;s a bit of code (I&rsquo;m sure I stole this code from somewhere else);</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="n">Color</span> <span class="nf">ColorFromAhsb</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">float</span> <span class="n">h</span><span class="p">,</span> <span class="kt">float</span> <span class="n">s</span><span class="p">,</span> <span class="kt">float</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0</span> <span class="p">&gt;</span> <span class="n">a</span> <span class="p">||</span> <span class="m">255</span> <span class="p">&lt;</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentOutOfRangeException</span><span class="p">(&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">a</span><span class="p">&amp;</span><span class="n">quot</span><span class="p">;);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0f</span> <span class="p">&gt;</span> <span class="n">h</span> <span class="p">||</span> <span class="m">360f</span> <span class="p">&lt;</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentOutOfRangeException</span><span class="p">(&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">h</span><span class="p">&amp;</span><span class="n">quot</span><span class="p">;);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0f</span> <span class="p">&gt;</span> <span class="n">s</span> <span class="p">||</span> <span class="m">1f</span> <span class="p">&lt;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentOutOfRangeException</span><span class="p">(&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">s</span><span class="p">&amp;</span><span class="n">quot</span><span class="p">;);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0f</span> <span class="p">&gt;</span> <span class="n">b</span> <span class="p">||</span> <span class="m">1f</span> <span class="p">&lt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentOutOfRangeException</span><span class="p">(&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">b</span><span class="p">&amp;</span><span class="n">quot</span><span class="p">;);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0</span> <span class="p">==</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="m">255</span><span class="p">),</span>
+</span><span class='line'>          <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="m">255</span><span class="p">),</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="m">255</span><span class="p">));</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">float</span> <span class="n">fMax</span><span class="p">,</span> <span class="n">fMid</span><span class="p">,</span> <span class="n">fMin</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">iSextant</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMin</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0.5</span> <span class="p">&lt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">fMax</span> <span class="p">=</span> <span class="n">b</span> <span class="p">-</span> <span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="n">s</span><span class="p">)</span> <span class="p">+</span> <span class="n">s</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">fMin</span> <span class="p">=</span> <span class="n">b</span> <span class="p">+</span> <span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="n">s</span><span class="p">)</span> <span class="p">-</span> <span class="n">s</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">fMax</span> <span class="p">=</span> <span class="n">b</span> <span class="p">+</span> <span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="n">s</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">fMin</span> <span class="p">=</span> <span class="n">b</span> <span class="p">-</span> <span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="n">s</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">iSextant</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">Math</span><span class="p">.</span><span class="n">Floor</span><span class="p">(</span><span class="n">h</span> <span class="p">/</span> <span class="m">60f</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">300f</span> <span class="p">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">h</span> <span class="p">-=</span> <span class="m">360f</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="n">h</span> <span class="p">/=</span> <span class="m">60f</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">h</span> <span class="p">-=</span> <span class="m">2f</span> <span class="p">*</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">Math</span><span class="p">.</span><span class="n">Floor</span><span class="p">(((</span><span class="n">iSextant</span> <span class="p">+</span> <span class="m">1f</span><span class="p">)</span> <span class="p">%</span> <span class="m">6f</span><span class="p">)</span> <span class="p">/</span> <span class="m">2f</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0</span> <span class="p">==</span> <span class="n">iSextant</span> <span class="p">%</span> <span class="m">2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">fMid</span> <span class="p">=</span> <span class="n">h</span> <span class="p">*</span> <span class="p">(</span><span class="n">fMax</span> <span class="p">-</span> <span class="n">fMin</span><span class="p">)</span> <span class="p">+</span> <span class="n">fMin</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">fMid</span> <span class="p">=</span> <span class="n">fMin</span> <span class="p">-</span> <span class="n">h</span> <span class="p">*</span> <span class="p">(</span><span class="n">fMax</span> <span class="p">-</span> <span class="n">fMin</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">iMax</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">fMax</span> <span class="p">*</span> <span class="m">255</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">iMid</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">fMid</span> <span class="p">*</span> <span class="m">255</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">iMin</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">fMin</span> <span class="p">*</span> <span class="m">255</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">switch</span> <span class="p">(</span><span class="n">iSextant</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">case</span> <span class="m">1</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMin</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">case</span> <span class="m">2</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMin</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMid</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">case</span> <span class="m">3</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMin</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMax</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">case</span> <span class="m">4</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMin</span><span class="p">,</span> <span class="n">iMax</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">case</span> <span class="m">5</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMin</span><span class="p">,</span> <span class="n">iMid</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">default</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMin</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[OpenGL weirdness]]></title>
+    <link href="http://davidsiaw.github.io/blog/2011/10/06/opengl-weirdness/"/>
+    <updated>2011-10-06T00:00:00+13:00</updated>
+    <id>http://davidsiaw.github.io/blog/2011/10/06/opengl-weirdness</id>
+    <content type="html"><![CDATA[<p>Try this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>    <span class="n">dispList</span> <span class="o">=</span> <span class="n">glGenLists</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">glNewList</span><span class="p">(</span><span class="n">dispList</span><span class="p">,</span> <span class="n">GL_COMPILE</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">=-</span><span class="mi">768</span><span class="p">;</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">768</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">y</span><span class="o">=-</span><span class="mi">768</span><span class="p">;</span> <span class="n">y</span><span class="o">&lt;</span><span class="mi">768</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">glBegin</span><span class="p">(</span><span class="n">GL_QUADS</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">glColor3f</span><span class="p">((</span><span class="kt">double</span><span class="p">)(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">100</span><span class="p">)</span> <span class="o">/</span> <span class="mi">500</span><span class="p">,</span>
+</span><span class='line'>      <span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">100</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">glVertex3i</span><span class="p">((</span><span class="n">x</span><span class="p">)</span>  <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">glVertex3i</span><span class="p">((</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">glVertex3i</span><span class="p">((</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">glVertex3i</span><span class="p">((</span><span class="n">x</span><span class="p">)</span>  <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">glEnd</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">glEndList</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and render your display list. Then, try this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'>    <span class="n">dispList</span> <span class="o">=</span> <span class="n">glGenLists</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">glNewList</span><span class="p">(</span><span class="n">dispList</span><span class="p">,</span> <span class="n">GL_COMPILE</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">glBegin</span><span class="p">(</span><span class="n">GL_QUADS</span><span class="p">);</span>    <span class="c1">// &lt;- the subtle difference is here</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">=-</span><span class="mi">768</span><span class="p">;</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">768</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">y</span><span class="o">=-</span><span class="mi">768</span><span class="p">;</span> <span class="n">y</span><span class="o">&lt;</span><span class="mi">768</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>            <span class="n">glColor3f</span><span class="p">((</span><span class="kt">double</span><span class="p">)(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">100</span><span class="p">)</span> <span class="o">/</span> <span class="mi">500</span><span class="p">,</span>
+</span><span class='line'>      <span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">100</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">glVertex3i</span><span class="p">((</span><span class="n">x</span><span class="p">)</span>  <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">glVertex3i</span><span class="p">((</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">glVertex3i</span><span class="p">((</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">glVertex3i</span><span class="p">((</span><span class="n">x</span><span class="p">)</span>  <span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">glEnd</span><span class="p">();</span>        <span class="c1">// &lt;- and here</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">glEndList</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I don&rsquo;t know if its my graphics drivers, or graphics card or perhaps just me, but the top code maxed out at 60 fps while the bottom code ran at ~10 fps.</p>
+
+<p>Oh, and don&rsquo;t ask me why I&rsquo;m using display lists.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Help! GLEW compiles but doesn't link!]]></title>
+    <link href="http://davidsiaw.github.io/blog/2011/10/06/help-glew-compiles-but-doesnt-link/"/>
+    <updated>2011-10-06T00:00:00+13:00</updated>
+    <id>http://davidsiaw.github.io/blog/2011/10/06/help-glew-compiles-but-doesnt-link</id>
+    <content type="html"><![CDATA[<p>When you compile the glew_static project from glew on Visual Studio and link it with your program, you may get something like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>app_init.obj : error LNK2001: unresolved external symbol __imp__glewInit
+</span><span class='line'>worldscene.obj : error LNK2001: unresolved external symbol __imp____glewBufferSubData
+</span><span class='line'>worldscene.obj : error LNK2001: unresolved external symbol __imp____glewBufferData
+</span><span class='line'>worldscene.obj : error LNK2001: unresolved external symbol __imp____glewBindBuffer
+</span><span class='line'>worldscene.obj : error LNK2001: unresolved external symbol __imp____glewGenBuffers</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://labs.astrobunny.net/wp-content/uploads/2011/10/wpid-glewstatic.jpg" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2011/10/wpid-glewstatic.jpg" alt="" title="Picture" width="487" height="359" class="alignnone size-medium wp-image-1204" /></a></p>
+
+<p>It&rsquo;s easy to fix. Just add GLEW_STATIC to the preprocessor definitions and you&rsquo;re done. This is because without it the header specifies dllimport instead of just extern, which is needed for static linkage.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Why I Prefer Initialization Through Constructors]]></title>
+    <link href="http://davidsiaw.github.io/blog/2011/09/18/why-i-prefer-initialization-through-constructors/"/>
+    <updated>2011-09-18T00:00:00+12:00</updated>
+    <id>http://davidsiaw.github.io/blog/2011/09/18/why-i-prefer-initialization-through-constructors</id>
+    <content type="html"><![CDATA[<p>I always prefer initializing my class through the use of a constructor like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">Apple</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">Color</span> <span class="n">color</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">Taste</span> <span class="n">taste</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">countries</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">public</span> <span class="nf">Apple</span><span class="p">(</span><span class="n">Color</span> <span class="n">color</span><span class="p">,</span> <span class="n">Taste</span> <span class="n">taste</span><span class="p">,</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">countries</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">color</span> <span class="p">=</span> <span class="n">color</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">taste</span> <span class="p">=</span> <span class="n">taste</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">countries</span> <span class="p">=</span> <span class="n">countries</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">void</span> <span class="nf">DoSomething</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">grownInCountries</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span><span class='line'>  <span class="n">grownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Japan&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">grownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;New Zealand&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">grownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Poland&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">Apple</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Apple</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="n">Green</span><span class="p">,</span> <span class="n">Taste</span><span class="p">.</span><span class="n">Sweet</span><span class="p">,</span> <span class="n">grownInCountries</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">DoStuffWith</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Instead of</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">Apple</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">public</span> <span class="n">Color</span> <span class="n">color</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">public</span> <span class="n">Taste</span> <span class="n">taste</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">countries</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">void</span> <span class="nf">DoSomething</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">Apple</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Apple</span><span class="p">();</span>
+</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">Color</span> <span class="p">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">Green</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">Taste</span> <span class="p">=</span> <span class="n">Taste</span><span class="p">.</span><span class="n">Sweet</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Japan&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;New Zealand&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Poland&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">DoStuffWith</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To some, the answer seems obvious: constructors enforce filling in all the fields. To others, it may look like a waste of time and increased complexity to apply the boilerplate: less code = less bugs. Either that or the argument is the class becomes less serialization-friendly.</p>
+
+<p>The C# compiler (or C++ or Java compilers for that matter) provide us with Constructors as a facility to make sure that our fields are all initialized upon construction, besides being able to imply the size required for the data structure to the new operator.</p>
+
+<p>The second example also means that encapsulation has been broken and other classes are free to access the variables within Apple (causing coupling). We could argue that the readonly qualifier could be applied to them, but the &ldquo;countries&rdquo; field is a reference type and still modifiable via its own methods.</p>
+
+<p>This way you can avoid forgetting to initialize a certain set of fields. Whenever a field is added, the constructor should also get a parameter, forcing the implementor to ensure that all places that create instances of this class will have to initialize the new field, eliminating a whole class of bugs related to uninitialized variables.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[First test post from BunnyBlogger]]></title>
+    <link href="http://davidsiaw.github.io/blog/2011/07/04/first-test-post-from-bunnyblogger/"/>
+    <updated>2011-07-04T00:00:00+12:00</updated>
+    <id>http://davidsiaw.github.io/blog/2011/07/04/first-test-post-from-bunnyblogger</id>
+    <content type="html"><![CDATA[<iframe width="480" height="390" src="http://www.youtube.com/embed/FvhGhKragpI" frameborder="0" allowfullscreen></iframe>
+
+
+<p>Several moons ago I have been working on a special blogging client, that is capable of wysiwyg blogging and allows you to take snapshots from movie files and add images and other images to your post.</p>
+
+<p>I have only shown this to a few people. But now, I&rsquo;ve been working to bring it up to user-standard so everyone can benefit from a way to blog quickly, without the waiting for image upload messing with your writing flow.</p>
+
+<p>This is a test post from that very program, entering its beta.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Will the destructor be called?]]></title>
+    <link href="http://davidsiaw.github.io/blog/2010/08/10/will-the-destructor-be-called/"/>
+    <updated>2010-08-10T00:00:00+12:00</updated>
+    <id>http://davidsiaw.github.io/blog/2010/08/10/will-the-destructor-be-called</id>
+    <content type="html"><![CDATA[<p>Here&rsquo;s a C++ quiz for all of you: somefunc() will be called from a thread. Do you think this destructor will be called?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+</span><span class='line'><span class="k">public</span><span class="o">:</span>
+</span><span class='line'>  <span class="n">A</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Constructor</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">~</span><span class="n">A</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Destructor</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="n">somefunc</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">A</span> <span class="n">inst</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">int</span><span class="o">*</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Idioms]]></title>
+    <link href="http://davidsiaw.github.io/blog/2010/06/21/idioms/"/>
+    <updated>2010-06-21T00:00:00+12:00</updated>
+    <id>http://davidsiaw.github.io/blog/2010/06/21/idioms</id>
+    <content type="html"><![CDATA[<p>What if</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">doSomething</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// and</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">i</span><span class="o">+=</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">doSomethingElse</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Was</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">doSomething</span><span class="p">()</span> <span class="k">for</span> <span class="mf">1..99</span><span class="p">;</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="mf">2..99</span><span class="p">)</span> <span class="p">{</span> <span class="n">doSomethingElse</span><span class="p">();</span> <span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Would the world be a better place?</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[That's Not The Point]]></title>
+    <link href="http://davidsiaw.github.io/blog/2009/12/29/thats-not-the-point/"/>
+    <updated>2009-12-29T00:00:00+13:00</updated>
+    <id>http://davidsiaw.github.io/blog/2009/12/29/thats-not-the-point</id>
+    <content type="html"><![CDATA[<p>Today I read an interesting chapter in Writing Solid Code, and it showed an example where a supposed optimization led to code bloat:</p>
+
+<blockquote>
+To represent the hierarchical window structure, Character Windows used a binary tree in which one branch pointed to subwindwos, called &#8220;children&#8221; and the other branch pointed to windows with the same parent, called &#8220;siblings&#8221;:
+</blockquote>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">typedef</span> <span class="k">struct</span> <span class="n">WINDOW</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">struct</span> <span class="n">WINDOW</span> <span class="o">*</span><span class="n">pwndChild</span><span class="p">;</span>    <span class="cm">/* NULL if no children */</span>
+</span><span class='line'>  <span class="k">struct</span> <span class="n">WINDOW</span> <span class="o">*</span><span class="n">pwndSibling</span><span class="p">;</span>  <span class="cm">/* NULL if no brothers/sisters */</span>
+</span><span class='line'>  <span class="kt">char</span> <span class="o">*</span><span class="n">strWndTitle</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">.</span>
+</span><span class='line'>  <span class="p">.</span>
+</span><span class='line'>  <span class="p">.</span>
+</span><span class='line'><span class="p">}</span> <span class="n">window</span><span class="p">;</span>        <span class="cm">/* Naming: wnd, *pwnd */</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<blockquote>
+You can turn to any algorithm book and find efficient routines to manipulate binary trees, so I was a bit shocked to when I reviewed the Character Windows code for inserting a child window into the tree. The code looked like this:
+</blockquote>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="cm">/* pwndRootChildren is the pointer to the list of top-level windows</span>
+</span><span class='line'><span class="cm"> * such as the menu bar and the main document windows.</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="k">static</span> <span class="n">window</span> <span class="o">*</span><span class="n">pwndRootChildren</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">AddChild</span><span class="p">(</span><span class="n">window</span> <span class="o">*</span><span class="n">pwndParent</span><span class="p">,</span> <span class="n">window</span> <span class="o">*</span><span class="n">pwndNewBorn</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="cm">/* New windows may have children but not siblings... */</span>
+</span><span class='line'>  <span class="n">ASSERT</span><span class="p">(</span><span class="n">pwndNewBorn</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">pwndParent</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="cm">/* Add window to the top-level root list. */</span>
+</span><span class='line'>      <span class="n">pwndNewBorn</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">=</span> <span class="n">pwndRootChildren</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">pwndRootChildren</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="cm">/*  If Parent&#39;s first child, start a new sibling chain;</span>
+</span><span class='line'><span class="cm">      *  otherwise, add child to the end of the existing</span>
+</span><span class='line'><span class="cm">      *  sibling chain.</span>
+</span><span class='line'><span class="cm">      */</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">window</span> <span class="o">*</span><span class="n">pwnd</span> <span class="o">=</span> <span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span><span class="p">;</span>
+</span><span class='line'>          <span class="k">while</span> <span class="p">(</span><span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span><span class='line'>          <span class="p">{</span>
+</span><span class='line'>              <span class="n">pwnd</span> <span class="o">=</span> <span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span><span class="p">;</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>          <span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<blockquote>
+Despite the fact that the windowing structure was designed to be a binary tree, it hadn&#8217;t been implemented that way. Since the root window (the one representing the entire display) never has siblings and never has a title and since you can&#8217;t move hide or delete it, &#8230; (cut short for tl;dr)&#8230; that led somebody to decide that declaring an entire window structure was wasteful, and the wndRoot structure was replaced with pwndRootChildren, a simple pointer to the top level windows.
+
+Replacing wndRoot with a pointer may have saved a few bytes of data space, <b>but the cost in code space was enormous</b>.
+
+</blockquote>
+
+
+<p>Forgive me for copying all that out verbatim, but I think that the complete background is needed to make the point clear. Here&rsquo;s the code that was supposed to be written that&rsquo;s found later in the article:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="cm">/* pwndDisplay points to the root-level window, which is</span>
+</span><span class='line'><span class="cm"> * allocated during program initialization</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="n">window</span> <span class="o">*</span><span class="n">pwndDisplay</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">AddChild</span><span class="p">(</span><span class="n">window</span> <span class="o">*</span><span class="n">pwndParent</span><span class="p">,</span> <span class="n">window</span> <span class="o">*</span><span class="n">pwndNewBorn</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="cm">/* New windows may have children but not siblings... */</span>
+</span><span class='line'>  <span class="n">ASSERT</span><span class="p">(</span><span class="n">pwndNewBorn</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="cm">/*  If Parent&#39;s first child, start a new sibling chain;</span>
+</span><span class='line'><span class="cm">  *  otherwise, add child to the end of the existing</span>
+</span><span class='line'><span class="cm">  *  sibling chain.</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">window</span> <span class="o">*</span><span class="n">pwnd</span> <span class="o">=</span> <span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">while</span> <span class="p">(</span><span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">pwnd</span> <span class="o">=</span> <span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Any experienced programmer in C would have noticed two things:</p>
+
+<ul>
+<li>There was a forced special case</li><li>The cost of the optimization was greater than the yield of the optimization</li>
+</ul>
+
+
+<p>But anyone can see that. Its obvious because he said it. However, mentioned this common mistake to a couple of colleagues and said that I did make the same kind of mistake, and this is what they said:</p>
+
+<blockquote>
+Sometimes code that was written back then may be correct back then, but may not be correct now. Just as I wrote an optimization once because computers were not fast enough to handle a certain operation at the time. They do now so that piece of code actually slowed the program down. Also, Opera recently made its engine less memory intensive but more CPU intensive, but after complaints that Opera was taking too much memory, they changed it to be less CPU intensive and more memory intensive. It&#8217;s also a balancing act with more input from your users.
+</blockquote>
+
+
+<p>The first thing that came to my mind was &ldquo;Are you listening?&rdquo; I am not sure if they were trying out of kindness to make me feel better that I make these bugs because of very good reasons and that the badness is unforseeable or that they were just in their own world going off in a skew. Besides the fact that its clearly the latter and that this is not a tradeoff problem nor was it a &ldquo;we needed it at the time&rdquo; problem, since it should have been obvious that the supposed optimization was going to cost more than it was worth in memory space alone at the time of writing the code.</p>
+
+<p>I, like many fellow humans am prone to thinking about the more negative side of this. Of course, this was meant to be a negative post, but on the flipside, I learned three mistakes about fellow programmers that I must remember not to make myself.</p>
+
+<ol>
+<li>Winging it</li><li>Optimizing with a narrow view</li><li>The code I write is always flawless. I&#8217;ll fix it later if I have to.</li>
+</ol>
+
+
+<p>Firstly, winging it and not paying attention to the details of the problem is a fatal mistake I have been guilty of countless times, and have seen many people fall in to as well. our minds are complex-averse, and tend to try and group things into simple groups of things that share the same characteristics based off keywords in a conversation without really understanding it. In this case, my mention of optimization kicked off the ideas of past optimization and tradeoffs in my colleagues&#8217; heads, and was unfortunately all that occupied their heads from that moment on.</p>
+
+<p>Secondly, we programmers are often indulged in our own mindset and steamroll our way through because our egos are big and our power limitless. When we see something that could be good, like an optimization, we tend to bulldoze our way to make sure it gets done.</p>
+
+<p>Thirdly, we programmers are idealists. Not just in the sense that we want everything to be perfect, but we see perfection in everything we write too. This blindness can cause a lot of grief, and the defence is usually &ldquo;I had no choice at the time&rdquo;, which is usually an excuse to cover up a more embarrassing mistake.</p>
+
+<p>Finally, coming back to topic after a very very long strayoff, the whole idea of humans and sad facts of software is not the point. The point of the article from the book is to <b>tell you someone&rsquo;s mistake so you don&rsquo;t make it</b>, because if this one word of caution saved a bug in a simple subsystem, imagine the number of bugs that would be saved in a complex system of 100 subsystems. These are the kinds of articles books should be packed full of.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GWT: Next level of automation]]></title>
+    <link href="http://davidsiaw.github.io/blog/2009/11/04/gwt-next-level-of-automation/"/>
+    <updated>2009-11-04T00:00:00+13:00</updated>
+    <id>http://davidsiaw.github.io/blog/2009/11/04/gwt-next-level-of-automation</id>
+    <content type="html"><![CDATA[<p>After playing a little with GWT, and attempting to add a map into my little webapp, I&rsquo;ve found that this is really a very good idea. By applying a language to abstract all the small difficulties of programming a webpage for different browsers, you essentially move a larger percentage of the work into actually making the application.</p>
+
+<p>Although GWT isn&rsquo;t perfect, and to get my app up and running I had to spend about an hour or so searching the internet about fixing up some XMLs to import the libraries properly, once that was done, the source code that involved adding a map to the page and a little Javascript button coule fit on the screen, it is a huge step over having to deal with the difficulties faced by web programmers to make their sites both compatible with IE and Firefox.</p>
+
+<p>Though I advocate using the minimum amount of cool new features on your site, GWT would be the next step toward progress with the current mess that is web application programming right now.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Attempt to rush an RPG]]></title>
+    <link href="http://davidsiaw.github.io/blog/2009/05/04/attempt-to-rush-an-rpg/"/>
+    <updated>2009-05-04T00:00:00+12:00</updated>
+    <id>http://davidsiaw.github.io/blog/2009/05/04/attempt-to-rush-an-rpg</id>
+    <content type="html"><![CDATA[<p>After reading an article on GameDev about a guy who managed to <a href="http://www.rampantgames.com/blog/2005/04/rpg-in-week.html">build an RPG in 40 hours</a>, I decided I&rsquo;d try my hand at doing an RPG 40 hours too, but in C#. So I started to write the first code on Saturday. After 10 hours of gruelling crunch and brainstorming, I was overwhelmed and realized that I had neither the skill nor discipline to actually make it in 40 hours. I didn&rsquo;t even have the energy left to write a blog post about the start, much less record the process of doing it. However, I did get to the stage where I had a map and a character walking around somewhat and had a basic dialog system in place, but with no inventory, no stats, no objects, just character and some boring dialog box.</p>
+
+<p>Thanks to the start however, I&rsquo;ve now found myself with a half-complete RPG engine. I will upload an update sometime soon. Everything used to make the game is just the .NET framework and C# that comes with Visual Studio Express. Perhaps I should try going on for another 30 hours and see how far I can get&hellip;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Putting a separator between your elements]]></title>
+    <link href="http://davidsiaw.github.io/blog/2009/04/16/putting-a-separator-between-your-elements/"/>
+    <updated>2009-04-16T00:00:00+12:00</updated>
+    <id>http://davidsiaw.github.io/blog/2009/04/16/putting-a-separator-between-your-elements</id>
+    <content type="html"><![CDATA[<p>Often when I&rsquo;m programming, I&rsquo;ll need to list a bunch of stuff and put commas between them. Like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1,2,3,4,5</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Usually, this is what I, and most of my colleagues do:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'>        <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">nums</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">nums</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kt">string</span> <span class="n">msg</span> <span class="p">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="kt">bool</span> <span class="n">first</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">foreach</span> <span class="p">(</span><span class="kt">int</span> <span class="n">num</span> <span class="k">in</span> <span class="n">nums</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">first</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="n">first</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>            <span class="k">else</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="n">msg</span> <span class="p">+=</span> <span class="s">&quot;,&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>            <span class="n">msg</span> <span class="p">+=</span> <span class="n">num</span><span class="p">.</span><span class="n">ToString</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After reading Eric Lippert&rsquo;s little article about <a href="http://blogs.msdn.com/ericlippert/archive/2009/04/13/restating-the-problem.aspx">the horrid-seeming problem of commas and lists</a>, I noticed him mentioning the method</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">String</span><span class="p">.</span><span class="n">Join</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Needless to say, I went and tried it, and found that I could do the equivalent of the above, like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'>        <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">nums</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">nums</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kt">string</span> <span class="n">msg</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">,</span> <span class="n">nums</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">ToString</span><span class="p">()).</span><span class="n">ToArray</span><span class="p">());</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Its kinda amazing how after coding in C# for a good year now that I haven&rsquo;t noticed the existence of such a method.</p>
+
+<p>Okay, the lambda expression seems a bit messy with all the parens and all, but you get the idea. Still, its a lot better than writing a loop and having the evil &ldquo;first&rdquo; variable which kinda clutters the whole thing. Does anyone know an even better way of doing this?</p>
+
+<p>Update: and for my answer to Eric&rsquo;s <a href="http://blogs.msdn.com/ericlippert/archive/2009/04/15/comma-quibbling.aspx">next post</a>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">string</span> <span class="n">msg</span> <span class="p">=</span> <span class="s">&quot;{&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">s</span> <span class="p">=</span> <span class="n">something</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">string</span><span class="p">[]</span> <span class="n">arr</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">&gt;</span> <span class="m">1</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">string</span><span class="p">[]</span> <span class="n">ar2</span> <span class="p">=</span> <span class="p">{</span>
+</span><span class='line'>               <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span> <span class="p">),</span>
+</span><span class='line'>                <span class="n">arr</span><span class="p">[</span><span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">]</span>
+</span><span class='line'>           <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">msg</span> <span class="p">+=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot; and &quot;</span><span class="p">,</span> <span class="n">ar2</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">==</span> <span class="m">1</span><span class="p">)</span> <span class="n">msg</span> <span class="p">+=</span> <span class="n">arr</span><span class="p">[</span><span class="m">0</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">msg</span> <span class="p">+=</span> <span class="s">&quot;}&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Updated the b_pool!]]></title>
+    <link href="http://davidsiaw.github.io/blog/2009/03/20/updated-the-b_pool/"/>
+    <updated>2009-03-20T00:00:00+13:00</updated>
+    <id>http://davidsiaw.github.io/blog/2009/03/20/updated-the-b_pool</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve updated the b_pool again! This one has got some new features such as string functions (not yet complete) and a new b_resize function, which basically acts the same as realloc, except that if you are resizing the last block created on the pool, it will resize it without freeing. This makes it a lot faster and is perfect for string functions. I haven&rsquo;t tested it yet and its too late at night for me to test it. If anyone would be so keen to write some tests that will break the b_resize function?</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GIS data for topography and shorelines and more]]></title>
+    <link href="http://davidsiaw.github.io/blog/2009/03/20/gis-data-for-topography-and-shorelines-and-more/"/>
+    <updated>2009-03-20T00:00:00+13:00</updated>
+    <id>http://davidsiaw.github.io/blog/2009/03/20/gis-data-for-topography-and-shorelines-and-more</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve <a href="http://www.ngdc.noaa.gov/mgg/topo/topo.html">found a site </a>recently that provides data for free on the world&rsquo;s shorelines and topography. They have got other datasets too that aren&rsquo;t as complete, but would probably be of interest to those of you who wish to do research on it. For me, when I look at data like this I get the itch to write programs that process and present it. I might just do that eventually. <em>keeps a note to self</em></p>
+]]></content>
+  </entry>
   
 </feed>

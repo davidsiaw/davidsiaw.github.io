@@ -1,0 +1,432 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>./home/davidsiaw</title>
+  <meta name="author" content="davidsiaw">
+
+  
+  <meta name="description" content="Something that I have only recently noticed only after I have used MSVC for a while is that different versions of MSVC use different versions of the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://davidsiaw.github.io/blog/page/4/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="./home/davidsiaw" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-44781950-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:davidsiaw.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/22/different-versions-of-msvc-have-different-versions-of-stl/">Different Versions of MSVC Have Different Versions of STL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-22T00:00:00+12:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Something that I have only recently noticed only after I have used MSVC for a while is that different versions of MSVC use different versions of the C++ standard template library. This isn&rsquo;t a problem, unless you are linking libraries statically that were built with different versions of MSVC. For example, a static library that uses the STL built with MSVC 2003 would not be linkable with a program built with MSVC 2005 without a considerable amount of dicking around.</p>
+
+<p>This is weird, because the STL is meant to be portable and make programs portable. It appears that Microsoft&rsquo;s STL are not only a set of headers, but also a corresponding set of libraries that contain a set of functions that are used by the STL.</p>
+
+<p>If you attempt to link a library built with a version of MSVC with a program built with another version of MSVC, the compiler will complain because it is unable to find references to the functions the library&rsquo;s version of the STL calls.</p>
+
+<p>The obvious way around this would be to link all the libraries the library depends on into itself, but that would cause problems with compiling with the same version of MSVC, and even more so when you are using static libraries that were all compiled with different versions of MSVC.</p>
+
+<p>Usually you wouldn&rsquo;t worry about this unless you are creating libraries to be used by other people, or using libraries written by other people. I wonder what Microsoft has against one STL to rule them all? So how do we get around this? Easy answer: You don&rsquo;t use the STL.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/17/shaders-where-math-meets-art/">Shaders, Where Math Meets Art</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-17T00:00:00+12:00" pubdate data-updated="true">Sep 17<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/images/blogimages/db3.jpg"></p>
+
+<p>Since playing with shaders is so much fun, lets have a little fun looking at what happens when you take an old game, and breathe some new life into it using a crazily reprogrammed pipeline:</p>
+
+<object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/bfy6sMgKDwA&hl=en&fs=1"></param><param name="allowFullScreen" value="true"></param><embed src="http://www.youtube.com/v/bfy6sMgKDwA&hl=en&fs=1" type="application/x-shockwave-flash" allowfullscreen="true" width="425" height="344"></embed></object>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/09/16/vertex-buffer-objects/">Vertex Buffer Objects</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-16T00:00:00+12:00" pubdate data-updated="true">Sep 16<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In my last post I mentioned that if you wanted to draw a large number of things on a screen, you need VBOs. Well, honestly at the time, I only knew what it was but never touched it before. VBOs are Vertex Buffer Objects, in other words, boxes in the GPU to store vertices, their colors, normals and attributes. After a considerable amount of Googling, I was finally able to learn what VBOs are and relate them to the intermediate mode. This would probably help those who have started openGL by learning glBegin and glEnd learn about what VBOs truly are, and why they exist.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/09/16/vertex-buffer-objects/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/08/31/playing-with-glsl/">Playing With GLSL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-31T00:00:00+12:00" pubdate data-updated="true">Aug 31<span>st</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>After puzzling some time over the tutorials in <a href="http://www.lighthouse3d.com/opengl/glsl/">Lighthouse3D</a>, I finally learned how to prepare a GLSL shader and use it in an OpenGL render. In the beginning I thought a shader could be used on a particular set of vertices and fragments. However, it turned out that the shader was run every frame on every vertex and fragment you gave OpenGL to use. This meant that if you made a simple fragment shader that coloured the current fragment red, then everything you draw on the screen will be red. It turns out the shader replaces the so-called fixed-functionality in the rendering pipeline, which is basically a little assembly line where all the vertices and colours given to the video card gets processed. So instead of having the workers work their normal routine, a shader tells them what to do instead. To be honest I felt a little disappointed since I could not write something like actionscript would allow me to do, but I guess that is just because it isn&rsquo;t meant to be actionscript.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/08/31/playing-with-glsl/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/08/23/reset/">Reset</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-23T00:00:00+12:00" pubdate data-updated="true">Aug 23<span>rd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I never seem to be satisfied with any of the sites I made, so I made myself swear that this is the last time I&rsquo;m going to replace the Labs site. The last one was a bit of a joke anyway. If you ever have a choice, Drupal 6 isn&rsquo;t exactly a good CMS for building production sites, unless you have got plenty of in-house expertise. When you have to spend a whole day messing around with it to get it to let you post just one blog post, perhaps it just isn&rsquo;t built to write posts.</p>
+
+<p>So the difference is, yes I have moved down to the Wordpress side to avoid the grief that comes with Drupal. I have decided that hacking something that works well is easier that hacking something that is borked. So I have decided that I will hack this. Woot. Now back to coding.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/3/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <ul id="recent_posts">
+      <li class="post">
+      <a href="http://davidsiaw.github.io" alt="Home"><img src="/images/Home.png"></a>
+      <a href="http://davidsiaw.github.io/archives/" alt="Archives"><img src="/images/Calendar.png"></a>
+      
+      <a href="http://davidsiaw.github.io/atom.xml" alt="subscribe feed"><img src="/images/rss.png"></a>
+      </li>
+  </ul>
+</section>
+<section>
+  <h1>About Me</h1>
+  <p>I am a whimsical programmer with a wandering mind and a serious need to try new things all the time. I hate null and exceptions. I think this world can be a much better place than that.</p>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (5)</a></li></ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/18/online-vs-batch-learning/">Online vs Batch learning</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/19/this-seems-to-make-cappuccino-faster/">This seems to make Cappuccino faster&#8230;</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/12/the-identity-of-an-array/">The Identity of an Array</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/28/exceptionless-programming/">Exceptionless Programming</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/18/nice-visualization-of-a-cross-product/">Nice Visualization of a Cross Product</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Tag Cloud</h1>
+    <span id="tag-cloud"><a href='/blog/categories/graphics' style='font-size: 110.34482758620689%'>Graphics(5)</a> <a href='/blog/categories/programming' style='font-size: 160.0%'>Programming(29)</a> <a href='/blog/categories/random' style='font-size: 110.34482758620689%'>Random(5)</a> </span>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/davidsiaw">@davidsiaw</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'davidsiaw',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - davidsiaw -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'davidsiawblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

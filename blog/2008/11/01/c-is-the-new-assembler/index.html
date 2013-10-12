@@ -1,0 +1,483 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>C is the new Assembler - ./home/davidsiaw</title>
+  <meta name="author" content="davidsiaw">
+
+  
+  <meta name="description" content="As far back as I can tell, while I have used C, there was never a time when I didn&rsquo;t have to write abstractions to make it easier to see that I &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://davidsiaw.github.io/blog/2008/11/01/c-is-the-new-assembler/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="./home/davidsiaw" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-44781950-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:davidsiaw.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">C Is the New Assembler</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-01T00:00:00+13:00" pubdate data-updated="true">Nov 1<span>st</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>As far back as I can tell, while I have used C, there was never a time when I didn&rsquo;t have to write abstractions to make it easier to see that I am doing something in particular. Every knowledgeable C programmer would know that abstractions tend to make code easier to read, reducing the cost of maintenance, but it also incurs a performance penalty, as a result of data structure translations and additional function calls.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="n">ReadArray</span><span class="p">(</span><span class="n">Array</span> <span class="n">arr</span><span class="p">,</span> <span class="n">PopulateCallback</span> <span class="n">cb</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">GetCount</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="kt">void</span><span class="o">*</span> <span class="n">elem</span> <span class="o">=</span> <span class="n">GetElement</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">cb</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is because C was written to make assembler easier to write accurately for whatever machine it was compiled for. It was a method to allow UNIX to present the same face to the programmer no matter what machine it ran on, by abstracting commonly used concepts when dealing with hardware and operating systems. Thus the concept of pointers, packing, memory management and low-level optimizations are important in the language.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="cp">#define INITIALSIZE 32</span>
+</span><span class='line'><span class="n">Hashtable</span><span class="o">*</span> <span class="n">CreateHashtable</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">Hashtable</span><span class="o">*</span> <span class="n">h</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Hashtable</span><span class="p">));</span>
+</span><span class='line'>  <span class="n">h</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">INITIALSIZE</span><span class="p">));</span>
+</span><span class='line'>  <span class="n">h</span><span class="o">-&gt;</span><span class="n">arraysize</span> <span class="o">=</span> <span class="n">INITIALSIZE</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">h</span><span class="o">-&gt;</span><span class="n">hashfun</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">implePrimeHashFunc</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">h</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">DeleteHashtable</span><span class="p">(</span><span class="n">Hashtable</span><span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">free</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">free</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, that is operating systems. Fast forward to the modern real world, which requires programs to
+easily maintainable, and highly flexible when responding to code changes, layer after layer of abstraction is piled on top of each other to make the seemingly mundane tasks of sorting arrays and creating hashtables, or even responding to a user&rsquo;s keyboard possible. The reason for this is the low levelness of C. C does not have first class support for concepts that have arisen from real-world requirements and sensible programming techniques, such as closures, currying, lambdas and automated memory management.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">Program</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">&gt;;</span> <span class="n">mapOfEmployeeNumberToAge</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">&gt;();</span>
+</span><span class='line'>      <span class="n">mapOfEmployeeNumberToAge</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">6</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This was because operating systems never had the luxury of being supported by a complete set of libraries. They have to stand on their own and can only depend on themselves. This meant that if one were to write an operating system for many machines, one needed an abstract form of assembler to be able to write for many platforms. Because C allowed OSes to present the same face across all platforms, it seemed the perfect choice at the time to write in C too, and it probably was.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&quot;five.txt&quot;</span><span class="p">,</span><span class="s">&quot;w&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+</span><span class='line'><span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Looking at things this way, C is really just an abstract assembler, abstracting the single instructions into recognizable concepts such as pointers and associating them with types to reduce mistakes. In reality, nothing has changed in software development world ever since the 1970&rsquo;s when UNIX was conceived. People are still writing in assembler. There is nothing wrong with it, but the tediousness of having to abstract simple tasks has driven up the cost of writing software lately as complexity has increased tremendously.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">short</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">0x1234</span><span class="p">;</span>
+</span><span class='line'><span class="kt">short</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='nasm'><span class='line'><span class="nf">mov</span> <span class="nb">ax</span><span class="p">,</span> <span class="mh">1234h</span>
+</span><span class='line'><span class="nf">mov</span> <span class="nb">bx</span><span class="p">,</span> <span class="nb">ax</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, mankind has probably learned the hard way that eventually there was need for better languages, and came up with many different languages such as Java, C++, C#, D, Processing, Python. All of which attempt to improve on C by introducing concepts absent in C that were highly desired by programmers. However, in an egoistic attempt to reach for the stars, they have all been made to compile directly to assembler, and thus end up still less portable than C and also perform slower as a result of those abstractions. In almost 40 years of development with C, it can be said that there is no other language more portable and no other language whose compilers are more capable of optimization than those for C.</p>
+
+<pre>error CS0006: cannot find metadata file `System.Windows.Forms.dll'Compilation failed:</pre>
+
+
+<p>One comes to wonder why, if there already are so many languages that can cover the shortcomings of C, they still cannot interoperate with C without an incredibly large amount of glue code and abstraction systems? All this makes for an extremely difficult situation which people have to bear with when they write for portability. Perhaps it is because the desires of proprietary lock ins done by companies such as Microsoft to promote this trend, to push their products such as COM/OLE and .NET which they preach as superior interop systems, yet fall short of achieving the very thing they are made to do, in order to prevent interop outside of Windows.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">NativeHashtable</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="na"> [DllImport(&quot;mydll&quot;)]</span>
+</span><span class='line'>  <span class="k">static</span> <span class="k">extern</span> <span class="n">IntPtr</span> <span class="nf">CreateHashTable</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I propose that we leverage the existing codebase and toolchains that have made C so widely used and so well supported to make it simpler to write portable programs. This has many advantages: First, by targeting a subset of C that can be compiled by any existing C compiler at all, one effectively moves the repetitous task of writing abstractions and custom data structures to provide a code base from which programs can work on to the compiler specific to the language, and allowing the C compiler to provide the powerful optimization capabilites. Such a language that targets C will also find itself in a good position, since C already is compilable on many platforms, a language that targets C will be compilable too on many platforms.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">int</span> <span class="n">NearestPow2</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">x</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Also, compilers written for another language can perform their own optimizations in C code, which is what humans do, and maintain the rest of the program&rsquo;s data structures instead of having a human being do it, which is error prone and usually inconsistent. It also allows a program to write code effectively with one convention and allows one to automate the task of documenting hacks, tasks and tricks such as flag-reading, wrapping function pointers and checking datatypes, and maintaining structures and functions which use them, which is usually a choke point that requires extreme discipline from programmers and usually is tedious and takes up a lot of time.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="c1">// Populate an array.</span>
+</span><span class='line'><span class="c1">// The PopulateCallback will be called as many times as there are elements in the array</span>
+</span><span class='line'><span class="c1">// It will be given a pointer to a particular point in the array and it is cb&#39;s duty to modify</span>
+</span><span class='line'><span class="c1">// the contents of each cell.</span>
+</span><span class='line'><span class="c1">// data is any generic data that you can provide your cb for its use.</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">PopulateArray</span><span class="p">(</span><span class="n">Array</span> <span class="n">arr</span><span class="p">,</span> <span class="n">PopulateCallback</span> <span class="n">cb</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Writing such a compiler would also be easier than writing a compiler that targets assembler. There are more people who know C than people who know assembler, and it is an easy language to write automatically, since the same things are done over and over again when we write C code, in the form of maintaining declarations and definitions.</p>
+
+<p>In order to target C for existing C compilers, one cannot realistically automate writing code for pure ANSI C. Instead, one must target a defined subset of C that resolves into machine code in a predictable way. There are many definitions out there such as C&mdash; and CIL, however none of them have been put to significant practical use.</p>
+
+<pre>astrobunny@localhost$ ./program.cexe</pre>
+
+
+<pre>C:\> cil program.cexe</pre>
+
+
+<p>If C were ever to be a target for modern languages, and used as an intermediate language for just-in-time compilation by compilers which have already abstracted system calls specific to a platform, one may finally be able to achieve the task that portability proponents have always longed for, with the performance to boot. C is the most portable language on Earth. Why not make the most of it?</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">davidsiaw</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-01T00:00:00+13:00" pubdate data-updated="true">Nov 1<span>st</span>, 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programming/'>Programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidsiaw.github.io/blog/2008/11/01/c-is-the-new-assembler/" data-via="davidsiaw" data-counturl="http://davidsiaw.github.io/blog/2008/11/01/c-is-the-new-assembler/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2008/10/19/rbsp-tree-for-lightmap-packing/" title="Previous Post: RBSP Tree for Lightmap packing">&laquo; RBSP Tree for Lightmap packing</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2008/11/23/this-weeks-project-project-wordlaunch/" title="Next Post: This week's project: Project WordLaunch">This week's project: Project WordLaunch &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <ul id="recent_posts">
+      <li class="post">
+      <a href="http://davidsiaw.github.io" alt="Home"><img src="/images/Home.png"></a>
+      <a href="http://davidsiaw.github.io/archives/" alt="Archives"><img src="/images/Calendar.png"></a>
+      
+      <a href="http://davidsiaw.github.io/atom.xml" alt="subscribe feed"><img src="/images/rss.png"></a>
+      </li>
+  </ul>
+</section>
+<section>
+  <h1>About Me</h1>
+  <p>I am a whimsical programmer with a wandering mind and a serious need to try new things all the time. I hate null and exceptions. I think this world can be a much better place than that.</p>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (5)</a></li></ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/18/online-vs-batch-learning/">Online vs Batch learning</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/19/this-seems-to-make-cappuccino-faster/">This seems to make Cappuccino faster...</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/12/the-identity-of-an-array/">The Identity of an Array</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/28/exceptionless-programming/">Exceptionless Programming</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/18/nice-visualization-of-a-cross-product/">Nice Visualization of a Cross Product</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Tag Cloud</h1>
+    <span id="tag-cloud"><a href='/blog/categories/graphics' style='font-size: 110.34482758620689%'>Graphics(5)</a> <a href='/blog/categories/programming' style='font-size: 160.0%'>Programming(29)</a> <a href='/blog/categories/random' style='font-size: 110.34482758620689%'>Random(5)</a> </span>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/davidsiaw">@davidsiaw</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'davidsiaw',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - davidsiaw -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'davidsiawblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,971 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>./home/davidsiaw</title>
+  <meta name="author" content="davidsiaw">
+
+  
+  <meta name="description" content="So I&rsquo;ve been working on a memory pool lately as a hobby project, and I&rsquo;ve come across some things that I haven&rsquo;t found a solution &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://davidsiaw.github.io/blog/page/3/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="./home/davidsiaw" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-44781950-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:davidsiaw.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/03/11/requesting-code-review/">Requesting Code Review</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-03-11T00:00:00+13:00" pubdate data-updated="true">Mar 11<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So I&rsquo;ve been working on a memory pool lately as a hobby project, and I&rsquo;ve come across some things that I haven&rsquo;t found a solution that would satisfy my gut yet. But, after reading this:</p>
+
+<p><img src="/images/blogimages/wtfm.jpg"></p>
+
+<p>I started to realize that since I&rsquo;m already on the internet, why not have people examine my code instead? To that effect, I&rsquo;m asking everyone who&rsquo;s not afraid of C and actually reads this blog to comment on my code. It can be found here:</p>
+
+<p><a href="http://bazaar.launchpad.net/~davidsiaw/bpool/trunk/annotate/head%3A/b_pool//b_pool.c"><a href="http://bazaar.launchpad.net/~davidsiaw/bpool/trunk/annotate/head%3A/b_pool//b_pool.c">http://bazaar.launchpad.net/~davidsiaw/bpool/trunk/annotate/head%3A/b_pool//b_pool.c</a></a></p>
+
+<p>This is the center of the code development at the moment. I&rsquo;ll add more comments later on how the pool is actually supposed to work. I&rsquo;d like to know if there are any bad practices catchable from the outset. Thanks!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/03/10/a-resource-pool-implementation/">A Resource Pool Implementation</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-03-10T00:00:00+13:00" pubdate data-updated="true">Mar 10<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>After some interesting discussion with a friend, I&rsquo;ve decided to try my hand at coding a resource pool like Apache&rsquo;s APR pools. I&rsquo;m gonna call my pool b_pool, which stands for bunny pool.</p>
+
+<p>Its not going to be a copy of APR pools however, it will just by my idea of what a pool should be like. It will be able handle not only memory, but file handles, socket descriptors and other shared system resources and manage them. Thus, instead of calling it just a memory pool, I call it a resource pool.</p>
+
+<p>You can check it out from LaunchPad using Bazaar version control.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bzr branch lp:~davidsiaw/bpool/trunk</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Currently the only way to build bpool is by using Visual Studio 2008. I&rsquo;ll check in some autogen scripts sometime later this week. Or someone can help me write a temporary makefile that I can merge into the tree ^_^.</p>
+
+<p>This resource pool is meant to be used inside a subsystem that has a limited lifetime, but uses memory in a complex enough way to make tracking the lifetimes of objects allocated inside it difficult. The idea of a pool is that you create a pool just before you run the subsystem, and the subsystem will use the pool to allocate memory and other resources, in other words, allocate resources inside the pool. When the subsystem is no longer needed, the pool is destroyed, taking along with it all the resources it was used to allocate. The subsystem has the freedom to free memory if it wants to, or it can allocate memory to be used at a later time.</p>
+
+<p>The b_pool is still in its infancy and I still have a lot of things I want to add to it such as string manipulation functions that use the b_pool, which would be tremendously useful if used together with a subsystem that uses strings a lot.</p>
+
+<p>How do you use the pool?</p>
+
+<p>Well right now there&rsquo;s only one way to use it, and it can only pool memory at the moment. In order to create a pool, simply create a variable to hold a pointer to the pool and call b_create_pool</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">b_pool</span><span class="o">*</span> <span class="n">pool</span><span class="p">;</span>
+</span><span class='line'><span class="n">b_create_pool</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When you are sure you are finished with it, you call</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">b_destroy_pool</span><span class="p">(</span><span class="n">pool</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This frees all the memory allocated in the pool.</p>
+
+<p>In order for the subsystem to allocate memory in the pool, it needs to call the function b_alloc, which is basically a replacement for malloc, but it is used slightly differently.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">mysubsystem</span><span class="p">(</span><span class="n">b_pool</span><span class="o">*</span> <span class="n">pool</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">char</span><span class="o">*</span> <span class="n">mem1</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">b_alloc</span><span class="p">(</span><span class="n">pool</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mem1</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>b_alloc takes 3 parameters, it takes the pointer to the pool, a reference to the pointer to memory that it will assign to, and the size of memory requested. b_alloc will then fill in the pointer with an address where the requested memory has been prepared. It returns a number too, 0 for success and anything else for fail. I might add an enumeration later.</p>
+
+<p>If you so wish to free the memory because you know you are finished with it, you can use</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">b_free</span><span class="p">(</span><span class="n">pool</span><span class="p">,</span> <span class="n">mem</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Similar to free() in libc, b_free frees up memory to be allocated by somebody else again. Although this is optional as long as you destroy the pool when your subsystem has done its job, this is useful whenever you want to keep the memory usage to a minimum constantly, which is the case in memory-constrained environments like mobile phones.</p>
+
+<p>So whats the difference between using a memory pool and malloc to allocate memory? Isn&rsquo;t it just putting a big malloc and free around a set of function calls? It may seem absurd and unuseful on the outset, but the only rule you must definitely observe when using a pool is that you must Never make a global pool in your application, because that&rsquo;s what your application address space already is. Essentially, yes. It is putting a big malloc and free around a set of function calls. But the usage of memory is simplified in the sense that you can ignore having to worry about trying to reuse memory that isn&rsquo;t used anymore inside your subsystem, or resizing the amount of memory you allocated for your subsystem in order to let it store more data. All you need to do is ask for memory, which is one less worry in a low-level language.</p>
+
+<p>It is also faster to have a userland routine manage your memory for you, since it does not incur the cost of changing privilege levels, which is expensive on most CPU architectures, and is required whenever you want to ask the OS to reserve memory for you. Eventually I will create more routines to allow the registration of destructors, deep copiers for other kinds of custom resources into the pool. I am also thinking of turning it into a layer over a set of OS resource requesting functions, so one can write subsystems that are platform-independant, and all one needs to do to use a subsystem on another platform is to implement the b_pool for that platform and use the subsystem.</p>
+
+<p>So, have fun with experimenting with it and tell me what you think about it, or even, tell me your idea of what you think a resource pool should be like!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/02/07/lets-write-asm/">Let&#8217;s Write Asm!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-07T00:00:00+13:00" pubdate data-updated="true">Feb 7<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Today I was asked by a friend to help with his programming assignment. His program needs to take in a number and output the prime factors of the number. For example, 60 = (2<sup>2</sup>)(3<sup>1</sup>)(5<sup>1</sup>)</p>
+
+<p>So after trying to explain the problem to him, I decided to try writing it myself in C. Of course, he wrote his own version in Java.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2009/02/07/lets-write-asm/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/01/28/whats-your-favorite-language/">What&#8217;s Your Favorite Language?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-28T00:00:00+13:00" pubdate data-updated="true">Jan 28<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A friend asked me what my favorite language is today, and showed me a <a href="http://www.aegisub.net/2008/12/if-programming-languages-were-religions.html">page about parallels drawn between computer languages and religons</a>. I told him I didn&rsquo;t have a favorite language anymore. I did once upon a time, and that language was C++. But the reason it was my favorite language was because it was the only language I knew at the time. Well, not really, I knew 1 other language, PHP, but I didn&rsquo;t use it much, so it was still C++.</p>
+
+<p>Now, after working for about a year now, I realized that different languages are useful for different things, much like a hammer is useful for hammering nails, but not a screwdriver. The theory is that you can use a screwdriver to hammer nails too, but it wouldn&rsquo;t be as effective as a hammer. The same thing applies to languages. C is good for writing OSes, and making some really fast code, but if you really don&rsquo;t care and just want a script that reads a bunch of files and makes a list of filenames and e-mails it to someone, you could just use Python. Going by that analogy, you could think of each language you know as a tool in your toolbox, and the time you take to learn those languages is as well invested as the money you use to buy your hammer and sickle.</p>
+
+<p>Most people have a favorite language because of the same reason I once did, because its the only language they know well. But, sometimes it may be the language of choice for what they do too. Favoritism is something I can&rsquo;t really find in the languages I know now. Perhaps there would be a language that would intrigue me enough someday to make me a believer of a favorite again?</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/27/wordlaunch-update/">WordLaunch Update</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-27T00:00:00+13:00" pubdate data-updated="true">Nov 27<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Some personal problems this week have delayed development but I&rsquo;m not one with a faint heart! This week&rsquo;s project is still going. Here is version 0.1! It allows you to edit your pages, and it probably still needs a lot of work before its any good at solving my rant that started this project, but I guess this is a start.</p>
+
+<p>Here&rsquo;s a video on what the program currently does:</p>
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/aZBICw5YjeY" frameborder="0" allowfullscreen></iframe>
+
+
+<p>(not the best video in the world, but it should illustrate what you should be clicking =P)
+Theres no audio in this video, so don&rsquo;t worry about letting your boss hear it =)</p>
+
+<p>In order to compile this project, you will need Visual Studio 2008 and the .NET framework (duh). Also, you&rsquo;ll need to unzip xulrunner into a folder and place it in the same directory as the binary.</p>
+
+<p>Since not everyone has the priviledge of having a MSFT compiler, I&rsquo;m also providing binaries as a download. But I won&rsquo;t be responsible if they so happen to be dodgy.</p>
+
+<p><a href="http://labs.astrobunny.net/downloads/WordLaunch_0.1.bin.zip">Binaries</a></p>
+
+<p><a href="http://labs.astrobunny.net/downloads/WordLaunch_0.1.bin.src">Sources</a></p>
+
+<p>I used some libraries in this program so some credits are in order:
+1. <a href="http://www.xml-rpc.net/">XML-RPC Library</a> courtesy of Cook Computing
+2. <a href="https://developer.mozilla.org/en/XULRunner">XULRunner</a> courtesy of Mozilla
+3. Thanks to Joseph Scott for his documentation of the XML-RPC WordPress interface.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/23/this-weeks-project-project-wordlaunch/">This Week&#8217;s Project: Project WordLaunch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-23T00:00:00+13:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>After having some browser issues, I found that I wasn&rsquo;t really happy with the way WordPress let me go about managing my pages. It was difficult to set the parent-child relationships between pages and doing massive changes. What I started to look around for was a blogging client that would allow me to perform all the changes I wanted on my computer, natively, and then upload the changes to WordPress. Unfortunately, I wasn&rsquo;t able to find any such thing. So I decided to comb through WordPress&rsquo;s XML RPC API, and start looking for ways to implement such a client.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/01/c-is-the-new-assembler/">C Is the New Assembler</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-01T00:00:00+13:00" pubdate data-updated="true">Nov 1<span>st</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As far back as I can tell, while I have used C, there was never a time when I didn&rsquo;t have to write abstractions to make it easier to see that I am doing something in particular. Every knowledgeable C programmer would know that abstractions tend to make code easier to read, reducing the cost of maintenance, but it also incurs a performance penalty, as a result of data structure translations and additional function calls.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="n">ReadArray</span><span class="p">(</span><span class="n">Array</span> <span class="n">arr</span><span class="p">,</span> <span class="n">PopulateCallback</span> <span class="n">cb</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">GetCount</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="kt">void</span><span class="o">*</span> <span class="n">elem</span> <span class="o">=</span> <span class="n">GetElement</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">cb</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is because C was written to make assembler easier to write accurately for whatever machine it was compiled for. It was a method to allow UNIX to present the same face to the programmer no matter what machine it ran on, by abstracting commonly used concepts when dealing with hardware and operating systems. Thus the concept of pointers, packing, memory management and low-level optimizations are important in the language.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="cp">#define INITIALSIZE 32</span>
+</span><span class='line'><span class="n">Hashtable</span><span class="o">*</span> <span class="n">CreateHashtable</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">Hashtable</span><span class="o">*</span> <span class="n">h</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Hashtable</span><span class="p">));</span>
+</span><span class='line'>  <span class="n">h</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">INITIALSIZE</span><span class="p">));</span>
+</span><span class='line'>  <span class="n">h</span><span class="o">-&gt;</span><span class="n">arraysize</span> <span class="o">=</span> <span class="n">INITIALSIZE</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">h</span><span class="o">-&gt;</span><span class="n">hashfun</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">implePrimeHashFunc</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">h</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">DeleteHashtable</span><span class="p">(</span><span class="n">Hashtable</span><span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">free</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">free</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, that is operating systems. Fast forward to the modern real world, which requires programs to
+easily maintainable, and highly flexible when responding to code changes, layer after layer of abstraction is piled on top of each other to make the seemingly mundane tasks of sorting arrays and creating hashtables, or even responding to a user&rsquo;s keyboard possible. The reason for this is the low levelness of C. C does not have first class support for concepts that have arisen from real-world requirements and sensible programming techniques, such as closures, currying, lambdas and automated memory management.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">Program</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">&gt;;</span> <span class="n">mapOfEmployeeNumberToAge</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">&gt;();</span>
+</span><span class='line'>      <span class="n">mapOfEmployeeNumberToAge</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">6</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This was because operating systems never had the luxury of being supported by a complete set of libraries. They have to stand on their own and can only depend on themselves. This meant that if one were to write an operating system for many machines, one needed an abstract form of assembler to be able to write for many platforms. Because C allowed OSes to present the same face across all platforms, it seemed the perfect choice at the time to write in C too, and it probably was.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&quot;five.txt&quot;</span><span class="p">,</span><span class="s">&quot;w&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+</span><span class='line'><span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Looking at things this way, C is really just an abstract assembler, abstracting the single instructions into recognizable concepts such as pointers and associating them with types to reduce mistakes. In reality, nothing has changed in software development world ever since the 1970&rsquo;s when UNIX was conceived. People are still writing in assembler. There is nothing wrong with it, but the tediousness of having to abstract simple tasks has driven up the cost of writing software lately as complexity has increased tremendously.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">short</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">0x1234</span><span class="p">;</span>
+</span><span class='line'><span class="kt">short</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='nasm'><span class='line'><span class="nf">mov</span> <span class="nb">ax</span><span class="p">,</span> <span class="mh">1234h</span>
+</span><span class='line'><span class="nf">mov</span> <span class="nb">bx</span><span class="p">,</span> <span class="nb">ax</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, mankind has probably learned the hard way that eventually there was need for better languages, and came up with many different languages such as Java, C++, C#, D, Processing, Python. All of which attempt to improve on C by introducing concepts absent in C that were highly desired by programmers. However, in an egoistic attempt to reach for the stars, they have all been made to compile directly to assembler, and thus end up still less portable than C and also perform slower as a result of those abstractions. In almost 40 years of development with C, it can be said that there is no other language more portable and no other language whose compilers are more capable of optimization than those for C.</p>
+
+<pre>error CS0006: cannot find metadata file `System.Windows.Forms.dll'Compilation failed:</pre>
+
+
+<p>One comes to wonder why, if there already are so many languages that can cover the shortcomings of C, they still cannot interoperate with C without an incredibly large amount of glue code and abstraction systems? All this makes for an extremely difficult situation which people have to bear with when they write for portability. Perhaps it is because the desires of proprietary lock ins done by companies such as Microsoft to promote this trend, to push their products such as COM/OLE and .NET which they preach as superior interop systems, yet fall short of achieving the very thing they are made to do, in order to prevent interop outside of Windows.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">NativeHashtable</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="na"> [DllImport(&quot;mydll&quot;)]</span>
+</span><span class='line'>  <span class="k">static</span> <span class="k">extern</span> <span class="n">IntPtr</span> <span class="nf">CreateHashTable</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I propose that we leverage the existing codebase and toolchains that have made C so widely used and so well supported to make it simpler to write portable programs. This has many advantages: First, by targeting a subset of C that can be compiled by any existing C compiler at all, one effectively moves the repetitous task of writing abstractions and custom data structures to provide a code base from which programs can work on to the compiler specific to the language, and allowing the C compiler to provide the powerful optimization capabilites. Such a language that targets C will also find itself in a good position, since C already is compilable on many platforms, a language that targets C will be compilable too on many platforms.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">int</span> <span class="n">NearestPow2</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">x</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Also, compilers written for another language can perform their own optimizations in C code, which is what humans do, and maintain the rest of the program&rsquo;s data structures instead of having a human being do it, which is error prone and usually inconsistent. It also allows a program to write code effectively with one convention and allows one to automate the task of documenting hacks, tasks and tricks such as flag-reading, wrapping function pointers and checking datatypes, and maintaining structures and functions which use them, which is usually a choke point that requires extreme discipline from programmers and usually is tedious and takes up a lot of time.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="c1">// Populate an array.</span>
+</span><span class='line'><span class="c1">// The PopulateCallback will be called as many times as there are elements in the array</span>
+</span><span class='line'><span class="c1">// It will be given a pointer to a particular point in the array and it is cb&#39;s duty to modify</span>
+</span><span class='line'><span class="c1">// the contents of each cell.</span>
+</span><span class='line'><span class="c1">// data is any generic data that you can provide your cb for its use.</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">PopulateArray</span><span class="p">(</span><span class="n">Array</span> <span class="n">arr</span><span class="p">,</span> <span class="n">PopulateCallback</span> <span class="n">cb</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Writing such a compiler would also be easier than writing a compiler that targets assembler. There are more people who know C than people who know assembler, and it is an easy language to write automatically, since the same things are done over and over again when we write C code, in the form of maintaining declarations and definitions.</p>
+
+<p>In order to target C for existing C compilers, one cannot realistically automate writing code for pure ANSI C. Instead, one must target a defined subset of C that resolves into machine code in a predictable way. There are many definitions out there such as C&mdash; and CIL, however none of them have been put to significant practical use.</p>
+
+<pre>astrobunny@localhost$ ./program.cexe</pre>
+
+
+<pre>C:\> cil program.cexe</pre>
+
+
+<p>If C were ever to be a target for modern languages, and used as an intermediate language for just-in-time compilation by compilers which have already abstracted system calls specific to a platform, one may finally be able to achieve the task that portability proponents have always longed for, with the performance to boot. C is the most portable language on Earth. Why not make the most of it?</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/10/19/rbsp-tree-for-lightmap-packing/">RBSP Tree for Lightmap Packing</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-19T00:00:00+13:00" pubdate data-updated="true">Oct 19<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For fun, and for the purpose of making a batch texture that can store characters for fonts, I have created a little tree based off <a href="http://www.blackpawn.com/texts/lightmaps/default.html">this tutorial by BlackPawn</a>. Basically, the idea here is to partition the original rectangle in such a way to get the maximum area out of the texture to hold the subtextures.</p>
+
+<p>The pseudocode provided in BlackPawn&rsquo;s site is based off a simple concept. Basically, you partition an empty rectangle to store an image, and the other resulting empty rectangles are candidates for future partitioning. I call this structure a Rectangular Binary Space Partitioning Tree.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/10/19/rbsp-tree-for-lightmap-packing/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/10/11/2d-in-opengl/">2D in OpenGL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-11T00:00:00+13:00" pubdate data-updated="true">Oct 11<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>After some experimentation, I have finally come to a point where I have written some code that does scaling, rotation and alpha on images that I want to display on the screen. Although the concept of drawing 2D in OpenGL is fairly easy to grasp, in that everything is the same except you don&rsquo;t deal with the z-dimension, most of the time when you deal with 2D, you want to deal in actual pixel coordinates on the screen, and you want to do some things differently. Despite the numerous tutorial in OpenGL you can find online, few actually provide much information about using OpenGL for 2D graphics.</p>
+
+<p><strong>Why OpenGL for 2D graphics?</strong></p>
+
+<p>Not too long ago I was working on a project to greatly simplify drawing an image on to screen and rotating and scaling it just as you could do in photoshop, but programatically, after a few months of working on it I started realizing how slow and heavy the process of actually doing that kind of transformation was. On a framebuffer, performing transforms like those and blitting it to the screen was something that was painfully slow, used 75% of the CPU time usually, and not suitable for any application that would be rich in graphic content.</p>
+
+<p>This led me to attempting to try OpenGL. The main selling point OpenGL had was it enabled direct access to any graphics accelerator hardware available on the computer. Graphics cards have been purpose built to perform sampling on images, and were designed to reduce the amount of data transferred from the main memory for the purposes of drawing stuff on the screen. This enabled acceleration to the point where hundreds of images could be transformed on the fly without any drop in frame rate, and without burdening the CPU with having to process images at every frame.</p>
+
+<p>OpenGL is now found almost everywhere a graphics card is installed, and most, if not all PCs and Macs now come with graphics card that supports OpenGL in one way or another. This means that an application written using OpenGL, will effectively, theoretically be usable on any computer at all. Also, its OS-neutral nature meant that any programs I write with it will be usable on any modern OS that supports a half-decent graphics subsystem.</p>
+
+<p>Portability, ubiquity and performance. These were the key reasons I thought that it was time to give OpenGL a go, so I did.</p>
+
+<p><strong>So how do you do it?</strong></p>
+
+<p>OpenGL in 2D is nothing more than just OpenGL without using the Z-axis. There are tons of OpenGL tutorials out there <em>cough</em>NeHe<em>cough</em> that will teach you how to create a window and a rendering context for OpenGL. I recommend SDL for that purpose, because it has a set of libraries that work with it that simply does so much that you don&rsquo;t have to find a library that does basic stuff like playing sounds and concentrate more on making your game. The only things you really need in addition to the standard 3D setup are to to map each pixel on the screen to OpenGL coordinates with gluOrtho2D and enabling alpha testing.</p>
+
+<p>Some sample code stolen from somewhere below:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="n">glEnable2D</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">glEnable</span> <span class="p">(</span><span class="n">GL_ALPHA_TEST</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">vPort</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">glGetIntegerv</span><span class="p">(</span><span class="n">GL_VIEWPORT</span><span class="p">,</span> <span class="n">vPort</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">glMatrixMode</span><span class="p">(</span><span class="n">GL_PROJECTION</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">glPushMatrix</span><span class="p">();</span>
+</span><span class='line'>  <span class="n">glLoadIdentity</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">gluOrtho2D</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">vPort</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">vPort</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">glMatrixMode</span><span class="p">(</span><span class="n">GL_MODELVIEW</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">glPushMatrix</span><span class="p">();</span>
+</span><span class='line'>  <span class="n">glLoadIdentity</span><span class="p">();</span>
+</span><span class='line'>  
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So setting up OpenGL for 2D drawing is extremely simple. To draw something on the screen, simply go:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="n">drawFilledRectangle</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">glColor4f</span><span class="p">(</span><span class="mf">255.0</span> <span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">255.0</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">glBindTexture</span><span class="p">(</span> <span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">glBegin</span><span class="p">(</span> <span class="n">GL_QUADS</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">glVertex3i</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">glVertex3i</span><span class="p">(</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">glVertex3i</span><span class="p">(</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">glVertex3i</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
+</span><span class='line'>  <span class="n">glEnd</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There we go, we have successfully drawn a rectangle on the screen. This may just become the start of a series of tutorials that I will write up as I learn more about using OpenGL for 2D drawings.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/10/06/windows-blues/">Windows Blues</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-06T00:00:00+13:00" pubdate data-updated="true">Oct 6<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>After losing a few games of command and conquer and the computer blue screening when I&rsquo;m just about to win, I am thoroughly convinced that contrary to their ads, Microsoft has never intended to make life easy for anyone. I swear by my keyboard I will make an OS that is actually reliable and usable by everyone someday. UURGH!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/4/">&larr; Older</a>
+    
+    <a href="archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <ul id="recent_posts">
+      <li class="post">
+      <a href="http://davidsiaw.github.io" alt="Home"><img src="/images/Home.png"></a>
+      <a href="http://davidsiaw.github.io/archives/" alt="Archives"><img src="/images/Calendar.png"></a>
+      
+      <a href="http://davidsiaw.github.io/atom.xml" alt="subscribe feed"><img src="/images/rss.png"></a>
+      </li>
+  </ul>
+</section>
+<section>
+  <h1>About Me</h1>
+  <p>I am a whimsical programmer with a wandering mind and a serious need to try new things all the time. I hate null and exceptions. I think this world can be a much better place than that.</p>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (5)</a></li></ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/18/online-vs-batch-learning/">Online vs Batch learning</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/19/this-seems-to-make-cappuccino-faster/">This seems to make Cappuccino faster&#8230;</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/12/the-identity-of-an-array/">The Identity of an Array</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/28/exceptionless-programming/">Exceptionless Programming</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/18/nice-visualization-of-a-cross-product/">Nice Visualization of a Cross Product</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Tag Cloud</h1>
+    <span id="tag-cloud"><a href='/blog/categories/graphics' style='font-size: 110.34482758620689%'>Graphics(5)</a> <a href='/blog/categories/programming' style='font-size: 160.0%'>Programming(29)</a> <a href='/blog/categories/random' style='font-size: 110.34482758620689%'>Random(5)</a> </span>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/davidsiaw">@davidsiaw</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'davidsiaw',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - davidsiaw -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'davidsiawblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
