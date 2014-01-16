@@ -182,11 +182,15 @@
     </url>
     <url>
         <loc>http://davidsiaw.github.io/notes/</loc>
-        <lastmod>2013-10-12T20:23:25+13:00</lastmod>
+        <lastmod>2014-01-17T10:58:19+13:00</lastmod>
     </url>
     <url>
         <loc>http://davidsiaw.github.io/notes/mathnotes/</loc>
         <lastmod>2013-10-12T20:44:18+13:00</lastmod>
+    </url>
+    <url>
+        <loc>http://davidsiaw.github.io/notes/octopress-cheat-sheet/</loc>
+        <lastmod>2014-01-17T11:02:04+13:00</lastmod>
     </url>
     <url>
         <loc>http://davidsiaw.github.io/robots.txt</loc>

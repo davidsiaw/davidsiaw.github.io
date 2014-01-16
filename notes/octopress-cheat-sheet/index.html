@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>First test post from BunnyBlogger - ./home/davidsiaw</title>
+  <title>octopress cheat sheet - ./home/davidsiaw</title>
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="Several moons ago I have been working on a special blogging client, that is capable of wysiwyg blogging and allows you to take snapshots from movie &hellip;">
+  <meta name="description" content="Octopress Cheat Sheet Jan 17th, 2014 Create a new post rake new_post["title"] Create a new page rake new_page["title"] Re-build the site including &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://davidsiaw.github.io/blog/2011/07/04/first-test-post-from-bunnyblogger/">
+  <link rel="canonical" href="http://davidsiaw.github.io/notes/octopress-cheat-sheet/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -104,15 +104,62 @@
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">First Test Post From BunnyBlogger</h1>
-    
-    
+    <h1 class="entry-title">Octopress Cheat Sheet</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-17T10:56:00+13:00" pubdate data-updated="true">Jan 17<span>th</span>, 2014</time></p>
+  </header>
+  
+  <p>Create a new post</p>
+
+<pre><code>rake new_post["title"]
+</code></pre>
+
+<p>Create a new page</p>
+
+<pre><code>rake new_page["title"]
+</code></pre>
+
+<p>Re-build the site including any recent changes</p>
+
+<pre><code>rake generate
+</code></pre>
+
+<p>Run WEBrick server locally on port 4000</p>
+
+<pre><code>rake preview
+</code></pre>
+
+<p>Push changes to github (master branch)</p>
+
+<pre><code>rake deploy
+</code></pre>
+
+<p>Commit recent changes and push to github (source branch)</p>
+
+<pre><code>git add .
+git commit -m 'description of commit'
+git push origin source
+</code></pre>
+
+  
+    <footer>
       <p class="meta">
         
+        
 
 
 
@@ -124,60 +171,13 @@
   
 
 
-<time datetime="2011-07-04T00:00:00+12:00" pubdate data-updated="true">Jul 4<span>th</span>, 2011</time>
-        
-         | <a href="#disqus_thread">Comments</a>
+<time datetime="2014-01-17T10:56:00+13:00" pubdate data-updated="true">Jan 17<span>th</span>, 2014</time>
         
       </p>
-    
-  </header>
-
-
-<div class="entry-content"><iframe width="480" height="390" src="http://www.youtube.com/embed/FvhGhKragpI" frameborder="0" allowfullscreen></iframe>
-
-
-<p>Several moons ago I have been working on a special blogging client, that is capable of wysiwyg blogging and allows you to take snapshots from movie files and add images and other images to your post.</p>
-
-<p>I have only shown this to a few people. But now, I&rsquo;ve been working to bring it up to user-standard so everyone can benefit from a way to blog quickly, without the waiting for image upload messing with your writing flow.</p>
-
-<p>This is a test post from that very program, entering its beta.</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
       
+        <div class="sharing">
   
-
-<span class="byline author vcard">Posted by <span class="fn">davidsiaw</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-07-04T00:00:00+12:00" pubdate data-updated="true">Jul 4<span>th</span>, 2011</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programming/'>Programming</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidsiaw.github.io/blog/2011/07/04/first-test-post-from-bunnyblogger/" data-via="davidsiaw" data-counturl="http://davidsiaw.github.io/blog/2011/07/04/first-test-post-from-bunnyblogger/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidsiaw.github.io/notes/octopress-cheat-sheet/index.html" data-via="davidsiaw" data-counturl="http://davidsiaw.github.io/notes/octopress-cheat-sheet/index.html" >Tweet</a>
   
   
   
@@ -185,16 +185,9 @@
   
 </div>
 
-    
-    <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2010/08/10/will-the-destructor-be-called/" title="Previous Post: Will the destructor be called?">&laquo; Will the destructor be called?</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2011/09/18/why-i-prefer-initialization-through-constructors/" title="Next Post: Why I Prefer Initialization Through Constructors">Why I Prefer Initialization Through Constructors &raquo;</a>
-      
-    </p>
-  </footer>
+    </footer>
+  
 </article>
 
   <section>
@@ -319,8 +312,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://davidsiaw.github.io/blog/2011/07/04/first-test-post-from-bunnyblogger/';
-        var disqus_url = 'http://davidsiaw.github.io/blog/2011/07/04/first-test-post-from-bunnyblogger/';
+        var disqus_identifier = 'http://davidsiaw.github.io/notes/octopress-cheat-sheet/index.html';
+        var disqus_url = 'http://davidsiaw.github.io/notes/octopress-cheat-sheet/index.html';
         var disqus_script = 'embed.js';
       
     (function () {
