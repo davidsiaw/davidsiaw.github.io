@@ -4,7 +4,7 @@
   <title><![CDATA[./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2014-01-17T11:03:52+13:00</updated>
+  <updated>2014-10-30T00:04:30+09:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[New Blog]]></title>
     <link href="http://davidsiaw.github.io/blog/2013/10/12/new-blog/"/>
-    <updated>2013-10-12T16:03:00+13:00</updated>
+    <updated>2013-10-12T16:03:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2013/10/12/new-blog</id>
     <content type="html"><![CDATA[<p>As all of you may have noticed the theme has changed and the URL seems to have been redirected to Github. I decided to try out this github pages thing and it seems to work pretty well. The static content idea is really attractive to me and really gives me much more power over the pages with a small tradeoff for convenience. But convenience is a non-issue for most programmers who can write tools to make the inconvenient convenient.</p>
 
@@ -159,7 +159,7 @@
   <entry>
     <title type="html"><![CDATA[Online vs Batch learning]]></title>
     <link href="http://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning/"/>
-    <updated>2013-03-18T00:00:00+13:00</updated>
+    <updated>2013-03-18T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning</id>
     <content type="html"><![CDATA[<p>While debugging neuron, my new neural network simulation application, I found some (visually) interesting differences between online and batch learning. While batch learning is usually touted as a better form of learning, I found that the two don&rsquo;t seem to make much difference, except for a steppy curve from online learning, as I would expect as the gradient changes differently if you keep calculating the values in a cycle instead of calculating the combined gradient of all the training data.</p>
 
@@ -192,7 +192,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[This seems to make Cappuccino faster...]]></title>
     <link href="http://davidsiaw.github.io/blog/2012/12/19/this-seems-to-make-cappuccino-faster/"/>
-    <updated>2012-12-19T00:00:00+13:00</updated>
+    <updated>2012-12-19T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2012/12/19/this-seems-to-make-cappuccino-faster</id>
     <content type="html"><![CDATA[<p>My lack of knowledge about Cappuccino&rsquo;s implementation details may play a role, but</p>
 
@@ -208,7 +208,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[The Identity of an Array]]></title>
     <link href="http://davidsiaw.github.io/blog/2012/12/12/the-identity-of-an-array/"/>
-    <updated>2012-12-12T00:00:00+13:00</updated>
+    <updated>2012-12-12T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2012/12/12/the-identity-of-an-array</id>
     <content type="html"><![CDATA[<p>Given two arrays of integers: a and b, what does (a == b) mean?</p>
 
@@ -294,7 +294,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[Exceptionless Programming]]></title>
     <link href="http://davidsiaw.github.io/blog/2012/11/28/exceptionless-programming/"/>
-    <updated>2012-11-28T00:00:00+13:00</updated>
+    <updated>2012-11-28T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2012/11/28/exceptionless-programming</id>
     <content type="html"><![CDATA[<p>I am a big fan of writing code that generates no runtime errors. This is an implementation of a function that takes the first element of an array.</p>
 
@@ -374,7 +374,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[Nice Visualization of a Cross Product]]></title>
     <link href="http://davidsiaw.github.io/blog/2012/11/18/nice-visualization-of-a-cross-product/"/>
-    <updated>2012-11-18T00:00:00+13:00</updated>
+    <updated>2012-11-18T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2012/11/18/nice-visualization-of-a-cross-product</id>
     <content type="html"><![CDATA[<p><a href="http://www.phy.syr.edu/courses/java-suite/crosspro.html">[This]</a> is a very nice Java applet that allows you to see what a cross product is. The applet shows A x B = C (i.e. C is the cross product of A and B) in 3 dimensions. You can drag A and B around to see the effects on C.</p>
 
@@ -387,7 +387,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[Blurred Text Effect]]></title>
     <link href="http://davidsiaw.github.io/blog/2012/08/13/blurred-text-effect/"/>
-    <updated>2012-08-13T00:00:00+12:00</updated>
+    <updated>2012-08-13T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2012/08/13/blurred-text-effect</id>
     <content type="html"><![CDATA[<p>I came across a strange site that blurred the text of answers and asked the reader to sign up to see it. It was strange because the text was already there, just blurred via css. I thought it was an interesting little snippet so I decided to record it.</p>
 
@@ -409,7 +409,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[Regex Escapees]]></title>
     <link href="http://davidsiaw.github.io/blog/2011/11/22/regex-escapees/"/>
-    <updated>2011-11-22T00:00:00+13:00</updated>
+    <updated>2011-11-22T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2011/11/22/regex-escapees</id>
     <content type="html"><![CDATA[<p>Sometimes when one writes regexes, Its hard to know what needs to be escaped and what doesn&rsquo;t. But I&rsquo;ve solved that problem while I was writing a program that generated my regexes for me. Now I have a snippet that both humans and programs can use to write regexes!</p>
 
@@ -459,7 +459,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[Making Color From Alpha, Hue, Saturation and Brightness]]></title>
     <link href="http://davidsiaw.github.io/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness/"/>
-    <updated>2011-11-22T00:00:00+13:00</updated>
+    <updated>2011-11-22T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness</id>
     <content type="html"><![CDATA[<p>I find myself wanting to do this sometimes, so here&rsquo;s a bit of code (I&rsquo;m sure I stole this code from somewhere else);</p>
 
@@ -595,7 +595,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[OpenGL weirdness]]></title>
     <link href="http://davidsiaw.github.io/blog/2011/10/06/opengl-weirdness/"/>
-    <updated>2011-10-06T00:00:00+13:00</updated>
+    <updated>2011-10-06T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2011/10/06/opengl-weirdness</id>
     <content type="html"><![CDATA[<p>Try this:</p>
 
@@ -688,7 +688,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[Help! GLEW compiles but doesn't link!]]></title>
     <link href="http://davidsiaw.github.io/blog/2011/10/06/help-glew-compiles-but-doesnt-link/"/>
-    <updated>2011-10-06T00:00:00+13:00</updated>
+    <updated>2011-10-06T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2011/10/06/help-glew-compiles-but-doesnt-link</id>
     <content type="html"><![CDATA[<p>When you compile the glew_static project from glew on Visual Studio and link it with your program, you may get something like this:</p>
 
@@ -713,7 +713,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[Why I Prefer Initialization Through Constructors]]></title>
     <link href="http://davidsiaw.github.io/blog/2011/09/18/why-i-prefer-initialization-through-constructors/"/>
-    <updated>2011-09-18T00:00:00+12:00</updated>
+    <updated>2011-09-18T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2011/09/18/why-i-prefer-initialization-through-constructors</id>
     <content type="html"><![CDATA[<p>I always prefer initializing my class through the use of a constructor like this:</p>
 
@@ -820,7 +820,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[First test post from BunnyBlogger]]></title>
     <link href="http://davidsiaw.github.io/blog/2011/07/04/first-test-post-from-bunnyblogger/"/>
-    <updated>2011-07-04T00:00:00+12:00</updated>
+    <updated>2011-07-04T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2011/07/04/first-test-post-from-bunnyblogger</id>
     <content type="html"><![CDATA[<iframe width="480" height="390" src="http://www.youtube.com/embed/FvhGhKragpI" frameborder="0" allowfullscreen></iframe>
 
@@ -836,7 +836,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[Will the destructor be called?]]></title>
     <link href="http://davidsiaw.github.io/blog/2010/08/10/will-the-destructor-be-called/"/>
-    <updated>2010-08-10T00:00:00+12:00</updated>
+    <updated>2010-08-10T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2010/08/10/will-the-destructor-be-called</id>
     <content type="html"><![CDATA[<p>Here&rsquo;s a C++ quiz for all of you: somefunc() will be called from a thread. Do you think this destructor will be called?</p>
 
@@ -882,7 +882,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[Idioms]]></title>
     <link href="http://davidsiaw.github.io/blog/2010/06/21/idioms/"/>
-    <updated>2010-06-21T00:00:00+12:00</updated>
+    <updated>2010-06-21T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2010/06/21/idioms</id>
     <content type="html"><![CDATA[<p>What if</p>
 
@@ -927,7 +927,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[That's Not The Point]]></title>
     <link href="http://davidsiaw.github.io/blog/2009/12/29/thats-not-the-point/"/>
-    <updated>2009-12-29T00:00:00+13:00</updated>
+    <updated>2009-12-29T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2009/12/29/thats-not-the-point</id>
     <content type="html"><![CDATA[<p>Today I read an interesting chapter in Writing Solid Code, and it showed an example where a supposed optimization led to code bloat:</p>
 
@@ -1154,7 +1154,7 @@ Sometimes code that was written back then may be correct back then, but may not 
   <entry>
     <title type="html"><![CDATA[GWT: Next level of automation]]></title>
     <link href="http://davidsiaw.github.io/blog/2009/11/04/gwt-next-level-of-automation/"/>
-    <updated>2009-11-04T00:00:00+13:00</updated>
+    <updated>2009-11-04T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2009/11/04/gwt-next-level-of-automation</id>
     <content type="html"><![CDATA[<p>After playing a little with GWT, and attempting to add a map into my little webapp, I&rsquo;ve found that this is really a very good idea. By applying a language to abstract all the small difficulties of programming a webpage for different browsers, you essentially move a larger percentage of the work into actually making the application.</p>
 
@@ -1167,7 +1167,7 @@ Sometimes code that was written back then may be correct back then, but may not 
   <entry>
     <title type="html"><![CDATA[Attempt to rush an RPG]]></title>
     <link href="http://davidsiaw.github.io/blog/2009/05/04/attempt-to-rush-an-rpg/"/>
-    <updated>2009-05-04T00:00:00+12:00</updated>
+    <updated>2009-05-04T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2009/05/04/attempt-to-rush-an-rpg</id>
     <content type="html"><![CDATA[<p>After reading an article on GameDev about a guy who managed to <a href="http://www.rampantgames.com/blog/2005/04/rpg-in-week.html">build an RPG in 40 hours</a>, I decided I&rsquo;d try my hand at doing an RPG 40 hours too, but in C#. So I started to write the first code on Saturday. After 10 hours of gruelling crunch and brainstorming, I was overwhelmed and realized that I had neither the skill nor discipline to actually make it in 40 hours. I didn&rsquo;t even have the energy left to write a blog post about the start, much less record the process of doing it. However, I did get to the stage where I had a map and a character walking around somewhat and had a basic dialog system in place, but with no inventory, no stats, no objects, just character and some boring dialog box.</p>
 
@@ -1178,7 +1178,7 @@ Sometimes code that was written back then may be correct back then, but may not 
   <entry>
     <title type="html"><![CDATA[Putting a separator between your elements]]></title>
     <link href="http://davidsiaw.github.io/blog/2009/04/16/putting-a-separator-between-your-elements/"/>
-    <updated>2009-04-16T00:00:00+12:00</updated>
+    <updated>2009-04-16T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2009/04/16/putting-a-separator-between-your-elements</id>
     <content type="html"><![CDATA[<p>Often when I&rsquo;m programming, I&rsquo;ll need to list a bunch of stuff and put commas between them. Like this:</p>
 
@@ -1307,7 +1307,7 @@ Sometimes code that was written back then may be correct back then, but may not 
   <entry>
     <title type="html"><![CDATA[Updated the b_pool!]]></title>
     <link href="http://davidsiaw.github.io/blog/2009/03/20/updated-the-b_pool/"/>
-    <updated>2009-03-20T00:00:00+13:00</updated>
+    <updated>2009-03-20T00:00:00+09:00</updated>
     <id>http://davidsiaw.github.io/blog/2009/03/20/updated-the-b_pool</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve updated the b_pool again! This one has got some new features such as string functions (not yet complete) and a new b_resize function, which basically acts the same as realloc, except that if you are resizing the last block created on the pool, it will resize it without freeing. This makes it a lot faster and is perfect for string functions. I haven&rsquo;t tested it yet and its too late at night for me to test it. If anyone would be so keen to write some tests that will break the b_resize function?</p>
 ]]></content>
