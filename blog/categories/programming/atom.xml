@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programming | ./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2014-10-30T00:04:30+09:00</updated>
+  <updated>2014-10-29T15:33:18+00:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Online vs Batch learning]]></title>
     <link href="http://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning/"/>
-    <updated>2013-03-18T00:00:00+09:00</updated>
+    <updated>2013-03-18T00:00:00+00:00</updated>
     <id>http://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning</id>
     <content type="html"><![CDATA[<p>While debugging neuron, my new neural network simulation application, I found some (visually) interesting differences between online and batch learning. While batch learning is usually touted as a better form of learning, I found that the two don&rsquo;t seem to make much difference, except for a steppy curve from online learning, as I would expect as the gradient changes differently if you keep calculating the values in a cycle instead of calculating the combined gradient of all the training data.</p>
 
@@ -49,7 +49,7 @@ double wh2 = 1.1;</p>
   <entry>
     <title type="html"><![CDATA[This seems to make Cappuccino faster...]]></title>
     <link href="http://davidsiaw.github.io/blog/2012/12/19/this-seems-to-make-cappuccino-faster/"/>
-    <updated>2012-12-19T00:00:00+09:00</updated>
+    <updated>2012-12-19T00:00:00+00:00</updated>
     <id>http://davidsiaw.github.io/blog/2012/12/19/this-seems-to-make-cappuccino-faster</id>
     <content type="html"><![CDATA[<p>My lack of knowledge about Cappuccino&rsquo;s implementation details may play a role, but</p>
 
@@ -64,7 +64,7 @@ window.setTimeout = window.setNativeTimeout;
   <entry>
     <title type="html"><![CDATA[The Identity of an Array]]></title>
     <link href="http://davidsiaw.github.io/blog/2012/12/12/the-identity-of-an-array/"/>
-    <updated>2012-12-12T00:00:00+09:00</updated>
+    <updated>2012-12-12T00:00:00+00:00</updated>
     <id>http://davidsiaw.github.io/blog/2012/12/12/the-identity-of-an-array</id>
     <content type="html"><![CDATA[<p>Given two arrays of integers: a and b, what does (a == b) mean?</p>
 
@@ -133,7 +133,7 @@ ratio r = Cos(a);
   <entry>
     <title type="html"><![CDATA[Exceptionless Programming]]></title>
     <link href="http://davidsiaw.github.io/blog/2012/11/28/exceptionless-programming/"/>
-    <updated>2012-11-28T00:00:00+09:00</updated>
+    <updated>2012-11-28T00:00:00+00:00</updated>
     <id>http://davidsiaw.github.io/blog/2012/11/28/exceptionless-programming</id>
     <content type="html"><![CDATA[<p>I am a big fan of writing code that generates no runtime errors. This is an implementation of a function that takes the first element of an array.</p>
 
@@ -194,7 +194,7 @@ return result;
   <entry>
     <title type="html"><![CDATA[Blurred Text Effect]]></title>
     <link href="http://davidsiaw.github.io/blog/2012/08/13/blurred-text-effect/"/>
-    <updated>2012-08-13T00:00:00+09:00</updated>
+    <updated>2012-08-13T00:00:00+00:00</updated>
     <id>http://davidsiaw.github.io/blog/2012/08/13/blurred-text-effect</id>
     <content type="html"><![CDATA[<p>I came across a strange site that blurred the text of answers and asked the reader to sign up to see it. It was strange because the text was already there, just blurred via css. I thought it was an interesting little snippet so I decided to record it.</p>
 

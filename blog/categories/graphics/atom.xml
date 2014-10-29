@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Graphics | ./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/blog/categories/graphics/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2014-10-30T00:04:30+09:00</updated>
+  <updated>2014-10-29T15:33:18+00:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Making Color From Alpha, Hue, Saturation and Brightness]]></title>
     <link href="http://davidsiaw.github.io/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness/"/>
-    <updated>2011-11-22T00:00:00+09:00</updated>
+    <updated>2011-11-22T00:00:00+00:00</updated>
     <id>http://davidsiaw.github.io/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness</id>
     <content type="html"><![CDATA[<p>I find myself wanting to do this sometimes, so here&rsquo;s a bit of code (I&rsquo;m sure I stole this code from somewhere else);</p>
 
@@ -92,7 +92,7 @@ switch (iSextant) {
   <entry>
     <title type="html"><![CDATA[RBSP Tree for Lightmap packing]]></title>
     <link href="http://davidsiaw.github.io/blog/2008/10/19/rbsp-tree-for-lightmap-packing/"/>
-    <updated>2008-10-19T00:00:00+09:00</updated>
+    <updated>2008-10-19T00:00:00+00:00</updated>
     <id>http://davidsiaw.github.io/blog/2008/10/19/rbsp-tree-for-lightmap-packing</id>
     <content type="html"><![CDATA[<p>For fun, and for the purpose of making a batch texture that can store characters for fonts, I have created a little tree based off <a href="http://www.blackpawn.com/texts/lightmaps/default.html">this tutorial by BlackPawn</a>. Basically, the idea here is to partition the original rectangle in such a way to get the maximum area out of the texture to hold the subtextures.</p>
 
@@ -133,7 +133,7 @@ switch (iSextant) {
   <entry>
     <title type="html"><![CDATA[2D in OpenGL]]></title>
     <link href="http://davidsiaw.github.io/blog/2008/10/11/2d-in-opengl/"/>
-    <updated>2008-10-11T00:00:00+09:00</updated>
+    <updated>2008-10-11T00:00:00+00:00</updated>
     <id>http://davidsiaw.github.io/blog/2008/10/11/2d-in-opengl</id>
     <content type="html"><![CDATA[<p>After some experimentation, I have finally come to a point where I have written some code that does scaling, rotation and alpha on images that I want to display on the screen. Although the concept of drawing 2D in OpenGL is fairly easy to grasp, in that everything is the same except you don&rsquo;t deal with the z-dimension, most of the time when you deal with 2D, you want to deal in actual pixel coordinates on the screen, and you want to do some things differently. Despite the numerous tutorial in OpenGL you can find online, few actually provide much information about using OpenGL for 2D graphics.</p>
 
@@ -205,7 +205,7 @@ glEnd();
   <entry>
     <title type="html"><![CDATA[Vertex Buffer Objects]]></title>
     <link href="http://davidsiaw.github.io/blog/2008/09/16/vertex-buffer-objects/"/>
-    <updated>2008-09-16T00:00:00+09:00</updated>
+    <updated>2008-09-16T00:00:00+00:00</updated>
     <id>http://davidsiaw.github.io/blog/2008/09/16/vertex-buffer-objects</id>
     <content type="html"><![CDATA[<p>In my last post I mentioned that if you wanted to draw a large number of things on a screen, you need VBOs. Well, honestly at the time, I only knew what it was but never touched it before. VBOs are Vertex Buffer Objects, in other words, boxes in the GPU to store vertices, their colors, normals and attributes. After a considerable amount of Googling, I was finally able to learn what VBOs are and relate them to the intermediate mode. This would probably help those who have started openGL by learning glBegin and glEnd learn about what VBOs truly are, and why they exist.</p>
 
@@ -335,7 +335,7 @@ glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(colors), colors);    /
   <entry>
     <title type="html"><![CDATA[Playing with GLSL]]></title>
     <link href="http://davidsiaw.github.io/blog/2008/08/31/playing-with-glsl/"/>
-    <updated>2008-08-31T00:00:00+09:00</updated>
+    <updated>2008-08-31T00:00:00+00:00</updated>
     <id>http://davidsiaw.github.io/blog/2008/08/31/playing-with-glsl</id>
     <content type="html"><![CDATA[<p>After puzzling some time over the tutorials in <a href="http://www.lighthouse3d.com/opengl/glsl/">Lighthouse3D</a>, I finally learned how to prepare a GLSL shader and use it in an OpenGL render. In the beginning I thought a shader could be used on a particular set of vertices and fragments. However, it turned out that the shader was run every frame on every vertex and fragment you gave OpenGL to use. This meant that if you made a simple fragment shader that coloured the current fragment red, then everything you draw on the screen will be red. It turns out the shader replaces the so-called fixed-functionality in the rendering pipeline, which is basically a little assembly line where all the vertices and colours given to the video card gets processed. So instead of having the workers work their normal routine, a shader tells them what to do instead. To be honest I felt a little disappointed since I could not write something like actionscript would allow me to do, but I guess that is just because it isn&rsquo;t meant to be actionscript.</p>
 
