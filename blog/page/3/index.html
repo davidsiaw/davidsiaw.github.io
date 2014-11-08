@@ -9,7 +9,7 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="I&rsquo;ve found a site recently that provides data for free on the world&rsquo;s shorelines and topography. They have got other datasets too that &hellip;">
+  <meta name="description" content="I&rsquo;ve updated the b_pool again! This one has got some new features such as string functions (not yet complete) and a new b_resize function, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,6 +105,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/03/20/updated-the-b_pool/">Updated the B_pool!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-03-20T00:00:00+00:00" pubdate data-updated="true">Mar 20<span>th</span>, 2009</time>
+        
+         | <a href="/blog/2009/03/20/updated-the-b_pool/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;ve updated the b_pool again! This one has got some new features such as string functions (not yet complete) and a new b_resize function, which basically acts the same as realloc, except that if you are resizing the last block created on the pool, it will resize it without freeing. This makes it a lot faster and is perfect for string functions. I haven&rsquo;t tested it yet and its too late at night for me to test it. If anyone would be so keen to write some tests that will break the b_resize function?</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -740,134 +778,6 @@ easily maintainable, and highly flexible when responding to code changes, layer 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/10/11/2d-in-opengl/">2D in OpenGL</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-10-11T00:00:00+00:00" pubdate data-updated="true">Oct 11<span>th</span>, 2008</time>
-        
-         | <a href="/blog/2008/10/11/2d-in-opengl/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>After some experimentation, I have finally come to a point where I have written some code that does scaling, rotation and alpha on images that I want to display on the screen. Although the concept of drawing 2D in OpenGL is fairly easy to grasp, in that everything is the same except you don&rsquo;t deal with the z-dimension, most of the time when you deal with 2D, you want to deal in actual pixel coordinates on the screen, and you want to do some things differently. Despite the numerous tutorial in OpenGL you can find online, few actually provide much information about using OpenGL for 2D graphics.</p>
-
-<p><strong>Why OpenGL for 2D graphics?</strong></p>
-
-<p>Not too long ago I was working on a project to greatly simplify drawing an image on to screen and rotating and scaling it just as you could do in photoshop, but programatically, after a few months of working on it I started realizing how slow and heavy the process of actually doing that kind of transformation was. On a framebuffer, performing transforms like those and blitting it to the screen was something that was painfully slow, used 75% of the CPU time usually, and not suitable for any application that would be rich in graphic content.</p>
-
-<p>This led me to attempting to try OpenGL. The main selling point OpenGL had was it enabled direct access to any graphics accelerator hardware available on the computer. Graphics cards have been purpose built to perform sampling on images, and were designed to reduce the amount of data transferred from the main memory for the purposes of drawing stuff on the screen. This enabled acceleration to the point where hundreds of images could be transformed on the fly without any drop in frame rate, and without burdening the CPU with having to process images at every frame.</p>
-
-<p>OpenGL is now found almost everywhere a graphics card is installed, and most, if not all PCs and Macs now come with graphics card that supports OpenGL in one way or another. This means that an application written using OpenGL, will effectively, theoretically be usable on any computer at all. Also, its OS-neutral nature meant that any programs I write with it will be usable on any modern OS that supports a half-decent graphics subsystem.</p>
-
-<p>Portability, ubiquity and performance. These were the key reasons I thought that it was time to give OpenGL a go, so I did.</p>
-
-<p><strong>So how do you do it?</strong></p>
-
-<p>OpenGL in 2D is nothing more than just OpenGL without using the Z-axis. There are tons of OpenGL tutorials out there <em>cough</em>NeHe<em>cough</em> that will teach you how to create a window and a rendering context for OpenGL. I recommend SDL for that purpose, because it has a set of libraries that work with it that simply does so much that you don&rsquo;t have to find a library that does basic stuff like playing sounds and concentrate more on making your game. The only things you really need in addition to the standard 3D setup are to to map each pixel on the screen to OpenGL coordinates with gluOrtho2D and enabling alpha testing.</p>
-
-<p>Some sample code stolen from somewhere below:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="n">glEnable2D</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">glEnable</span> <span class="p">(</span><span class="n">GL_ALPHA_TEST</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">int</span> <span class="n">vPort</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">glGetIntegerv</span><span class="p">(</span><span class="n">GL_VIEWPORT</span><span class="p">,</span> <span class="n">vPort</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">glMatrixMode</span><span class="p">(</span><span class="n">GL_PROJECTION</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">glPushMatrix</span><span class="p">();</span>
-</span><span class='line'>  <span class="n">glLoadIdentity</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">gluOrtho2D</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">vPort</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">vPort</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">glMatrixMode</span><span class="p">(</span><span class="n">GL_MODELVIEW</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">glPushMatrix</span><span class="p">();</span>
-</span><span class='line'>  <span class="n">glLoadIdentity</span><span class="p">();</span>
-</span><span class='line'>  
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So setting up OpenGL for 2D drawing is extremely simple. To draw something on the screen, simply go:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="n">drawFilledRectangle</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">glColor4f</span><span class="p">(</span><span class="mf">255.0</span> <span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">255.0</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">glBindTexture</span><span class="p">(</span> <span class="n">GL_TEXTURE_2D</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">glBegin</span><span class="p">(</span> <span class="n">GL_QUADS</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">glVertex3i</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">glVertex3i</span><span class="p">(</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">glVertex3i</span><span class="p">(</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">glVertex3i</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
-</span><span class='line'>  <span class="n">glEnd</span><span class="p">();</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>There we go, we have successfully drawn a rectangle on the screen. This may just become the start of a series of tutorials that I will write up as I learn more about using OpenGL for 2D drawings.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -911,11 +821,15 @@ easily maintainable, and highly flexible when responding to code changes, layer 
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (7)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/30/using-travis-to-deploy-my-blog/">Using Travis to deploy my blog</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/10/12/new-blog/">New Blog</a>
@@ -931,10 +845,6 @@ easily maintainable, and highly flexible when responding to code changes, layer 
     
       <li class="post">
         <a href="/blog/2012/12/12/the-identity-of-an-array/">The Identity of an Array</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/11/28/exceptionless-programming/">Exceptionless Programming</a>
       </li>
     
   </ul>

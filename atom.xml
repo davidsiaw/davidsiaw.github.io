@@ -4,7 +4,7 @@
   <title><![CDATA[./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2014-10-29T16:12:58+00:00</updated>
+  <updated>2014-11-08T06:57:50+00:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -12,6 +12,111 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Using Travis to deploy my blog]]></title>
+    <link href="http://davidsiaw.github.io/blog/2014/10/30/using-travis-to-deploy-my-blog/"/>
+    <updated>2014-10-30T01:07:00+00:00</updated>
+    <id>http://davidsiaw.github.io/blog/2014/10/30/using-travis-to-deploy-my-blog</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been using Travis-CI more and more as a platform from which I can deploy things, due to the fact that we can run any code on it. Today I made it so that this blog is deployed to gh-pages when pushed. I have also set up my personal blog to be pushed this way as well.</p>
+
+<p>Why did I use Travis-CI instead of Shippable or other CI systems for this? Well, its mainly due to the fact that I was already using Travis, and the tools (specifically the Travis gem) are quite mature. Many of the things that are quite troublesome, like generating a key and placing decrypt commands into the .travis.yml, are now covered in simple command line instructions.</p>
+
+<p>My blog uses Jekyll + Octopress, but I don&rsquo;t like the limitations imposed by github on the templates I can use. So I decided it was better to simply upload the finished product. First of all, I push all my blog sources up to a public repository at <a href="https://github.com/davidsiaw/davidsiaw.github.io.source">https://github.com/davidsiaw/davidsiaw.github.io.source</a></p>
+
+<p>While the setup is easy, its not obvious that you can do this. Hopefully this will go some way to helping others who want to circumvent the github limitations on their gh-pages content as well.</p>
+
+<p>In this post I will show you how to set it up. First of all, I create a key that will give push access to my blog&rsquo;s repository at <a href="https://github.com/davidsiaw/davidsiaw.github.io">https://github.com/davidsiaw/davidsiaw.github.io</a> by calling up <code>ssh-keygen</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nagatsuki david$ ssh-keygen
+</span><span class='line'>Generating public/private rsa key pair.
+</span><span class='line'>Enter file in which to save the key (/Users/david/.ssh/id_rsa): deploy_key
+</span><span class='line'>Enter passphrase (empty for no passphrase): 
+</span><span class='line'>Enter same passphrase again: 
+</span><span class='line'>Your identification has been saved in deploy_key.
+</span><span class='line'>Your public key has been saved in deploy_key.pub.
+</span><span class='line'>The key fingerprint is:
+</span><span class='line'>89:8d:a9:60:5c:8b:77:05:c4:2b:05:a4:96:64:8e:fa david@nagatsuki
+</span><span class='line'>The key's randomart image is:
+</span><span class='line'>+--[ RSA 2048]----+
+</span><span class='line'>|     .=+o        |
+</span><span class='line'>|     *  o.       |
+</span><span class='line'>|    = o. o.      |
+</span><span class='line'>| o = ..=.o       |
+</span><span class='line'>|  = . =.S        |
+</span><span class='line'>|   o o .         |
+</span><span class='line'>|    E            |
+</span><span class='line'>|                 |
+</span><span class='line'>|                 |
+</span><span class='line'>+-----------------+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I then place the deploy_key.pub in my github repository.</p>
+
+<p>Next, I make use of the Travis gem to encrypt my private key. I add the <code>--add</code> parameter to make it write to my .travis.yml (I am in the directory.)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nagatsuki david$ travis encrypt-file deploy_key --add
+</span><span class='line'>encrypting deploy_key for davidsiaw/davidsiaw.github.io
+</span><span class='line'>storing result as deploy_key.enc
+</span><span class='line'>storing secure env variables for decryption
+</span><span class='line'>
+</span><span class='line'>Make sure to add deploy_key.enc to the git repository.
+</span><span class='line'>Make sure not to add deploy_key to the git repository.
+</span><span class='line'>Commit all changes to your .travis.yml.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This gives me a deploy_key.enc that is my encrypted private key.</p>
+
+<p>In order to use this key, I need to add some more lines to <a href="https://github.com/davidsiaw/davidsiaw.github.io.source/blob/master/.travis.yml">.travis.yml</a> to enable it to push to github. First of all, I need to install the key into the .ssh folder so git can use it. I also chmod it so ssh will not complain.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">chmod 600 deploy-key</span>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cp deploy-key ~/.ssh/id_rsa</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With this, I can now tell Travis to push the generated files. All I do is tell it to generate the site (since this is just Jekyll), and then call my <a href="https://github.com/davidsiaw/davidsiaw.github.io.source/blob/master/deploy">deploy script</a> which simply pushes the right stuff up to github.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">bundle exec rake generate</span>
+</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">bash deploy</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With this, my website gets updated everytime I push my changes to <a href="https://github.com/davidsiaw/davidsiaw.github.io.source">https://github.com/davidsiaw/davidsiaw.github.io.source</a>, Travis will automatically update my blog.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[New Blog]]></title>
@@ -1301,15 +1406,6 @@ Sometimes code that was written back then may be correct back then, but may not 
 </span><span class='line'><span class="n">msg</span> <span class="p">+=</span> <span class="s">&quot;}&quot;</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Updated the b_pool!]]></title>
-    <link href="http://davidsiaw.github.io/blog/2009/03/20/updated-the-b_pool/"/>
-    <updated>2009-03-20T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2009/03/20/updated-the-b_pool</id>
-    <content type="html"><![CDATA[<p>I&rsquo;ve updated the b_pool again! This one has got some new features such as string functions (not yet complete) and a new b_resize function, which basically acts the same as realloc, except that if you are resizing the last block created on the pool, it will resize it without freeing. This makes it a lot faster and is perfect for string functions. I haven&rsquo;t tested it yet and its too late at night for me to test it. If anyone would be so keen to write some tests that will break the b_resize function?</p>
 ]]></content>
   </entry>
   
