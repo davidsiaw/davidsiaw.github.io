@@ -9,7 +9,7 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="I&rsquo;ve been using Travis-CI more and more as a platform from which I can deploy things, due to the fact that we can run any code on it. Today I &hellip;">
+  <meta name="description" content="Last week I wrote a simple Game of Life variation that runs on a hexagonal grid after viewing an example on Wikipedia. The cells considered are the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,6 +105,121 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/11/21/hexlife/">Hexlife</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-21T10:46:00+00:00" pubdate data-updated="true">Nov 21<span>st</span>, 2014</time>
+        
+         | <a href="/blog/2014/11/21/hexlife/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Last week I wrote a simple Game of Life variation that runs on a hexagonal grid after viewing <a href="http://en.wikipedia.org/wiki/Conway's_Game_of_Life#mediaviewer/File:Oscillator.gif">an example on Wikipedia</a>. The cells considered are the immediate neighbours. The rules are:</p>
+
+<ul>
+<li>if a dead cell is surrounded by 2 live cells, the dead cell becomes alive</li>
+<li>if a live cell is surrounded by 3 or 4 live cells, it stays alive</li>
+<li>in all other cases, the cell dies</li>
+</ul>
+
+
+<p>One of the interesting things about this set of rules is the absence of still life. The reason for this absence is that a cell can only be born under conditions where a live cell would otherwise die. This means that whenever a cell is born it is likely to kill its parents.</p>
+
+<p>Hence the only known stable life forms in this set of rules at the moment are oscillators. No gliders have been found yet.</p>
+
+<p>You can play with my implementation here: <a href="http://davidsiaw.github.io/hexlife/">http://davidsiaw.github.io/hexlife/</a></p>
+
+<p>In my search for a glider in this set of rules, I found a bunch of oscillators and decided to record them:</p>
+
+<table>
+<thead>
+<tr>
+<th> Picture                                     </th>
+<th> Description </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/hexlife/2cell.png" alt="Alt text" />        </td>
+<td> The <strong>2cell</strong> is the simplest and most common oscillator. It is left behind by almost any unstable life.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/spinner.png" alt="Alt text" />      </td>
+<td> The <strong>Spinner</strong> is another common oscillator that has a period of 2. It simply looks like it is spinning.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/mouth.png" alt="Alt text" />        </td>
+<td> The <strong>Mouth</strong> looks like a spinner but instead of 2nd level adjacent, they are 3rd level adjacent, so it looks like it is always opening and closing</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/needle.png" alt="Alt text" />       </td>
+<td> The <strong>Needle</strong> has a period of 2 and flips back and forth.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/dancer.png" alt="Alt text" />       </td>
+<td> The <strong>Dancer</strong> has a period of 2 and looks like its swinging back and forth.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/star.png" alt="Alt text" />         </td>
+<td> The <strong>Star</strong> looks like a twinkling star. It is quite peculiar in the sense that it has a period of 3.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/rotator.png" alt="Alt text" />      </td>
+<td> The <strong>Rotator</strong> has a period of 4 and looks like it is spinning in a weird way.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/bat.png" alt="Alt text" />          </td>
+<td> The <strong>Bat</strong> is perhaps the most common 4-period oscillator you get from random starts.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/snake.png" alt="Alt text" />        </td>
+<td> The <strong>Snake</strong> is a period-4 oscillator that looks like a snake that wiggles around</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/morpher.png" alt="Alt text" />      </td>
+<td> The <strong>Morpher</strong> is really simple but really interesting-looking oscillator. It has got a period of 12 and transforms into all its possible orientations. This means that even though it has no symmetry, it does not matter which way you orient it, it will achieve the same configurations. I call this temporal homogeneity.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/tristar.png" alt="Alt text" />      </td>
+<td> The <strong>Tristar</strong> is a period-12 oscillator that twinkles in a more elaborate way than the star.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/swimmer.png" alt="Alt text" />      </td>
+<td> The <strong>Swimmer</strong> is an oscillator with a period of 48. You can actually find it on the Wikipedia page I linked. It seems like a lost fish swimming back and forth.</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>If you find more oscillators please leave a comment!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -788,171 +903,6 @@ double wh2 = 1.1;</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness/">Making Color From Alpha, Hue, Saturation and Brightness</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-11-22T00:00:00+00:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2011</time>
-        
-         | <a href="/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I find myself wanting to do this sometimes, so here&rsquo;s a bit of code (I&rsquo;m sure I stole this code from somewhere else);</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="n">Color</span> <span class="nf">ColorFromAhsb</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">float</span> <span class="n">h</span><span class="p">,</span> <span class="kt">float</span> <span class="n">s</span><span class="p">,</span> <span class="kt">float</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0</span> <span class="p">&gt;</span> <span class="n">a</span> <span class="p">||</span> <span class="m">255</span> <span class="p">&lt;</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentOutOfRangeException</span><span class="p">(&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">a</span><span class="p">&amp;</span><span class="n">quot</span><span class="p">;);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0f</span> <span class="p">&gt;</span> <span class="n">h</span> <span class="p">||</span> <span class="m">360f</span> <span class="p">&lt;</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentOutOfRangeException</span><span class="p">(&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">h</span><span class="p">&amp;</span><span class="n">quot</span><span class="p">;);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0f</span> <span class="p">&gt;</span> <span class="n">s</span> <span class="p">||</span> <span class="m">1f</span> <span class="p">&lt;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentOutOfRangeException</span><span class="p">(&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">s</span><span class="p">&amp;</span><span class="n">quot</span><span class="p">;);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0f</span> <span class="p">&gt;</span> <span class="n">b</span> <span class="p">||</span> <span class="m">1f</span> <span class="p">&lt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentOutOfRangeException</span><span class="p">(&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">b</span><span class="p">&amp;</span><span class="n">quot</span><span class="p">;);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0</span> <span class="p">==</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="m">255</span><span class="p">),</span>
-</span><span class='line'>          <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="m">255</span><span class="p">),</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="m">255</span><span class="p">));</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kt">float</span> <span class="n">fMax</span><span class="p">,</span> <span class="n">fMid</span><span class="p">,</span> <span class="n">fMin</span><span class="p">;</span>
-</span><span class='line'>  <span class="kt">int</span> <span class="n">iSextant</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMin</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0.5</span> <span class="p">&lt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">fMax</span> <span class="p">=</span> <span class="n">b</span> <span class="p">-</span> <span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="n">s</span><span class="p">)</span> <span class="p">+</span> <span class="n">s</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">fMin</span> <span class="p">=</span> <span class="n">b</span> <span class="p">+</span> <span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="n">s</span><span class="p">)</span> <span class="p">-</span> <span class="n">s</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">fMax</span> <span class="p">=</span> <span class="n">b</span> <span class="p">+</span> <span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="n">s</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">fMin</span> <span class="p">=</span> <span class="n">b</span> <span class="p">-</span> <span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="n">s</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">iSextant</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">Math</span><span class="p">.</span><span class="n">Floor</span><span class="p">(</span><span class="n">h</span> <span class="p">/</span> <span class="m">60f</span><span class="p">);</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">300f</span> <span class="p">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">h</span> <span class="p">-=</span> <span class="m">360f</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="n">h</span> <span class="p">/=</span> <span class="m">60f</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">h</span> <span class="p">-=</span> <span class="m">2f</span> <span class="p">*</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">Math</span><span class="p">.</span><span class="n">Floor</span><span class="p">(((</span><span class="n">iSextant</span> <span class="p">+</span> <span class="m">1f</span><span class="p">)</span> <span class="p">%</span> <span class="m">6f</span><span class="p">)</span> <span class="p">/</span> <span class="m">2f</span><span class="p">);</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0</span> <span class="p">==</span> <span class="n">iSextant</span> <span class="p">%</span> <span class="m">2</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">fMid</span> <span class="p">=</span> <span class="n">h</span> <span class="p">*</span> <span class="p">(</span><span class="n">fMax</span> <span class="p">-</span> <span class="n">fMin</span><span class="p">)</span> <span class="p">+</span> <span class="n">fMin</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">fMid</span> <span class="p">=</span> <span class="n">fMin</span> <span class="p">-</span> <span class="n">h</span> <span class="p">*</span> <span class="p">(</span><span class="n">fMax</span> <span class="p">-</span> <span class="n">fMin</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">iMax</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">fMax</span> <span class="p">*</span> <span class="m">255</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">iMid</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">fMid</span> <span class="p">*</span> <span class="m">255</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">iMin</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">fMin</span> <span class="p">*</span> <span class="m">255</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">switch</span> <span class="p">(</span><span class="n">iSextant</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">case</span> <span class="m">1</span><span class="p">:</span>
-</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMin</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">case</span> <span class="m">2</span><span class="p">:</span>
-</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMin</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMid</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">case</span> <span class="m">3</span><span class="p">:</span>
-</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMin</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMax</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">case</span> <span class="m">4</span><span class="p">:</span>
-</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMin</span><span class="p">,</span> <span class="n">iMax</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">case</span> <span class="m">5</span><span class="p">:</span>
-</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMin</span><span class="p">,</span> <span class="n">iMid</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">default</span><span class="p">:</span>
-</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMin</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -994,11 +944,15 @@ double wh2 = 1.1;</p>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (7)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (8)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/21/hexlife/">Hexlife</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/10/30/using-travis-to-deploy-my-blog/">Using Travis to deploy my blog</a>
@@ -1014,10 +968,6 @@ double wh2 = 1.1;</p>
     
       <li class="post">
         <a href="/blog/2012/12/19/this-seems-to-make-cappuccino-faster/">This seems to make Cappuccino faster&#8230;</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/12/12/the-identity-of-an-array/">The Identity of an Array</a>
       </li>
     
   </ul>

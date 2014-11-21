@@ -9,7 +9,8 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="I&rsquo;ve updated the b_pool again! This one has got some new features such as string functions (not yet complete) and a new b_resize function, &hellip;">
+  <meta name="description" content="Often when I&rsquo;m programming, I&rsquo;ll need to list a bunch of stuff and put commas between them. Like this: 1
+1,2,3,4,5 Usually, this is what &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,6 +106,164 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/04/16/putting-a-separator-between-your-elements/">Putting a Separator Between Your Elements</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-16T00:00:00+00:00" pubdate data-updated="true">Apr 16<span>th</span>, 2009</time>
+        
+         | <a href="/blog/2009/04/16/putting-a-separator-between-your-elements/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Often when I&rsquo;m programming, I&rsquo;ll need to list a bunch of stuff and put commas between them. Like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1,2,3,4,5</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Usually, this is what I, and most of my colleagues do:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'>        <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">nums</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">nums</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kt">string</span> <span class="n">msg</span> <span class="p">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="kt">bool</span> <span class="n">first</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">foreach</span> <span class="p">(</span><span class="kt">int</span> <span class="n">num</span> <span class="k">in</span> <span class="n">nums</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">first</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="n">first</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>            <span class="k">else</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="n">msg</span> <span class="p">+=</span> <span class="s">&quot;,&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>            <span class="n">msg</span> <span class="p">+=</span> <span class="n">num</span><span class="p">.</span><span class="n">ToString</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After reading Eric Lippert&rsquo;s little article about <a href="http://blogs.msdn.com/ericlippert/archive/2009/04/13/restating-the-problem.aspx">the horrid-seeming problem of commas and lists</a>, I noticed him mentioning the method</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">String</span><span class="p">.</span><span class="n">Join</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Needless to say, I went and tried it, and found that I could do the equivalent of the above, like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'>        <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">nums</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">nums</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kt">string</span> <span class="n">msg</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">,</span> <span class="n">nums</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">ToString</span><span class="p">()).</span><span class="n">ToArray</span><span class="p">());</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Its kinda amazing how after coding in C# for a good year now that I haven&rsquo;t noticed the existence of such a method.</p>
+
+<p>Okay, the lambda expression seems a bit messy with all the parens and all, but you get the idea. Still, its a lot better than writing a loop and having the evil &ldquo;first&rdquo; variable which kinda clutters the whole thing. Does anyone know an even better way of doing this?</p>
+
+<p>Update: and for my answer to Eric&rsquo;s <a href="http://blogs.msdn.com/ericlippert/archive/2009/04/15/comma-quibbling.aspx">next post</a>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">string</span> <span class="n">msg</span> <span class="p">=</span> <span class="s">&quot;{&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">s</span> <span class="p">=</span> <span class="n">something</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">string</span><span class="p">[]</span> <span class="n">arr</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">&gt;</span> <span class="m">1</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">string</span><span class="p">[]</span> <span class="n">ar2</span> <span class="p">=</span> <span class="p">{</span>
+</span><span class='line'>               <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span> <span class="p">),</span>
+</span><span class='line'>                <span class="n">arr</span><span class="p">[</span><span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">]</span>
+</span><span class='line'>           <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">msg</span> <span class="p">+=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot; and &quot;</span><span class="p">,</span> <span class="n">ar2</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">==</span> <span class="m">1</span><span class="p">)</span> <span class="n">msg</span> <span class="p">+=</span> <span class="n">arr</span><span class="p">[</span><span class="m">0</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">msg</span> <span class="p">+=</span> <span class="s">&quot;}&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -733,51 +892,6 @@ easily maintainable, and highly flexible when responding to code changes, layer 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/10/19/rbsp-tree-for-lightmap-packing/">RBSP Tree for Lightmap Packing</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-10-19T00:00:00+00:00" pubdate data-updated="true">Oct 19<span>th</span>, 2008</time>
-        
-         | <a href="/blog/2008/10/19/rbsp-tree-for-lightmap-packing/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>For fun, and for the purpose of making a batch texture that can store characters for fonts, I have created a little tree based off <a href="http://www.blackpawn.com/texts/lightmaps/default.html">this tutorial by BlackPawn</a>. Basically, the idea here is to partition the original rectangle in such a way to get the maximum area out of the texture to hold the subtextures.</p>
-
-<p>The pseudocode provided in BlackPawn&rsquo;s site is based off a simple concept. Basically, you partition an empty rectangle to store an image, and the other resulting empty rectangles are candidates for future partitioning. I call this structure a Rectangular Binary Space Partitioning Tree.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2008/10/19/rbsp-tree-for-lightmap-packing/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -821,11 +935,15 @@ easily maintainable, and highly flexible when responding to code changes, layer 
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (7)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (8)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/21/hexlife/">Hexlife</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/10/30/using-travis-to-deploy-my-blog/">Using Travis to deploy my blog</a>
@@ -841,10 +959,6 @@ easily maintainable, and highly flexible when responding to code changes, layer 
     
       <li class="post">
         <a href="/blog/2012/12/19/this-seems-to-make-cappuccino-faster/">This seems to make Cappuccino faster&#8230;</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/12/12/the-identity-of-an-array/">The Identity of an Array</a>
       </li>
     
   </ul>

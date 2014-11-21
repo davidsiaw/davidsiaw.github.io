@@ -9,7 +9,7 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="After some experimentation, I have finally come to a point where I have written some code that does scaling, rotation and alpha on images that I want &hellip;">
+  <meta name="description" content="For fun, and for the purpose of making a batch texture that can store characters for fonts, I have created a little tree based off this tutorial by &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,6 +105,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/10/19/rbsp-tree-for-lightmap-packing/">RBSP Tree for Lightmap Packing</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-19T00:00:00+00:00" pubdate data-updated="true">Oct 19<span>th</span>, 2008</time>
+        
+         | <a href="/blog/2008/10/19/rbsp-tree-for-lightmap-packing/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For fun, and for the purpose of making a batch texture that can store characters for fonts, I have created a little tree based off <a href="http://www.blackpawn.com/texts/lightmaps/default.html">this tutorial by BlackPawn</a>. Basically, the idea here is to partition the original rectangle in such a way to get the maximum area out of the texture to hold the subtextures.</p>
+
+<p>The pseudocode provided in BlackPawn&rsquo;s site is based off a simple concept. Basically, you partition an empty rectangle to store an image, and the other resulting empty rectangles are candidates for future partitioning. I call this structure a Rectangular Binary Space Partitioning Tree.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2008/10/19/rbsp-tree-for-lightmap-packing/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -528,11 +573,15 @@
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (7)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (8)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/21/hexlife/">Hexlife</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/10/30/using-travis-to-deploy-my-blog/">Using Travis to deploy my blog</a>
@@ -548,10 +597,6 @@
     
       <li class="post">
         <a href="/blog/2012/12/19/this-seems-to-make-cappuccino-faster/">This seems to make Cappuccino faster&#8230;</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/12/12/the-identity-of-an-array/">The Identity of an Array</a>
       </li>
     
   </ul>

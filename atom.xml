@@ -4,7 +4,7 @@
   <title><![CDATA[./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2014-11-08T12:00:14+00:00</updated>
+  <updated>2014-11-21T02:42:07+00:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -12,6 +12,92 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hexlife]]></title>
+    <link href="http://davidsiaw.github.io/blog/2014/11/21/hexlife/"/>
+    <updated>2014-11-21T10:46:00+00:00</updated>
+    <id>http://davidsiaw.github.io/blog/2014/11/21/hexlife</id>
+    <content type="html"><![CDATA[<p>Last week I wrote a simple Game of Life variation that runs on a hexagonal grid after viewing <a href="http://en.wikipedia.org/wiki/Conway's_Game_of_Life#mediaviewer/File:Oscillator.gif">an example on Wikipedia</a>. The cells considered are the immediate neighbours. The rules are:</p>
+
+<ul>
+<li>if a dead cell is surrounded by 2 live cells, the dead cell becomes alive</li>
+<li>if a live cell is surrounded by 3 or 4 live cells, it stays alive</li>
+<li>in all other cases, the cell dies</li>
+</ul>
+
+
+<p>One of the interesting things about this set of rules is the absence of still life. The reason for this absence is that a cell can only be born under conditions where a live cell would otherwise die. This means that whenever a cell is born it is likely to kill its parents.</p>
+
+<p>Hence the only known stable life forms in this set of rules at the moment are oscillators. No gliders have been found yet.</p>
+
+<p>You can play with my implementation here: <a href="http://davidsiaw.github.io/hexlife/">http://davidsiaw.github.io/hexlife/</a></p>
+
+<p>In my search for a glider in this set of rules, I found a bunch of oscillators and decided to record them:</p>
+
+<table>
+<thead>
+<tr>
+<th> Picture                                     </th>
+<th> Description </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/hexlife/2cell.png" alt="Alt text" />        </td>
+<td> The <strong>2cell</strong> is the simplest and most common oscillator. It is left behind by almost any unstable life.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/spinner.png" alt="Alt text" />      </td>
+<td> The <strong>Spinner</strong> is another common oscillator that has a period of 2. It simply looks like it is spinning.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/mouth.png" alt="Alt text" />        </td>
+<td> The <strong>Mouth</strong> looks like a spinner but instead of 2nd level adjacent, they are 3rd level adjacent, so it looks like it is always opening and closing</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/needle.png" alt="Alt text" />       </td>
+<td> The <strong>Needle</strong> has a period of 2 and flips back and forth.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/dancer.png" alt="Alt text" />       </td>
+<td> The <strong>Dancer</strong> has a period of 2 and looks like its swinging back and forth.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/star.png" alt="Alt text" />         </td>
+<td> The <strong>Star</strong> looks like a twinkling star. It is quite peculiar in the sense that it has a period of 3.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/rotator.png" alt="Alt text" />      </td>
+<td> The <strong>Rotator</strong> has a period of 4 and looks like it is spinning in a weird way.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/bat.png" alt="Alt text" />          </td>
+<td> The <strong>Bat</strong> is perhaps the most common 4-period oscillator you get from random starts.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/snake.png" alt="Alt text" />        </td>
+<td> The <strong>Snake</strong> is a period-4 oscillator that looks like a snake that wiggles around</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/morpher.png" alt="Alt text" />      </td>
+<td> The <strong>Morpher</strong> is really simple but really interesting-looking oscillator. It has got a period of 12 and transforms into all its possible orientations. This means that even though it has no symmetry, it does not matter which way you orient it, it will achieve the same configurations. I call this temporal homogeneity.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/tristar.png" alt="Alt text" />      </td>
+<td> The <strong>Tristar</strong> is a period-12 oscillator that twinkles in a more elaborate way than the star.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/swimmer.png" alt="Alt text" />      </td>
+<td> The <strong>Swimmer</strong> is an oscillator with a period of 48. You can actually find it on the Wikipedia page I linked. It seems like a lost fish swimming back and forth.</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>If you find more oscillators please leave a comment!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Using Travis to deploy my blog]]></title>
@@ -1277,135 +1363,6 @@ Sometimes code that was written back then may be correct back then, but may not 
     <content type="html"><![CDATA[<p>After reading an article on GameDev about a guy who managed to <a href="http://www.rampantgames.com/blog/2005/04/rpg-in-week.html">build an RPG in 40 hours</a>, I decided I&rsquo;d try my hand at doing an RPG 40 hours too, but in C#. So I started to write the first code on Saturday. After 10 hours of gruelling crunch and brainstorming, I was overwhelmed and realized that I had neither the skill nor discipline to actually make it in 40 hours. I didn&rsquo;t even have the energy left to write a blog post about the start, much less record the process of doing it. However, I did get to the stage where I had a map and a character walking around somewhat and had a basic dialog system in place, but with no inventory, no stats, no objects, just character and some boring dialog box.</p>
 
 <p>Thanks to the start however, I&rsquo;ve now found myself with a half-complete RPG engine. I will upload an update sometime soon. Everything used to make the game is just the .NET framework and C# that comes with Visual Studio Express. Perhaps I should try going on for another 30 hours and see how far I can get&hellip;</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Putting a separator between your elements]]></title>
-    <link href="http://davidsiaw.github.io/blog/2009/04/16/putting-a-separator-between-your-elements/"/>
-    <updated>2009-04-16T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2009/04/16/putting-a-separator-between-your-elements</id>
-    <content type="html"><![CDATA[<p>Often when I&rsquo;m programming, I&rsquo;ll need to list a bunch of stuff and put commas between them. Like this:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1,2,3,4,5</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Usually, this is what I, and most of my colleagues do:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'>        <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">nums</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
-</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="n">nums</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="kt">string</span> <span class="n">msg</span> <span class="p">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
-</span><span class='line'>        <span class="kt">bool</span> <span class="n">first</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">foreach</span> <span class="p">(</span><span class="kt">int</span> <span class="n">num</span> <span class="k">in</span> <span class="n">nums</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">first</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">{</span>
-</span><span class='line'>                <span class="n">first</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>            <span class="k">else</span>
-</span><span class='line'>            <span class="p">{</span>
-</span><span class='line'>                <span class="n">msg</span> <span class="p">+=</span> <span class="s">&quot;,&quot;</span><span class="p">;</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>            <span class="n">msg</span> <span class="p">+=</span> <span class="n">num</span><span class="p">.</span><span class="n">ToString</span><span class="p">();</span>
-</span><span class='line'>        <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>After reading Eric Lippert&rsquo;s little article about <a href="http://blogs.msdn.com/ericlippert/archive/2009/04/13/restating-the-problem.aspx">the horrid-seeming problem of commas and lists</a>, I noticed him mentioning the method</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">String</span><span class="p">.</span><span class="n">Join</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Needless to say, I went and tried it, and found that I could do the equivalent of the above, like this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'>        <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">nums</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
-</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="n">nums</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="kt">string</span> <span class="n">msg</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">,</span> <span class="n">nums</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">ToString</span><span class="p">()).</span><span class="n">ToArray</span><span class="p">());</span>
-</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Its kinda amazing how after coding in C# for a good year now that I haven&rsquo;t noticed the existence of such a method.</p>
-
-<p>Okay, the lambda expression seems a bit messy with all the parens and all, but you get the idea. Still, its a lot better than writing a loop and having the evil &ldquo;first&rdquo; variable which kinda clutters the whole thing. Does anyone know an even better way of doing this?</p>
-
-<p>Update: and for my answer to Eric&rsquo;s <a href="http://blogs.msdn.com/ericlippert/archive/2009/04/15/comma-quibbling.aspx">next post</a>:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">string</span> <span class="n">msg</span> <span class="p">=</span> <span class="s">&quot;{&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">s</span> <span class="p">=</span> <span class="n">something</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">string</span><span class="p">[]</span> <span class="n">arr</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">&gt;</span> <span class="m">1</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="kt">string</span><span class="p">[]</span> <span class="n">ar2</span> <span class="p">=</span> <span class="p">{</span>
-</span><span class='line'>               <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span> <span class="p">),</span>
-</span><span class='line'>                <span class="n">arr</span><span class="p">[</span><span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">]</span>
-</span><span class='line'>           <span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">msg</span> <span class="p">+=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot; and &quot;</span><span class="p">,</span> <span class="n">ar2</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">==</span> <span class="m">1</span><span class="p">)</span> <span class="n">msg</span> <span class="p">+=</span> <span class="n">arr</span><span class="p">[</span><span class="m">0</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">msg</span> <span class="p">+=</span> <span class="s">&quot;}&quot;</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   

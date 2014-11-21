@@ -9,7 +9,7 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="Try this: 1
+  <meta name="description" content="I find myself wanting to do this sometimes, so here&rsquo;s a bit of code (I&rsquo;m sure I stole this code from somewhere else); 1
 2
 3
 4
@@ -17,16 +17,7 @@
 6
 7
 8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18 dispList = glGenLists(1); glNewList(dispList, GL_COMPILE); for(int x=-768; x&lt;768; x++) for( &hellip;">
+9 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -122,6 +113,171 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness/">Making Color From Alpha, Hue, Saturation and Brightness</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-22T00:00:00+00:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2011</time>
+        
+         | <a href="/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I find myself wanting to do this sometimes, so here&rsquo;s a bit of code (I&rsquo;m sure I stole this code from somewhere else);</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="n">Color</span> <span class="nf">ColorFromAhsb</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">float</span> <span class="n">h</span><span class="p">,</span> <span class="kt">float</span> <span class="n">s</span><span class="p">,</span> <span class="kt">float</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0</span> <span class="p">&gt;</span> <span class="n">a</span> <span class="p">||</span> <span class="m">255</span> <span class="p">&lt;</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentOutOfRangeException</span><span class="p">(&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">a</span><span class="p">&amp;</span><span class="n">quot</span><span class="p">;);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0f</span> <span class="p">&gt;</span> <span class="n">h</span> <span class="p">||</span> <span class="m">360f</span> <span class="p">&lt;</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentOutOfRangeException</span><span class="p">(&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">h</span><span class="p">&amp;</span><span class="n">quot</span><span class="p">;);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0f</span> <span class="p">&gt;</span> <span class="n">s</span> <span class="p">||</span> <span class="m">1f</span> <span class="p">&lt;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentOutOfRangeException</span><span class="p">(&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">s</span><span class="p">&amp;</span><span class="n">quot</span><span class="p">;);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0f</span> <span class="p">&gt;</span> <span class="n">b</span> <span class="p">||</span> <span class="m">1f</span> <span class="p">&lt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentOutOfRangeException</span><span class="p">(&amp;</span><span class="n">quot</span><span class="p">;</span><span class="n">b</span><span class="p">&amp;</span><span class="n">quot</span><span class="p">;);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0</span> <span class="p">==</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="m">255</span><span class="p">),</span>
+</span><span class='line'>          <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="m">255</span><span class="p">),</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="m">255</span><span class="p">));</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">float</span> <span class="n">fMax</span><span class="p">,</span> <span class="n">fMid</span><span class="p">,</span> <span class="n">fMin</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">iSextant</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMin</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0.5</span> <span class="p">&lt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">fMax</span> <span class="p">=</span> <span class="n">b</span> <span class="p">-</span> <span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="n">s</span><span class="p">)</span> <span class="p">+</span> <span class="n">s</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">fMin</span> <span class="p">=</span> <span class="n">b</span> <span class="p">+</span> <span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="n">s</span><span class="p">)</span> <span class="p">-</span> <span class="n">s</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">fMax</span> <span class="p">=</span> <span class="n">b</span> <span class="p">+</span> <span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="n">s</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">fMin</span> <span class="p">=</span> <span class="n">b</span> <span class="p">-</span> <span class="p">(</span><span class="n">b</span> <span class="p">*</span> <span class="n">s</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">iSextant</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">Math</span><span class="p">.</span><span class="n">Floor</span><span class="p">(</span><span class="n">h</span> <span class="p">/</span> <span class="m">60f</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">300f</span> <span class="p">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">h</span> <span class="p">-=</span> <span class="m">360f</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="n">h</span> <span class="p">/=</span> <span class="m">60f</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">h</span> <span class="p">-=</span> <span class="m">2f</span> <span class="p">*</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">Math</span><span class="p">.</span><span class="n">Floor</span><span class="p">(((</span><span class="n">iSextant</span> <span class="p">+</span> <span class="m">1f</span><span class="p">)</span> <span class="p">%</span> <span class="m">6f</span><span class="p">)</span> <span class="p">/</span> <span class="m">2f</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="m">0</span> <span class="p">==</span> <span class="n">iSextant</span> <span class="p">%</span> <span class="m">2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">fMid</span> <span class="p">=</span> <span class="n">h</span> <span class="p">*</span> <span class="p">(</span><span class="n">fMax</span> <span class="p">-</span> <span class="n">fMin</span><span class="p">)</span> <span class="p">+</span> <span class="n">fMin</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">fMid</span> <span class="p">=</span> <span class="n">fMin</span> <span class="p">-</span> <span class="n">h</span> <span class="p">*</span> <span class="p">(</span><span class="n">fMax</span> <span class="p">-</span> <span class="n">fMin</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">iMax</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">fMax</span> <span class="p">*</span> <span class="m">255</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">iMid</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">fMid</span> <span class="p">*</span> <span class="m">255</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">iMin</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">fMin</span> <span class="p">*</span> <span class="m">255</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">switch</span> <span class="p">(</span><span class="n">iSextant</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">case</span> <span class="m">1</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMin</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">case</span> <span class="m">2</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMin</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMid</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">case</span> <span class="m">3</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMin</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMax</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">case</span> <span class="m">4</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMin</span><span class="p">,</span> <span class="n">iMax</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">case</span> <span class="m">5</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMin</span><span class="p">,</span> <span class="n">iMid</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">default</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">Color</span><span class="p">.</span><span class="n">FromArgb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">iMax</span><span class="p">,</span> <span class="n">iMid</span><span class="p">,</span> <span class="n">iMin</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -967,164 +1123,6 @@ Sometimes code that was written back then may be correct back then, but may not 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/04/16/putting-a-separator-between-your-elements/">Putting a Separator Between Your Elements</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-04-16T00:00:00+00:00" pubdate data-updated="true">Apr 16<span>th</span>, 2009</time>
-        
-         | <a href="/blog/2009/04/16/putting-a-separator-between-your-elements/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Often when I&rsquo;m programming, I&rsquo;ll need to list a bunch of stuff and put commas between them. Like this:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>1,2,3,4,5</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Usually, this is what I, and most of my colleagues do:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'>        <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">nums</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
-</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="n">nums</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="kt">string</span> <span class="n">msg</span> <span class="p">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
-</span><span class='line'>        <span class="kt">bool</span> <span class="n">first</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">foreach</span> <span class="p">(</span><span class="kt">int</span> <span class="n">num</span> <span class="k">in</span> <span class="n">nums</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">first</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">{</span>
-</span><span class='line'>                <span class="n">first</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>            <span class="k">else</span>
-</span><span class='line'>            <span class="p">{</span>
-</span><span class='line'>                <span class="n">msg</span> <span class="p">+=</span> <span class="s">&quot;,&quot;</span><span class="p">;</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>            <span class="n">msg</span> <span class="p">+=</span> <span class="n">num</span><span class="p">.</span><span class="n">ToString</span><span class="p">();</span>
-</span><span class='line'>        <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>After reading Eric Lippert&rsquo;s little article about <a href="http://blogs.msdn.com/ericlippert/archive/2009/04/13/restating-the-problem.aspx">the horrid-seeming problem of commas and lists</a>, I noticed him mentioning the method</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">String</span><span class="p">.</span><span class="n">Join</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Needless to say, I went and tried it, and found that I could do the equivalent of the above, like this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'>        <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">nums</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
-</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="n">nums</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="kt">string</span> <span class="n">msg</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">,</span> <span class="n">nums</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">ToString</span><span class="p">()).</span><span class="n">ToArray</span><span class="p">());</span>
-</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Its kinda amazing how after coding in C# for a good year now that I haven&rsquo;t noticed the existence of such a method.</p>
-
-<p>Okay, the lambda expression seems a bit messy with all the parens and all, but you get the idea. Still, its a lot better than writing a loop and having the evil &ldquo;first&rdquo; variable which kinda clutters the whole thing. Does anyone know an even better way of doing this?</p>
-
-<p>Update: and for my answer to Eric&rsquo;s <a href="http://blogs.msdn.com/ericlippert/archive/2009/04/15/comma-quibbling.aspx">next post</a>:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">string</span> <span class="n">msg</span> <span class="p">=</span> <span class="s">&quot;{&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">s</span> <span class="p">=</span> <span class="n">something</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">string</span><span class="p">[]</span> <span class="n">arr</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">&gt;</span> <span class="m">1</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="kt">string</span><span class="p">[]</span> <span class="n">ar2</span> <span class="p">=</span> <span class="p">{</span>
-</span><span class='line'>               <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span> <span class="p">),</span>
-</span><span class='line'>                <span class="n">arr</span><span class="p">[</span><span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">]</span>
-</span><span class='line'>           <span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">msg</span> <span class="p">+=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot; and &quot;</span><span class="p">,</span> <span class="n">ar2</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">==</span> <span class="m">1</span><span class="p">)</span> <span class="n">msg</span> <span class="p">+=</span> <span class="n">arr</span><span class="p">[</span><span class="m">0</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">msg</span> <span class="p">+=</span> <span class="s">&quot;}&quot;</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1168,11 +1166,15 @@ Sometimes code that was written back then may be correct back then, but may not 
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (7)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (8)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/21/hexlife/">Hexlife</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/10/30/using-travis-to-deploy-my-blog/">Using Travis to deploy my blog</a>
@@ -1188,10 +1190,6 @@ Sometimes code that was written back then may be correct back then, but may not 
     
       <li class="post">
         <a href="/blog/2012/12/19/this-seems-to-make-cappuccino-faster/">This seems to make Cappuccino faster&#8230;</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/12/12/the-identity-of-an-array/">The Identity of an Array</a>
       </li>
     
   </ul>
