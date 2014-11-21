@@ -1,0 +1,431 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Hexlife - ./home/davidsiaw</title>
+  <meta name="author" content="davidsiaw">
+
+  
+  <meta name="description" content="Last week I wrote a simple Game of Life variation that runs on a hexagonal grid after viewing an example on Wikipedia. The cells considered are the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://davidsiaw.github.io/blog/2014/11/21/hexlife/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="./home/davidsiaw" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$$','$$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-44781950-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation">
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:davidsiaw.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/gallery">Gallery</a></li>
+  <li><a href="/notes">Notes</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Hexlife</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-21T10:46:00+00:00" pubdate data-updated="true">Nov 21<span>st</span>, 2014</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Last week I wrote a simple Game of Life variation that runs on a hexagonal grid after viewing <a href="http://en.wikipedia.org/wiki/Conway's_Game_of_Life#mediaviewer/File:Oscillator.gif">an example on Wikipedia</a>. The cells considered are the immediate neighbours. The rules are:</p>
+
+<ul>
+<li>if a dead cell is surrounded by 2 live cells, the dead cell becomes alive</li>
+<li>if a live cell is surrounded by 3 or 4 live cells, it stays alive</li>
+<li>in all other cases, the cell dies</li>
+</ul>
+
+
+<p>One of the interesting things about this set of rules is the absence of still life. The reason for this absence is that a cell can only be born under conditions where a live cell would otherwise die. This means that whenever a cell is born it is likely to kill its parents.</p>
+
+<p>Hence the only known stable life forms in this set of rules at the moment are oscillators. No gliders have been found yet.</p>
+
+<p>You can play with my implementation here: <a href="http://davidsiaw.github.io/hexlife/">http://davidsiaw.github.io/hexlife/</a></p>
+
+<p>In my search for a glider in this set of rules, I found a bunch of oscillators and decided to record them:</p>
+
+<table>
+<thead>
+<tr>
+<th> Picture                                     </th>
+<th> Description </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/hexlife/2cell.png" alt="Alt text" />        </td>
+<td> The <strong>2cell</strong> is the simplest and most common oscillator. It is left behind by almost any unstable life.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/spinner.png" alt="Alt text" />      </td>
+<td> The <strong>Spinner</strong> is another common oscillator that has a period of 2. It simply looks like it is spinning.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/mouth.png" alt="Alt text" />        </td>
+<td> The <strong>Mouth</strong> looks like a spinner but instead of 2nd level adjacent, they are 3rd level adjacent, so it looks like it is always opening and closing</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/needle.png" alt="Alt text" />       </td>
+<td> The <strong>Needle</strong> has a period of 2 and flips back and forth.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/dancer.png" alt="Alt text" />       </td>
+<td> The <strong>Dancer</strong> has a period of 2 and looks like its swinging back and forth.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/star.png" alt="Alt text" />         </td>
+<td> The <strong>Star</strong> looks like a twinkling star. It is quite peculiar in the sense that it has a period of 3.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/rotator.png" alt="Alt text" />      </td>
+<td> The <strong>Rotator</strong> has a period of 4 and looks like it is spinning in a weird way.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/bat.png" alt="Alt text" />          </td>
+<td> The <strong>Bat</strong> is perhaps the most common 4-period oscillator you get from random starts.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/snake.png" alt="Alt text" />        </td>
+<td> The <strong>Snake</strong> is a period-4 oscillator that looks like a snake that wiggles around</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/morpher.png" alt="Alt text" />      </td>
+<td> The <strong>Morpher</strong> is really simple but really interesting-looking oscillator. It has got a period of 12 and transforms into all its possible orientations. This means that even though it has no symmetry, it does not matter which way you orient it, it will achieve the same configurations. I call this temporal homogeneity.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/tristar.png" alt="Alt text" />      </td>
+<td> The <strong>Tristar</strong> is a period-12 oscillator that twinkles in a more elaborate way than the star.</td>
+</tr>
+<tr>
+<td><img src="images/hexlife/swimmer.png" alt="Alt text" />      </td>
+<td> The <strong>Swimmer</strong> is an oscillator with a period of 48. You can actually find it on the Wikipedia page I linked. It seems like a lost fish swimming back and forth.</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>If you find more oscillators please leave a comment!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">davidsiaw</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-21T10:46:00+00:00" pubdate data-updated="true">Nov 21<span>st</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/random/'>Random</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidsiaw.github.io/blog/2014/11/21/hexlife/" data-via="davidsiaw" data-counturl="http://davidsiaw.github.io/blog/2014/11/21/hexlife/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/10/30/using-travis-to-deploy-my-blog/" title="Previous Post: Using Travis to deploy my blog">&laquo; Using Travis to deploy my blog</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <ul id="recent_posts">
+      <li class="post">
+      <a href="http://davidsiaw.github.io" alt="Home"><img src="/images/Home.png"></a>
+      <a href="http://davidsiaw.github.io/archives/" alt="Archives"><img src="/images/Calendar.png"></a>
+      
+      <a href="http://davidsiaw.github.io/atom.xml" alt="subscribe feed"><img src="/images/rss.png"></a>
+      </li>
+  </ul>
+</section>
+<section>
+  <h1>About Me</h1>
+  <p>I am a whimsical programmer with a wandering mind and a serious need to try new things all the time. I hate null and exceptions. I think this world can be a much better place than that.</p>
+</section>
+
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:davidsiaw.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/gallery">Gallery</a></li>
+  <li><a href="/notes">Notes</a></li>
+</ul>
+
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (8)</a></li></ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/21/hexlife/">Hexlife</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/30/using-travis-to-deploy-my-blog/">Using Travis to deploy my blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/12/new-blog/">New Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/18/online-vs-batch-learning/">Online vs Batch learning</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/19/this-seems-to-make-cappuccino-faster/">This seems to make Cappuccino faster...</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/davidsiaw">@davidsiaw</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'davidsiaw',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - davidsiaw -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'davidsiawblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://davidsiaw.github.io/blog/2014/11/21/hexlife/';
+        var disqus_url = 'http://davidsiaw.github.io/blog/2014/11/21/hexlife/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
