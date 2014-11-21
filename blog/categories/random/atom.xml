@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Random | ./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/blog/categories/random/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2014-11-21T02:49:06+00:00</updated>
+  <updated>2014-11-21T02:52:18+00:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -44,51 +44,51 @@
 </thead>
 <tbody>
 <tr>
-<td><img src="images/hexlife/2cell.png" alt="Alt text" />        </td>
+<td><img src="/images/hexlife/2cell.png" alt="Alt text" />        </td>
 <td> The <strong>2cell</strong> is the simplest and most common oscillator. It is left behind by almost any unstable life.</td>
 </tr>
 <tr>
-<td><img src="images/hexlife/spinner.png" alt="Alt text" />      </td>
+<td><img src="/images/hexlife/spinner.png" alt="Alt text" />      </td>
 <td> The <strong>Spinner</strong> is another common oscillator that has a period of 2. It simply looks like it is spinning.</td>
 </tr>
 <tr>
-<td><img src="images/hexlife/mouth.png" alt="Alt text" />        </td>
+<td><img src="/images/hexlife/mouth.png" alt="Alt text" />        </td>
 <td> The <strong>Mouth</strong> looks like a spinner but instead of 2nd level adjacent, they are 3rd level adjacent, so it looks like it is always opening and closing</td>
 </tr>
 <tr>
-<td><img src="images/hexlife/needle.png" alt="Alt text" />       </td>
+<td><img src="/images/hexlife/needle.png" alt="Alt text" />       </td>
 <td> The <strong>Needle</strong> has a period of 2 and flips back and forth.</td>
 </tr>
 <tr>
-<td><img src="images/hexlife/dancer.png" alt="Alt text" />       </td>
+<td><img src="/images/hexlife/dancer.png" alt="Alt text" />       </td>
 <td> The <strong>Dancer</strong> has a period of 2 and looks like its swinging back and forth.</td>
 </tr>
 <tr>
-<td><img src="images/hexlife/star.png" alt="Alt text" />         </td>
+<td><img src="/images/hexlife/star.png" alt="Alt text" />         </td>
 <td> The <strong>Star</strong> looks like a twinkling star. It is quite peculiar in the sense that it has a period of 3.</td>
 </tr>
 <tr>
-<td><img src="images/hexlife/rotator.png" alt="Alt text" />      </td>
+<td><img src="/images/hexlife/rotator.png" alt="Alt text" />      </td>
 <td> The <strong>Rotator</strong> has a period of 4 and looks like it is spinning in a weird way.</td>
 </tr>
 <tr>
-<td><img src="images/hexlife/bat.png" alt="Alt text" />          </td>
+<td><img src="/images/hexlife/bat.png" alt="Alt text" />          </td>
 <td> The <strong>Bat</strong> is perhaps the most common 4-period oscillator you get from random starts.</td>
 </tr>
 <tr>
-<td><img src="images/hexlife/snake.png" alt="Alt text" />        </td>
+<td><img src="/images/hexlife/snake.png" alt="Alt text" />        </td>
 <td> The <strong>Snake</strong> is a period-4 oscillator that looks like a snake that wiggles around</td>
 </tr>
 <tr>
-<td><img src="images/hexlife/morpher.png" alt="Alt text" />      </td>
+<td><img src="/images/hexlife/morpher.png" alt="Alt text" />      </td>
 <td> The <strong>Morpher</strong> is really simple but really interesting-looking oscillator. It has got a period of 12 and transforms into all its possible orientations. This means that even though it has no symmetry, it does not matter which way you orient it, it will achieve the same configurations. I call this temporal homogeneity.</td>
 </tr>
 <tr>
-<td><img src="images/hexlife/tristar.png" alt="Alt text" />      </td>
+<td><img src="/images/hexlife/tristar.png" alt="Alt text" />      </td>
 <td> The <strong>Tristar</strong> is a period-12 oscillator that twinkles in a more elaborate way than the star.</td>
 </tr>
 <tr>
-<td><img src="images/hexlife/swimmer.png" alt="Alt text" />      </td>
+<td><img src="/images/hexlife/swimmer.png" alt="Alt text" />      </td>
 <td> The <strong>Swimmer</strong> is an oscillator with a period of 48. You can actually find it on the Wikipedia page I linked. It seems like a lost fish swimming back and forth.</td>
 </tr>
 </tbody>
