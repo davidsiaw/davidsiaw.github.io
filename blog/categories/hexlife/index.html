@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Different versions of MSVC have different versions of STL - ./home/davidsiaw</title>
+  <title>Category: Hexlife - ./home/davidsiaw</title>
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="Something that I have only recently noticed only after I have used MSVC for a while is that different versions of MSVC use different versions of the &hellip;">
+  <meta name="description" content="Category: Hexlife">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://davidsiaw.github.io/blog/2008/09/22/different-versions-of-msvc-have-different-versions-of-stl/">
+  <link rel="canonical" href="http://davidsiaw.github.ioblog/categories/hexlife/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -104,105 +104,50 @@
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">Different Versions of MSVC Have Different Versions of STL</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-09-22T00:00:00+00:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2008</time>
-        
-         | <a href="#disqus_thread">Comments</a>
-        
-      </p>
+    <h1 class="entry-title">Category: Hexlife</h1>
     
   </header>
-
-
-<div class="entry-content"><p>Something that I have only recently noticed only after I have used MSVC for a while is that different versions of MSVC use different versions of the C++ standard template library. This isn&rsquo;t a problem, unless you are linking libraries statically that were built with different versions of MSVC. For example, a static library that uses the STL built with MSVC 2003 would not be linkable with a program built with MSVC 2005 without a considerable amount of dicking around.</p>
-
-<p>This is weird, because the STL is meant to be portable and make programs portable. It appears that Microsoft&rsquo;s STL are not only a set of headers, but also a corresponding set of libraries that contain a set of functions that are used by the STL.</p>
-
-<p>If you attempt to link a library built with a version of MSVC with a program built with another version of MSVC, the compiler will complain because it is unable to find references to the functions the library&rsquo;s version of the STL calls.</p>
-
-<p>The obvious way around this would be to link all the libraries the library depends on into itself, but that would cause problems with compiling with the same version of MSVC, and even more so when you are using static libraries that were all compiled with different versions of MSVC.</p>
-
-<p>Usually you wouldn&rsquo;t worry about this unless you are creating libraries to be used by other people, or using libraries written by other people. I wonder what Microsoft has against one STL to rule them all? So how do we get around this? Easy answer: You don&rsquo;t use the STL.</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">davidsiaw</span></span>
-
-      
-
-
-
-
-
+  <div id="blog-archives" class="category">
 
 
 
   
+  <h2>2014</h2>
+
+<article>
+  
+<h1><a href="/blog/2014/11/22/hexlife-part-2/">Hexlife Part 2</a></h1>
+<time datetime="2014-11-22T11:47:00+00:00" pubdate><span class='month'>Nov</span> <span class='day'>22</span> <span class='year'>2014</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/hexlife/'>Hexlife</a></span>
+</footer>
 
 
-<time datetime="2008-09-22T00:00:00+00:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2008</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programming/'>Programming</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidsiaw.github.io/blog/2008/09/22/different-versions-of-msvc-have-different-versions-of-stl/" data-via="davidsiaw" data-counturl="http://davidsiaw.github.io/blog/2008/09/22/different-versions-of-msvc-have-different-versions-of-stl/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2008/09/17/shaders-where-math-meets-art/" title="Previous Post: Shaders, where math meets art">&laquo; Shaders, where math meets art</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2008/10/06/windows-blues/" title="Next Post: Windows blues">Windows blues &raquo;</a>
-      
-    </p>
-  </footer>
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+<article>
+  
+<h1><a href="/blog/2014/11/21/hexlife/">Hexlife</a></h1>
+<time datetime="2014-11-21T10:46:00+00:00" pubdate><span class='month'>Nov</span> <span class='day'>21</span> <span class='year'>2014</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/hexlife/'>Hexlife</a></span>
+</footer>
+
+
+</article>
+
 </div>
-  </section>
+
+  
+</article>
 
 </div>
 
@@ -319,10 +264,7 @@
       var disqus_shortname = 'davidsiawblog';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://davidsiaw.github.io/blog/2008/09/22/different-versions-of-msvc-have-different-versions-of-stl/';
-        var disqus_url = 'http://davidsiaw.github.io/blog/2008/09/22/different-versions-of-msvc-have-different-versions-of-stl/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

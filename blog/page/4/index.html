@@ -9,7 +9,7 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="For fun, and for the purpose of making a batch texture that can store characters for fonts, I have created a little tree based off this tutorial by &hellip;">
+  <meta name="description" content="As far back as I can tell, while I have used C, there was never a time when I didn&rsquo;t have to write abstractions to make it easier to see that I &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,6 +105,223 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/01/c-is-the-new-assembler/">C Is the New Assembler</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-01T00:00:00+00:00" pubdate data-updated="true">Nov 1<span>st</span>, 2008</time>
+        
+         | <a href="/blog/2008/11/01/c-is-the-new-assembler/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As far back as I can tell, while I have used C, there was never a time when I didn&rsquo;t have to write abstractions to make it easier to see that I am doing something in particular. Every knowledgeable C programmer would know that abstractions tend to make code easier to read, reducing the cost of maintenance, but it also incurs a performance penalty, as a result of data structure translations and additional function calls.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="n">ReadArray</span><span class="p">(</span><span class="n">Array</span> <span class="n">arr</span><span class="p">,</span> <span class="n">PopulateCallback</span> <span class="n">cb</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">GetCount</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="kt">void</span><span class="o">*</span> <span class="n">elem</span> <span class="o">=</span> <span class="n">GetElement</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">cb</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is because C was written to make assembler easier to write accurately for whatever machine it was compiled for. It was a method to allow UNIX to present the same face to the programmer no matter what machine it ran on, by abstracting commonly used concepts when dealing with hardware and operating systems. Thus the concept of pointers, packing, memory management and low-level optimizations are important in the language.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="cp">#define INITIALSIZE 32</span>
+</span><span class='line'><span class="n">Hashtable</span><span class="o">*</span> <span class="n">CreateHashtable</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">Hashtable</span><span class="o">*</span> <span class="n">h</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Hashtable</span><span class="p">));</span>
+</span><span class='line'>  <span class="n">h</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">INITIALSIZE</span><span class="p">));</span>
+</span><span class='line'>  <span class="n">h</span><span class="o">-&gt;</span><span class="n">arraysize</span> <span class="o">=</span> <span class="n">INITIALSIZE</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">h</span><span class="o">-&gt;</span><span class="n">hashfun</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">implePrimeHashFunc</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">h</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">DeleteHashtable</span><span class="p">(</span><span class="n">Hashtable</span><span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">free</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">free</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, that is operating systems. Fast forward to the modern real world, which requires programs to
+easily maintainable, and highly flexible when responding to code changes, layer after layer of abstraction is piled on top of each other to make the seemingly mundane tasks of sorting arrays and creating hashtables, or even responding to a user&rsquo;s keyboard possible. The reason for this is the low levelness of C. C does not have first class support for concepts that have arisen from real-world requirements and sensible programming techniques, such as closures, currying, lambdas and automated memory management.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">Program</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">&gt;;</span> <span class="n">mapOfEmployeeNumberToAge</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">&gt;();</span>
+</span><span class='line'>      <span class="n">mapOfEmployeeNumberToAge</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">6</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This was because operating systems never had the luxury of being supported by a complete set of libraries. They have to stand on their own and can only depend on themselves. This meant that if one were to write an operating system for many machines, one needed an abstract form of assembler to be able to write for many platforms. Because C allowed OSes to present the same face across all platforms, it seemed the perfect choice at the time to write in C too, and it probably was.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&quot;five.txt&quot;</span><span class="p">,</span><span class="s">&quot;w&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+</span><span class='line'><span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Looking at things this way, C is really just an abstract assembler, abstracting the single instructions into recognizable concepts such as pointers and associating them with types to reduce mistakes. In reality, nothing has changed in software development world ever since the 1970&rsquo;s when UNIX was conceived. People are still writing in assembler. There is nothing wrong with it, but the tediousness of having to abstract simple tasks has driven up the cost of writing software lately as complexity has increased tremendously.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">short</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">0x1234</span><span class="p">;</span>
+</span><span class='line'><span class="kt">short</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='nasm'><span class='line'><span class="nf">mov</span> <span class="nb">ax</span><span class="p">,</span> <span class="mh">1234h</span>
+</span><span class='line'><span class="nf">mov</span> <span class="nb">bx</span><span class="p">,</span> <span class="nb">ax</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, mankind has probably learned the hard way that eventually there was need for better languages, and came up with many different languages such as Java, C++, C#, D, Processing, Python. All of which attempt to improve on C by introducing concepts absent in C that were highly desired by programmers. However, in an egoistic attempt to reach for the stars, they have all been made to compile directly to assembler, and thus end up still less portable than C and also perform slower as a result of those abstractions. In almost 40 years of development with C, it can be said that there is no other language more portable and no other language whose compilers are more capable of optimization than those for C.</p>
+
+<pre>error CS0006: cannot find metadata file `System.Windows.Forms.dll'Compilation failed:</pre>
+
+
+<p>One comes to wonder why, if there already are so many languages that can cover the shortcomings of C, they still cannot interoperate with C without an incredibly large amount of glue code and abstraction systems? All this makes for an extremely difficult situation which people have to bear with when they write for portability. Perhaps it is because the desires of proprietary lock ins done by companies such as Microsoft to promote this trend, to push their products such as COM/OLE and .NET which they preach as superior interop systems, yet fall short of achieving the very thing they are made to do, in order to prevent interop outside of Windows.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">NativeHashtable</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="na"> [DllImport(&quot;mydll&quot;)]</span>
+</span><span class='line'>  <span class="k">static</span> <span class="k">extern</span> <span class="n">IntPtr</span> <span class="nf">CreateHashTable</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I propose that we leverage the existing codebase and toolchains that have made C so widely used and so well supported to make it simpler to write portable programs. This has many advantages: First, by targeting a subset of C that can be compiled by any existing C compiler at all, one effectively moves the repetitous task of writing abstractions and custom data structures to provide a code base from which programs can work on to the compiler specific to the language, and allowing the C compiler to provide the powerful optimization capabilites. Such a language that targets C will also find itself in a good position, since C already is compilable on many platforms, a language that targets C will be compilable too on many platforms.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">int</span> <span class="n">NearestPow2</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">x</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Also, compilers written for another language can perform their own optimizations in C code, which is what humans do, and maintain the rest of the program&rsquo;s data structures instead of having a human being do it, which is error prone and usually inconsistent. It also allows a program to write code effectively with one convention and allows one to automate the task of documenting hacks, tasks and tricks such as flag-reading, wrapping function pointers and checking datatypes, and maintaining structures and functions which use them, which is usually a choke point that requires extreme discipline from programmers and usually is tedious and takes up a lot of time.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="c1">// Populate an array.</span>
+</span><span class='line'><span class="c1">// The PopulateCallback will be called as many times as there are elements in the array</span>
+</span><span class='line'><span class="c1">// It will be given a pointer to a particular point in the array and it is cb&#39;s duty to modify</span>
+</span><span class='line'><span class="c1">// the contents of each cell.</span>
+</span><span class='line'><span class="c1">// data is any generic data that you can provide your cb for its use.</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">PopulateArray</span><span class="p">(</span><span class="n">Array</span> <span class="n">arr</span><span class="p">,</span> <span class="n">PopulateCallback</span> <span class="n">cb</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Writing such a compiler would also be easier than writing a compiler that targets assembler. There are more people who know C than people who know assembler, and it is an easy language to write automatically, since the same things are done over and over again when we write C code, in the form of maintaining declarations and definitions.</p>
+
+<p>In order to target C for existing C compilers, one cannot realistically automate writing code for pure ANSI C. Instead, one must target a defined subset of C that resolves into machine code in a predictable way. There are many definitions out there such as C&mdash; and CIL, however none of them have been put to significant practical use.</p>
+
+<pre>astrobunny@localhost$ ./program.cexe</pre>
+
+
+<pre>C:\> cil program.cexe</pre>
+
+
+<p>If C were ever to be a target for modern languages, and used as an intermediate language for just-in-time compilation by compilers which have already abstracted system calls specific to a platform, one may finally be able to achieve the task that portability proponents have always longed for, with the performance to boot. C is the most portable language on Earth. Why not make the most of it?</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -573,11 +790,15 @@
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (8)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (7)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/22/hexlife-part-2/">Hexlife Part 2</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/11/21/hexlife/">Hexlife</a>
@@ -593,10 +814,6 @@
     
       <li class="post">
         <a href="/blog/2013/03/18/online-vs-batch-learning/">Online vs Batch learning</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/12/19/this-seems-to-make-cappuccino-faster/">This seems to make Cappuccino faster&#8230;</a>
       </li>
     
   </ul>

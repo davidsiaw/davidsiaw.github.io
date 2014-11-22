@@ -9,7 +9,7 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="Last week I wrote a simple Game of Life variation that runs on a hexagonal grid after viewing an example on Wikipedia. The cells considered are the &hellip;">
+  <meta name="description" content="Yesterday while fooling around, I wanted to build a tri-star, but I made a mistake and made this instead: But to my surprise I did not find a tri- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,6 +105,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/11/22/hexlife-part-2/">Hexlife Part 2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-22T11:47:00+00:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2014</time>
+        
+         | <a href="/blog/2014/11/22/hexlife-part-2/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Yesterday while fooling around, I wanted to build a tri-star, but I made a mistake and made this instead:</p>
+
+<p><img src="/images/hexlife/semistill-seed.png" alt="Alt text" /></p>
+
+<p>But to my surprise I did not find a tri-star, instead this grew out of it:</p>
+
+<p><img src="/images/hexlife/Y-semistill.png" alt="Alt text" /></p>
+
+<p>Since I had made changes to tint different generations with different colors, I wanted to test it. Wondering if I had introduced bugs, I went through my git history to make sure everything was fine. After reverting, it turned out I hadn&rsquo;t. It was just a variation I had never tried.</p>
+
+<p>In my <a href="/blog/2014/11/21/hexlife/">earlier post</a>, I said that still lifes could not exist under the rules because cells could not live long enough, but these structures persisted. In other words, they were non-transient cells.</p>
+
+<p>It turns out that most of the cells here had 3 neighbours, and that gave them a long lease on life. Also, all the way along the columns, there were no dead cells that had 2 cell neighbours, meaning that the cells would never die because of their spawn.</p>
+
+<p>However, the ends are kept alive by an interesting &ldquo;flower&rdquo; oscillator that resembles the twinkling star oscillator, and this keeps the entire structure alive. Basically, you can make an infinitely long structure, but you must place the oscilators at the ends.</p>
+
+<p>Armed with this knowledge, I set out to create a simpler column.</p>
+
+<p><img src="/images/hexlife/I-semistill.png" alt="Alt text" /></p>
+
+<p>I call this kind of life form a Semi-still life, since a large proportion of it can be unchanging, but must be supported by oscillation.</p>
+
+<p>Perhaps there are more of these under these rules&hellip;</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -824,85 +884,6 @@ double wh2 = 1.1;</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/11/22/regex-escapees/">Regex Escapees</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-11-22T00:00:00+00:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2011</time>
-        
-         | <a href="/blog/2011/11/22/regex-escapees/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sometimes when one writes regexes, Its hard to know what needs to be escaped and what doesn&rsquo;t. But I&rsquo;ve solved that problem while I was writing a program that generated my regexes for me. Now I have a snippet that both humans and programs can use to write regexes!</p>
-
-<p>This is for the .NET flavor of Regex.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">private</span> <span class="k">static</span> <span class="kt">string</span> <span class="nf">SanitizeToken</span><span class="p">(</span><span class="kt">string</span> <span class="n">token</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">token</span>
-</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">@&quot;\&quot;</span><span class="p">,</span> <span class="s">@&quot;\\&quot;</span><span class="p">)</span>
-</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="s">@&quot;\*&quot;</span><span class="p">)</span>
-</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;?&quot;</span><span class="p">,</span> <span class="s">@&quot;\?&quot;</span><span class="p">)</span>
-</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;+&quot;</span><span class="p">,</span> <span class="s">@&quot;\+&quot;</span><span class="p">)</span>
-</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;{&quot;</span><span class="p">,</span> <span class="s">@&quot;\{&quot;</span><span class="p">)</span>
-</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;}&quot;</span><span class="p">,</span> <span class="s">@&quot;\}&quot;</span><span class="p">)</span>
-</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;^&quot;</span><span class="p">,</span> <span class="s">@&quot;\^&quot;</span><span class="p">)</span>
-</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;$&quot;</span><span class="p">,</span> <span class="s">@&quot;\$&quot;</span><span class="p">)</span>
-</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">,</span> <span class="s">@&quot;\.&quot;</span><span class="p">)</span>
-</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;[&quot;</span><span class="p">,</span> <span class="s">@&quot;\[&quot;</span><span class="p">)</span>
-</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;]&quot;</span><span class="p">,</span> <span class="s">@&quot;\]&quot;</span><span class="p">)</span>
-</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;(&quot;</span><span class="p">,</span> <span class="s">@&quot;\(&quot;</span><span class="p">)</span>
-</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;)&quot;</span><span class="p">,</span> <span class="s">@&quot;\)&quot;</span><span class="p">)</span>
-</span><span class='line'>                  <span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;|&quot;</span><span class="p">,</span> <span class="s">@&quot;\|&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -944,11 +925,15 @@ double wh2 = 1.1;</p>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (8)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (7)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/22/hexlife-part-2/">Hexlife Part 2</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/11/21/hexlife/">Hexlife</a>
@@ -964,10 +949,6 @@ double wh2 = 1.1;</p>
     
       <li class="post">
         <a href="/blog/2013/03/18/online-vs-batch-learning/">Online vs Batch learning</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/12/19/this-seems-to-make-cappuccino-faster/">This seems to make Cappuccino faster&#8230;</a>
       </li>
     
   </ul>

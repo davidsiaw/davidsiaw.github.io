@@ -4,7 +4,7 @@
   <title><![CDATA[./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2014-11-21T02:52:18+00:00</updated>
+  <updated>2014-11-22T03:02:38+00:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hexlife Part 2]]></title>
+    <link href="http://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2/"/>
+    <updated>2014-11-22T11:47:00+00:00</updated>
+    <id>http://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2</id>
+    <content type="html"><![CDATA[<p>Yesterday while fooling around, I wanted to build a tri-star, but I made a mistake and made this instead:</p>
+
+<p><img src="http://davidsiaw.github.io/images/hexlife/semistill-seed.png" alt="Alt text" /></p>
+
+<p>But to my surprise I did not find a tri-star, instead this grew out of it:</p>
+
+<p><img src="http://davidsiaw.github.io/images/hexlife/Y-semistill.png" alt="Alt text" /></p>
+
+<p>Since I had made changes to tint different generations with different colors, I wanted to test it. Wondering if I had introduced bugs, I went through my git history to make sure everything was fine. After reverting, it turned out I hadn&rsquo;t. It was just a variation I had never tried.</p>
+
+<p>In my <a href="http://davidsiaw.github.io/blog/2014/11/21/hexlife/">earlier post</a>, I said that still lifes could not exist under the rules because cells could not live long enough, but these structures persisted. In other words, they were non-transient cells.</p>
+
+<p>It turns out that most of the cells here had 3 neighbours, and that gave them a long lease on life. Also, all the way along the columns, there were no dead cells that had 2 cell neighbours, meaning that the cells would never die because of their spawn.</p>
+
+<p>However, the ends are kept alive by an interesting &ldquo;flower&rdquo; oscillator that resembles the twinkling star oscillator, and this keeps the entire structure alive. Basically, you can make an infinitely long structure, but you must place the oscilators at the ends.</p>
+
+<p>Armed with this knowledge, I set out to create a simpler column.</p>
+
+<p><img src="http://davidsiaw.github.io/images/hexlife/I-semistill.png" alt="Alt text" /></p>
+
+<p>I call this kind of life form a Semi-still life, since a large proportion of it can be unchanging, but must be supported by oscillation.</p>
+
+<p>Perhaps there are more of these under these rules&hellip;</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Hexlife]]></title>
@@ -1352,17 +1383,6 @@ Sometimes code that was written back then may be correct back then, but may not 
 <p>Although GWT isn&rsquo;t perfect, and to get my app up and running I had to spend about an hour or so searching the internet about fixing up some XMLs to import the libraries properly, once that was done, the source code that involved adding a map to the page and a little Javascript button coule fit on the screen, it is a huge step over having to deal with the difficulties faced by web programmers to make their sites both compatible with IE and Firefox.</p>
 
 <p>Though I advocate using the minimum amount of cool new features on your site, GWT would be the next step toward progress with the current mess that is web application programming right now.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Attempt to rush an RPG]]></title>
-    <link href="http://davidsiaw.github.io/blog/2009/05/04/attempt-to-rush-an-rpg/"/>
-    <updated>2009-05-04T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2009/05/04/attempt-to-rush-an-rpg</id>
-    <content type="html"><![CDATA[<p>After reading an article on GameDev about a guy who managed to <a href="http://www.rampantgames.com/blog/2005/04/rpg-in-week.html">build an RPG in 40 hours</a>, I decided I&rsquo;d try my hand at doing an RPG 40 hours too, but in C#. So I started to write the first code on Saturday. After 10 hours of gruelling crunch and brainstorming, I was overwhelmed and realized that I had neither the skill nor discipline to actually make it in 40 hours. I didn&rsquo;t even have the energy left to write a blog post about the start, much less record the process of doing it. However, I did get to the stage where I had a map and a character walking around somewhat and had a basic dialog system in place, but with no inventory, no stats, no objects, just character and some boring dialog box.</p>
-
-<p>Thanks to the start however, I&rsquo;ve now found myself with a half-complete RPG engine. I will upload an update sometime soon. Everything used to make the game is just the .NET framework and C# that comes with Visual Studio Express. Perhaps I should try going on for another 30 hours and see how far I can get&hellip;</p>
 ]]></content>
   </entry>
   

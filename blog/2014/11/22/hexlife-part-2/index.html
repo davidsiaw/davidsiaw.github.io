@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Different versions of MSVC have different versions of STL - ./home/davidsiaw</title>
+  <title>Hexlife Part 2 - ./home/davidsiaw</title>
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="Something that I have only recently noticed only after I have used MSVC for a while is that different versions of MSVC use different versions of the &hellip;">
+  <meta name="description" content="Yesterday while fooling around, I wanted to build a tri-star, but I made a mistake and made this instead: But to my surprise I did not find a tri- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://davidsiaw.github.io/blog/2008/09/22/different-versions-of-msvc-have-different-versions-of-stl/">
+  <link rel="canonical" href="http://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -108,7 +108,7 @@
   
   <header>
     
-      <h1 class="entry-title">Different Versions of MSVC Have Different Versions of STL</h1>
+      <h1 class="entry-title">Hexlife Part 2</h1>
     
     
       <p class="meta">
@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2008-09-22T00:00:00+00:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2008</time>
+<time datetime="2014-11-22T11:47:00+00:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2014</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -133,15 +133,29 @@
   </header>
 
 
-<div class="entry-content"><p>Something that I have only recently noticed only after I have used MSVC for a while is that different versions of MSVC use different versions of the C++ standard template library. This isn&rsquo;t a problem, unless you are linking libraries statically that were built with different versions of MSVC. For example, a static library that uses the STL built with MSVC 2003 would not be linkable with a program built with MSVC 2005 without a considerable amount of dicking around.</p>
+<div class="entry-content"><p>Yesterday while fooling around, I wanted to build a tri-star, but I made a mistake and made this instead:</p>
 
-<p>This is weird, because the STL is meant to be portable and make programs portable. It appears that Microsoft&rsquo;s STL are not only a set of headers, but also a corresponding set of libraries that contain a set of functions that are used by the STL.</p>
+<p><img src="/images/hexlife/semistill-seed.png" alt="Alt text" /></p>
 
-<p>If you attempt to link a library built with a version of MSVC with a program built with another version of MSVC, the compiler will complain because it is unable to find references to the functions the library&rsquo;s version of the STL calls.</p>
+<p>But to my surprise I did not find a tri-star, instead this grew out of it:</p>
 
-<p>The obvious way around this would be to link all the libraries the library depends on into itself, but that would cause problems with compiling with the same version of MSVC, and even more so when you are using static libraries that were all compiled with different versions of MSVC.</p>
+<p><img src="/images/hexlife/Y-semistill.png" alt="Alt text" /></p>
 
-<p>Usually you wouldn&rsquo;t worry about this unless you are creating libraries to be used by other people, or using libraries written by other people. I wonder what Microsoft has against one STL to rule them all? So how do we get around this? Easy answer: You don&rsquo;t use the STL.</p>
+<p>Since I had made changes to tint different generations with different colors, I wanted to test it. Wondering if I had introduced bugs, I went through my git history to make sure everything was fine. After reverting, it turned out I hadn&rsquo;t. It was just a variation I had never tried.</p>
+
+<p>In my <a href="/blog/2014/11/21/hexlife/">earlier post</a>, I said that still lifes could not exist under the rules because cells could not live long enough, but these structures persisted. In other words, they were non-transient cells.</p>
+
+<p>It turns out that most of the cells here had 3 neighbours, and that gave them a long lease on life. Also, all the way along the columns, there were no dead cells that had 2 cell neighbours, meaning that the cells would never die because of their spawn.</p>
+
+<p>However, the ends are kept alive by an interesting &ldquo;flower&rdquo; oscillator that resembles the twinkling star oscillator, and this keeps the entire structure alive. Basically, you can make an infinitely long structure, but you must place the oscilators at the ends.</p>
+
+<p>Armed with this knowledge, I set out to create a simpler column.</p>
+
+<p><img src="/images/hexlife/I-semistill.png" alt="Alt text" /></p>
+
+<p>I call this kind of life form a Semi-still life, since a large proportion of it can be unchanging, but must be supported by oscillation.</p>
+
+<p>Perhaps there are more of these under these rules&hellip;</p>
 </div>
 
 
@@ -164,12 +178,12 @@
   
 
 
-<time datetime="2008-09-22T00:00:00+00:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2008</time>
+<time datetime="2014-11-22T11:47:00+00:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2014</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/programming/'>Programming</a>
+    <a class='category' href='/blog/categories/hexlife/'>Hexlife</a>
   
 </span>
 
@@ -178,7 +192,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidsiaw.github.io/blog/2008/09/22/different-versions-of-msvc-have-different-versions-of-stl/" data-via="davidsiaw" data-counturl="http://davidsiaw.github.io/blog/2008/09/22/different-versions-of-msvc-have-different-versions-of-stl/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2/" data-via="davidsiaw" data-counturl="http://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2/" >Tweet</a>
   
   
   
@@ -189,10 +203,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2008/09/17/shaders-where-math-meets-art/" title="Previous Post: Shaders, where math meets art">&laquo; Shaders, where math meets art</a>
+        <a class="basic-alignment left" href="/blog/2014/11/21/hexlife/" title="Previous Post: Hexlife">&laquo; Hexlife</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2008/10/06/windows-blues/" title="Next Post: Windows blues">Windows blues &raquo;</a>
       
     </p>
   </footer>
@@ -320,8 +332,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://davidsiaw.github.io/blog/2008/09/22/different-versions-of-msvc-have-different-versions-of-stl/';
-        var disqus_url = 'http://davidsiaw.github.io/blog/2008/09/22/different-versions-of-msvc-have-different-versions-of-stl/';
+        var disqus_identifier = 'http://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2/';
+        var disqus_url = 'http://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2/';
         var disqus_script = 'embed.js';
       
     (function () {
