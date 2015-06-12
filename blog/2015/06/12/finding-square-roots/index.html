@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>./home/davidsiaw</title>
+  <title>Finding Square Roots - ./home/davidsiaw</title>
   <meta name="author" content="davidsiaw">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://davidsiaw.github.io/">
+  <link rel="canonical" href="http://davidsiaw.github.io/blog/2015/06/12/finding-square-roots/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -103,15 +103,12 @@
 </nav> -->
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2015/06/12/finding-square-roots/">Finding Square Roots</a></h1>
+      <h1 class="entry-title">Finding Square Roots</h1>
     
     
       <p class="meta">
@@ -129,14 +126,14 @@
 
 <time datetime="2015-06-12T01:36:00+00:00" pubdate data-updated="true">Jun 12<span>th</span>, 2015</time>
         
-         | <a href="/blog/2015/06/12/finding-square-roots/#disqus_thread">Comments</a>
+         | <a href="#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Most of us has at some point in our lives used the <code>Math.sqrt()</code> function. We would even know that \(\sqrt{2} = 1.414\ldots\). However, we never really give how it is implemented a second thought. Thus is the power of a tight abstraction. For those of us who lived in the age of calculators, finding square roots has always been a source of mystery. For me during my teenage years, calculating a square root has really just been about looking up a numeric table.</p>
+<div class="entry-content"><p>Most of us has at some point in our lives used the <code>Math.sqrt()</code> function. We would even know that \(\sqrt{2} = 1.414\ldots\). However, we never really give how it is implemented a second thought. Thus is the power of a tight abstraction. For those of us who lived in the age of calculators, finding square roots has always been a source of mystery. For me during my teenage years, calculating a square root has really just been about looking up a numeric table.</p>
 
 <p><img src="/images/log8.jpg" alt="Table of Square Roots" /></p>
 
@@ -509,109 +506,16 @@
 
 <p>It is also interesting to note that you can use this method to get cube roots, quartic roots and quintic roots too.</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac/">Script for Setting Up FTP to a Folder on a Mac</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">davidsiaw</span></span>
 
-<time datetime="2015-01-23T10:34:00+00:00" pubdate data-updated="true">Jan 23<span>rd</span>, 2015</time>
-        
-         | <a href="/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This script came in handy many times when I had to share things with my other laptops or windows users.</p>
-
-<p>On a Mac you should have Ruby installed. Macs normally come with an ftpd whose frontend has been ripped out, so you can only do this on the command line. Basically, write this to a script file (lets call it <code>setftp</code>)</p>
-
-<p>and then use it by typing:</p>
-
-<p><code>./setftp /directoryIWantToShare</code></p>
-
-<p>Tested on Mavericks</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1">#!/usr/bin/env ruby</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">#puts ARGV.inspect</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">puts</span> <span class="sb">`sudo -s launchctl unload -w /System/Library/LaunchDaemons/ftp.plist`</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">config</span> <span class="o">=</span> <span class="o">&lt;&lt;-</span><span class="no">THEFILE</span>
-</span><span class='line'><span class="sh"># Set the ftp root dir to this folder</span>
-</span><span class='line'><span class="sh">umask all 022</span>
-</span><span class='line'><span class="sh">chroot GUEST #{ARGV[0]}</span>
-</span><span class='line'><span class="sh">modify guest off</span>
-</span><span class='line'><span class="sh">umask  guest 0707</span>
-</span><span class='line'><span class="sh">upload guest on</span>
-</span><span class='line'><span class="no">THEFILE</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;/etc/ftpd.conf&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span> <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">config</span><span class="p">)</span> <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">puts</span> <span class="sb">`sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist`</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>With this you will have an ftpd turn on whose root folder is the folder you named. in this case it is <code>/directoryIWantToShare</code></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/11/22/hexlife-part-2/">Hexlife Part 2</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -623,678 +527,40 @@
   
 
 
-<time datetime="2014-11-22T11:47:00+00:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2014</time>
-        
-         | <a href="/blog/2014/11/22/hexlife-part-2/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Yesterday while fooling around, I wanted to build a tri-star, but I made a mistake and made this instead:</p>
-
-<p><img src="/images/hexlife/semistill-seed.png" alt="Alt text" /></p>
-
-<p>But to my surprise I did not find a tri-star, instead this grew out of it:</p>
-
-<p><img src="/images/hexlife/Y-semistill.png" alt="Alt text" /></p>
-
-<p>Since I had made changes to tint different generations with different colors, I wanted to test it. Wondering if I had introduced bugs, I went through my git history to make sure everything was fine. After reverting, it turned out I hadn&rsquo;t. It was just a variation I had never tried.</p>
-
-<p>In my <a href="/blog/2014/11/21/hexlife/">earlier post</a>, I said that still lifes could not exist under the rules because cells could not live long enough, but these structures persisted. In other words, they were non-transient cells.</p>
-
-<p>It turns out that most of the cells here had 3 neighbours, and that gave them a long lease on life. Also, all the way along the columns, there were no dead cells that had 2 cell neighbours, meaning that the cells would never die because of their spawn.</p>
-
-<p>However, the ends are kept alive by an interesting &ldquo;flower&rdquo; oscillator that resembles the twinkling star oscillator, and this keeps the entire structure alive. Basically, you can make an infinitely long structure, but you must place the oscilators at the ends.</p>
-
-<p>Armed with this knowledge, I set out to create a simpler column.</p>
-
-<p><img src="/images/hexlife/I-semistill.png" alt="Alt text" /></p>
-
-<p>I call this kind of life form a Semi-still life, since a large proportion of it can be unchanging, but must be supported by oscillation.</p>
-
-<p>Perhaps there are more of these under these rules&hellip;</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
+<time datetime="2015-06-12T01:36:00+00:00" pubdate data-updated="true">Jun 12<span>th</span>, 2015</time>
       
-  <header>
+
+
+    </p>
     
-      <h1 class="entry-title"><a href="/blog/2014/11/21/hexlife/">Hexlife</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
+      <div class="sharing">
   
-
-
-<time datetime="2014-11-21T10:46:00+00:00" pubdate data-updated="true">Nov 21<span>st</span>, 2014</time>
-        
-         | <a href="/blog/2014/11/21/hexlife/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Last week I wrote a simple Game of Life variation that runs on a hexagonal grid after viewing <a href="http://en.wikipedia.org/wiki/Conway's_Game_of_Life#mediaviewer/File:Oscillator.gif">an example on Wikipedia</a>. The cells considered are the immediate neighbours. The rules are:</p>
-
-<ul>
-<li>if a dead cell is surrounded by 2 live cells, the dead cell becomes alive</li>
-<li>if a live cell is surrounded by 3 or 4 live cells, it stays alive</li>
-<li>in all other cases, the cell dies</li>
-</ul>
-
-
-<p>One of the interesting things about this set of rules is the absence of still life. The reason for this absence is that a cell can only be born under conditions where a live cell would otherwise die. This means that whenever a cell is born it is likely to kill its parents.</p>
-
-<p>Hence the only known stable life forms in this set of rules at the moment are oscillators. No gliders have been found yet.</p>
-
-<p>You can play with my implementation here: <a href="http://davidsiaw.github.io/hexlife/">http://davidsiaw.github.io/hexlife/</a></p>
-
-<p>In my search for a glider in this set of rules, I found a bunch of oscillators and decided to record them:</p>
-
-<table>
-<thead>
-<tr>
-<th> Picture                                     </th>
-<th> Description </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><img src="/images/hexlife/2cell.png" alt="Alt text" />        </td>
-<td> The <strong>2cell</strong> is the simplest and most common oscillator. It is left behind by almost any unstable life.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/spinner.png" alt="Alt text" />      </td>
-<td> The <strong>Spinner</strong> is another common oscillator that has a period of 2. It simply looks like it is spinning.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/mouth.png" alt="Alt text" />        </td>
-<td> The <strong>Mouth</strong> looks like a spinner but instead of 2nd level adjacent, they are 3rd level adjacent, so it looks like it is always opening and closing</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/needle.png" alt="Alt text" />       </td>
-<td> The <strong>Needle</strong> has a period of 2 and flips back and forth.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/dancer.png" alt="Alt text" />       </td>
-<td> The <strong>Dancer</strong> has a period of 2 and looks like its swinging back and forth.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/star.png" alt="Alt text" />         </td>
-<td> The <strong>Star</strong> looks like a twinkling star. It is quite peculiar in the sense that it has a period of 3.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/rotator.png" alt="Alt text" />      </td>
-<td> The <strong>Rotator</strong> has a period of 4 and looks like it is spinning in a weird way.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/bat.png" alt="Alt text" />          </td>
-<td> The <strong>Bat</strong> is perhaps the most common 4-period oscillator you get from random starts.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/snake.png" alt="Alt text" />        </td>
-<td> The <strong>Snake</strong> is a period-4 oscillator that looks like a snake that wiggles around</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/morpher.png" alt="Alt text" />      </td>
-<td> The <strong>Morpher</strong> is really simple but really interesting-looking oscillator. It has got a period of 12 and transforms into all its possible orientations. This means that even though it has no symmetry, it does not matter which way you orient it, it will achieve the same configurations. I call this temporal homogeneity.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/tristar.png" alt="Alt text" />      </td>
-<td> The <strong>Tristar</strong> is a period-12 oscillator that twinkles in a more elaborate way than the star.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/swimmer.png" alt="Alt text" />      </td>
-<td> The <strong>Swimmer</strong> is an oscillator with a period of 48. You can actually find it on the Wikipedia page I linked. It seems like a lost fish swimming back and forth.</td>
-</tr>
-</tbody>
-</table>
-
-
-<p>If you find more oscillators please leave a comment!</p>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidsiaw.github.io/blog/2015/06/12/finding-square-roots/" data-via="davidsiaw" data-counturl="http://davidsiaw.github.io/blog/2015/06/12/finding-square-roots/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
-  
-  
 
-
-    </article>
-  
-  
-    <article>
+    
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/30/using-travis-to-deploy-my-blog/">Using Travis to Deploy My Blog</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-30T01:07:00+00:00" pubdate data-updated="true">Oct 30<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/10/30/using-travis-to-deploy-my-blog/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&rsquo;ve been using Travis-CI more and more as a platform from which I can deploy things, due to the fact that we can run any code on it. Today I made it so that this blog is deployed to gh-pages when pushed. I have also set up my personal blog to be pushed this way as well.</p>
-
-<p>Why did I use Travis-CI instead of Shippable or other CI systems for this? Well, its mainly due to the fact that I was already using Travis, and the tools (specifically the Travis gem) are quite mature. Many of the things that are quite troublesome, like generating a key and placing decrypt commands into the .travis.yml, are now covered in simple command line instructions.</p>
-
-<p>My blog uses Jekyll + Octopress, but I don&rsquo;t like the limitations imposed by github on the templates I can use. So I decided it was better to simply upload the finished product. First of all, I push all my blog sources up to a public repository at <a href="https://github.com/davidsiaw/davidsiaw.github.io.source">https://github.com/davidsiaw/davidsiaw.github.io.source</a></p>
-
-<p>While the setup is easy, its not obvious that you can do this. Hopefully this will go some way to helping others who want to circumvent the github limitations on their gh-pages content as well.</p>
-
-<p>In this post I will show you how to set it up. First of all, I create a key that will give push access to my blog&rsquo;s repository at <a href="https://github.com/davidsiaw/davidsiaw.github.io">https://github.com/davidsiaw/davidsiaw.github.io</a> by calling up <code>ssh-keygen</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>nagatsuki david$ ssh-keygen
-</span><span class='line'>Generating public/private rsa key pair.
-</span><span class='line'>Enter file in which to save the key (/Users/david/.ssh/id_rsa): deploy_key
-</span><span class='line'>Enter passphrase (empty for no passphrase): 
-</span><span class='line'>Enter same passphrase again: 
-</span><span class='line'>Your identification has been saved in deploy_key.
-</span><span class='line'>Your public key has been saved in deploy_key.pub.
-</span><span class='line'>The key fingerprint is:
-</span><span class='line'>89:8d:a9:60:5c:8b:77:05:c4:2b:05:a4:96:64:8e:fa david@nagatsuki
-</span><span class='line'>The key's randomart image is:
-</span><span class='line'>+--[ RSA 2048]----+
-</span><span class='line'>|     .=+o        |
-</span><span class='line'>|     *  o.       |
-</span><span class='line'>|    = o. o.      |
-</span><span class='line'>| o = ..=.o       |
-</span><span class='line'>|  = . =.S        |
-</span><span class='line'>|   o o .         |
-</span><span class='line'>|    E            |
-</span><span class='line'>|                 |
-</span><span class='line'>|                 |
-</span><span class='line'>+-----------------+</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I then place the deploy_key.pub in my github repository.</p>
-
-<p>Next, I make use of the Travis gem to encrypt my private key. I add the <code>--add</code> parameter to make it write to my .travis.yml (I am in the directory.)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>nagatsuki david$ travis encrypt-file deploy_key --add
-</span><span class='line'>encrypting deploy_key for davidsiaw/davidsiaw.github.io
-</span><span class='line'>storing result as deploy_key.enc
-</span><span class='line'>storing secure env variables for decryption
-</span><span class='line'>
-</span><span class='line'>Make sure to add deploy_key.enc to the git repository.
-</span><span class='line'>Make sure not to add deploy_key to the git repository.
-</span><span class='line'>Commit all changes to your .travis.yml.</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This gives me a deploy_key.enc that is my encrypted private key.</p>
-
-<p>In order to use this key, I need to add some more lines to <a href="https://github.com/davidsiaw/davidsiaw.github.io.source/blob/master/.travis.yml">.travis.yml</a> to enable it to push to github. First of all, I need to install the key into the .ssh folder so git can use it. I also chmod it so ssh will not complain.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">chmod 600 deploy-key</span>
-</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cp deploy-key ~/.ssh/id_rsa</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>With this, I can now tell Travis to push the generated files. All I do is tell it to generate the site (since this is just Jekyll), and then call my <a href="https://github.com/davidsiaw/davidsiaw.github.io.source/blob/master/deploy">deploy script</a> which simply pushes the right stuff up to github.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">bundle exec rake generate</span>
-</span><span class='line'><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">bash deploy</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>With this, my website gets updated everytime I push my changes to <a href="https://github.com/davidsiaw/davidsiaw.github.io.source">https://github.com/davidsiaw/davidsiaw.github.io.source</a>, Travis will automatically update my blog.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
+        <a class="basic-alignment left" href="/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac/" title="Previous Post: Script for setting up FTP to a folder on a Mac">&laquo; Script for setting up FTP to a folder on a Mac</a>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/12/new-blog/">New Blog</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-12T16:03:00+00:00" pubdate data-updated="true">Oct 12<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/10/12/new-blog/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>As all of you may have noticed the theme has changed and the URL seems to have been redirected to Github. I decided to try out this github pages thing and it seems to work pretty well. The static content idea is really attractive to me and really gives me much more power over the pages with a small tradeoff for convenience. But convenience is a non-issue for most programmers who can write tools to make the inconvenient convenient.</p>
-
-<p>What I want to talk about here is actually how I started doing this and why I ended up moving my blog across, along with what I learned along the way about Jekyll-Bootstrap, Octopress, Jekyll, the annoying problems and the process of migrating from a WordPress blog to a Octopress/Disqus duo.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/10/12/new-blog/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/18/online-vs-batch-learning/">Online vs Batch Learning</a></h1>
-    
-    
-      <p class="meta">
-        
+    </p>
+  </footer>
+</article>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-18T00:00:00+00:00" pubdate data-updated="true">Mar 18<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/03/18/online-vs-batch-learning/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>While debugging neuron, my new neural network simulation application, I found some (visually) interesting differences between online and batch learning. While batch learning is usually touted as a better form of learning, I found that the two don&rsquo;t seem to make much difference, except for a steppy curve from online learning, as I would expect as the gradient changes differently if you keep calculating the values in a cycle instead of calculating the combined gradient of all the training data.</p>
-
-<p>Here are the results from training a 2-2-1 network with biases with XOR as training data:</p>
-
-<p><a href="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron2.jpg" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron2-500x81.jpg" alt="" title="Picture" width="500" height="81" class="alignnone size-medium wp-image-1204" /></a></p>
-
-<p>with the weights initialized to:</p>
-
-<p>double[] wx0 = { 0.1, 0.2 };
-double[] wx1 = { 0.3, 0.4 };
-double[] wx2 = { 0.5, 0.6 };</p>
-
-<p>double wh0 = 0.7;
-double wh1 = 0.9;
-double wh2 = 1.1;</p>
-
-<p>Where wx are the values between the input and hidden layer and wh are the values between the hidden and output layer.</p>
-
-<p>Here is the network topography:</p>
-
-<p><a href="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron1.jpg" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron1-500x361.jpg" alt="" title="Picture" width="500" height="361" class="alignnone size-medium wp-image-1204" /></a></p>
-
-<p>Here is the training error:</p>
-
-<p><a href="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-chart_1-1.png" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-chart_1-1-500x272.png" alt="" title="Picture" width="500" height="272" class="alignnone size-medium wp-image-1204" /></a></p>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-  
-  
+  </section>
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/19/this-seems-to-make-cappuccino-faster/">This Seems to Make Cappuccino Faster&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-19T00:00:00+00:00" pubdate data-updated="true">Dec 19<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/12/19/this-seems-to-make-cappuccino-faster/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>My lack of knowledge about Cappuccino&rsquo;s implementation details may play a role, but</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">setNativeTimeout</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Seems to make my Cappuccino apps more responsive.</p>
 </div>
-  
-  
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/12/the-identity-of-an-array/">The Identity of an Array</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-12T00:00:00+00:00" pubdate data-updated="true">Dec 12<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/12/12/the-identity-of-an-array/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Given two arrays of integers: a and b, what does (a == b) mean?</p>
-
-<p>Most of us will say, it depends on the programming language you are using, and that is true. In the case of C, it means a and b are the pointers to the start of the same array. In Java and C# it means the arrays are Reference Equal, basically meaning that the pointer to the arrays a and b are the same.</p>
-
-<p>But how is that really useful? If you passed around these two arrays and checked if the references are the same, you are really just comparing the object with itself or not. The object is never going to be equal to anything else but itself. Even another array created in a different part of the program that has exactly the same integers in it in the same order will be a different array.</p>
-
-<p>One would agree that [1, 2, 3] and [1, 2, 3] are the same but if these two arrays were created at different places the == operator will return false. Why is the extra information that the arrays are made in two different places important to the == operator? It makes no sense when you look at arrays as a list of numbers, and not a pointer into memory, which is an implementation detail.</p>
-
-<p>So if we were to write a better == operator for arrays, what would it be?</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[1,2,3,3] == [1,2,3,3] -&gt; true
-</span><span class='line'>[1,2,3,3] == [3,2,1,3] -&gt; ?
-</span><span class='line'>[1,2,3,3] == [1,2,3,1,2,3] -&gt; ?
-</span><span class='line'>[1,2,3,3] == [2,3,1] -&gt; ?
-</span><span class='line'>[1,2,3,3] == [1,2,3] -&gt; ?
-</span><span class='line'>[1,2,3,3] == [1233] -&gt; ?
-</span><span class='line'>[1,2,3,3] == "1233" -&gt; ?</span></code></pre></td></tr></table></div></figure>
-
-
-<p>We suddenly see that the array&rsquo;s identity changes depending on what you are using it for. Let us replace those question marks with context.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[1,2,3,3] == [1,2,3,3] -&gt; true if the array is an ordered list
-</span><span class='line'>[1,2,3,3] == [3,2,1,3] -&gt; true if the array is an unordered list
-</span><span class='line'>[1,2,3,3] == [1,2,3,1,2,3] -&gt; true if the array is a bag of numbers
-</span><span class='line'>[1,2,3,3] == [2,3,1] -&gt; true if the array is an unordered set
-</span><span class='line'>[1,2,3,3] == [1,2,3] -&gt; true if the array is an ordered set
-</span><span class='line'>[1,2,3,3] == [1233] -&gt; true if the array is a collection of digits
-</span><span class='line'>[1,2,3,3] == "1233" -&gt; true if the array is a string</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The array is too general. It is actually really important that we know what the array represents. A whole bunch of things are arrays but are passed around as plain arrays. This causes maintainer programmers to wonder what exactly they represent.</p>
-
-<p>Some cite performance reasons. Fair enough, passing a struct that contains an array and a set of methods to manipulate it in C is slower than just passing the struct around. C is a very low level language where implementation detail really mixes with requirements.</p>
-
-<p>But why is it that so many other modern languages have this problem? Why isn&rsquo;t there a language that treats a set like a set, and has a compiler that really just compiles it down into an array?</p>
-
-<p>Interestingly enough, this problem does not stop at arrays. Numbers have different meanings in different contexts too. Take for example the function Math.Cos in C#. This function takes a double in <i>radians</i>.</p>
-
-<p>Why is it that the function signature is</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="kt">double</span> <span class="nf">Cos</span><span class="p">(</span><span class="kt">double</span> <span class="n">angle</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>and not</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">ratio</span> <span class="nf">Cos</span><span class="p">(</span><span class="n">radians</span> <span class="n">angle</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>where radians is just a type of double?</p>
-
-<p>If the compiler was fed this information the first place, programs like this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">degrees</span> <span class="n">a</span> <span class="p">=</span> <span class="m">40</span><span class="p">;</span>
-</span><span class='line'><span class="n">ratio</span> <span class="n">r</span> <span class="p">=</span> <span class="n">Cos</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>will cause the compiler to either throw a compiler error for passing degrees into a radians parameter, or generate code to convert degrees to radians.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/28/exceptionless-programming/">Exceptionless Programming</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-28T00:00:00+00:00" pubdate data-updated="true">Nov 28<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/11/28/exceptionless-programming/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I am a big fan of writing code that generates no runtime errors. This is an implementation of a function that takes the first element of an array.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-</span><span class='line'><span class="n">T</span> <span class="n">first</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="k">throw</span> <span class="n">EmptyArrayException</span><span class="p">();</span> <span class="p">}</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This is the standard way we are taught to write programs. However, there is another way to write this function that makes the exception unneccessary.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-</span><span class='line'><span class="kt">void</span> <span class="n">first</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">returnCallback</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="n">returnCallback</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Suddenly the program flow is dictated by the emptiness of the array. Besides knowing well that this function will never throw an exception, the program that uses it will be structured in such a way that you can guarantee within the scope of the returnCallback function that was passed in, the function will always have the first element of the array. You don&rsquo;t even have to check for nullness.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">int</span> <span class="n">calcCheckSum</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sorted</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">first</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">sorted</span><span class="p">,</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;](</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="kt">int</span><span class="o">&amp;</span> <span class="n">res</span> <span class="o">=</span> <span class="n">result</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">last</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">sorted</span><span class="p">,</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;](</span><span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">res</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
-</span><span class='line'>      <span class="p">});</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And as a perk, if this function compiles, you know that it will run without errors.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
-    
-    <a href="archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -1360,7 +626,7 @@ double wh2 = 1.1;</p>
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/davidsiaw">@davidsiaw</a> on GitHub
@@ -1393,6 +659,7 @@ double wh2 = 1.1;</p>
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -1407,7 +674,10 @@ double wh2 = 1.1;</p>
       var disqus_shortname = 'davidsiawblog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://davidsiaw.github.io/blog/2015/06/12/finding-square-roots/';
+        var disqus_url = 'http://davidsiaw.github.io/blog/2015/06/12/finding-square-roots/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

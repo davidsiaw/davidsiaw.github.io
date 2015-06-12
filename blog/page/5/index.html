@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Hexlife - ./home/davidsiaw</title>
+  <title>./home/davidsiaw</title>
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="Last week I wrote a simple Game of Life variation that runs on a hexagonal grid after viewing an example on Wikipedia. The cells considered are the &hellip;">
+  <meta name="description" content="I never seem to be satisfied with any of the sites I made, so I made myself swear that this is the last time I&rsquo;m going to replace the Labs site &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://davidsiaw.github.io/blog/2014/11/21/hexlife/">
+  <link rel="canonical" href="http://davidsiaw.github.io/blog/page/5/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -103,12 +103,15 @@
 </nav> -->
   <div id="main">
     <div id="content">
-      <div>
-<article class="hentry" role="article">
+      <div class="blog-index">
   
+  
+  
+    <article>
+      
   <header>
     
-      <h1 class="entry-title">Hexlife</h1>
+      <h1 class="entry-title"><a href="/blog/2008/08/23/reset/">Reset</a></h1>
     
     
       <p class="meta">
@@ -124,157 +127,33 @@
   
 
 
-<time datetime="2014-11-21T10:46:00+00:00" pubdate data-updated="true">Nov 21<span>st</span>, 2014</time>
+<time datetime="2008-08-23T00:00:00+00:00" pubdate data-updated="true">Aug 23<span>rd</span>, 2008</time>
         
-         | <a href="#disqus_thread">Comments</a>
+         | <a href="/blog/2008/08/23/reset/#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Last week I wrote a simple Game of Life variation that runs on a hexagonal grid after viewing <a href="http://en.wikipedia.org/wiki/Conway's_Game_of_Life#mediaviewer/File:Oscillator.gif">an example on Wikipedia</a>. The cells considered are the immediate neighbours. The rules are:</p>
+  <div class="entry-content"><p>I never seem to be satisfied with any of the sites I made, so I made myself swear that this is the last time I&rsquo;m going to replace the Labs site. The last one was a bit of a joke anyway. If you ever have a choice, Drupal 6 isn&rsquo;t exactly a good CMS for building production sites, unless you have got plenty of in-house expertise. When you have to spend a whole day messing around with it to get it to let you post just one blog post, perhaps it just isn&rsquo;t built to write posts.</p>
 
-<ul>
-<li>if a dead cell is surrounded by 2 live cells, the dead cell becomes alive</li>
-<li>if a live cell is surrounded by 3 or 4 live cells, it stays alive</li>
-<li>in all other cases, the cell dies</li>
-</ul>
-
-
-<p>One of the interesting things about this set of rules is the absence of still life. The reason for this absence is that a cell can only be born under conditions where a live cell would otherwise die. This means that whenever a cell is born it is likely to kill its parents.</p>
-
-<p>Hence the only known stable life forms in this set of rules at the moment are oscillators. No gliders have been found yet.</p>
-
-<p>You can play with my implementation here: <a href="http://davidsiaw.github.io/hexlife/">http://davidsiaw.github.io/hexlife/</a></p>
-
-<p>In my search for a glider in this set of rules, I found a bunch of oscillators and decided to record them:</p>
-
-<table>
-<thead>
-<tr>
-<th> Picture                                     </th>
-<th> Description </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><img src="/images/hexlife/2cell.png" alt="Alt text" />        </td>
-<td> The <strong>2cell</strong> is the simplest and most common oscillator. It is left behind by almost any unstable life.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/spinner.png" alt="Alt text" />      </td>
-<td> The <strong>Spinner</strong> is another common oscillator that has a period of 2. It simply looks like it is spinning.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/mouth.png" alt="Alt text" />        </td>
-<td> The <strong>Mouth</strong> looks like a spinner but instead of 2nd level adjacent, they are 3rd level adjacent, so it looks like it is always opening and closing</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/needle.png" alt="Alt text" />       </td>
-<td> The <strong>Needle</strong> has a period of 2 and flips back and forth.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/dancer.png" alt="Alt text" />       </td>
-<td> The <strong>Dancer</strong> has a period of 2 and looks like its swinging back and forth.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/star.png" alt="Alt text" />         </td>
-<td> The <strong>Star</strong> looks like a twinkling star. It is quite peculiar in the sense that it has a period of 3.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/rotator.png" alt="Alt text" />      </td>
-<td> The <strong>Rotator</strong> has a period of 4 and looks like it is spinning in a weird way.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/bat.png" alt="Alt text" />          </td>
-<td> The <strong>Bat</strong> is perhaps the most common 4-period oscillator you get from random starts.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/snake.png" alt="Alt text" />        </td>
-<td> The <strong>Snake</strong> is a period-4 oscillator that looks like a snake that wiggles around</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/morpher.png" alt="Alt text" />      </td>
-<td> The <strong>Morpher</strong> is really simple but really interesting-looking oscillator. It has got a period of 12 and transforms into all its possible orientations. This means that even though it has no symmetry, it does not matter which way you orient it, it will achieve the same configurations. I call this temporal homogeneity.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/tristar.png" alt="Alt text" />      </td>
-<td> The <strong>Tristar</strong> is a period-12 oscillator that twinkles in a more elaborate way than the star.</td>
-</tr>
-<tr>
-<td><img src="/images/hexlife/swimmer.png" alt="Alt text" />      </td>
-<td> The <strong>Swimmer</strong> is an oscillator with a period of 48. You can actually find it on the Wikipedia page I linked. It seems like a lost fish swimming back and forth.</td>
-</tr>
-</tbody>
-</table>
-
-
-<p>If you find more oscillators please leave a comment!</p>
+<p>So the difference is, yes I have moved down to the Wordpress side to avoid the grief that comes with Drupal. I have decided that hacking something that works well is easier that hacking something that is borked. So I have decided that I will hack this. Woot. Now back to coding.</p>
 </div>
-
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">davidsiaw</span></span>
-
-      
-
-
-
-
-
-
-
-
   
 
 
-<time datetime="2014-11-21T10:46:00+00:00" pubdate data-updated="true">Nov 21<span>st</span>, 2014</time>
-      
-
-<span class="categories">
+    </article>
   
-    <a class='category' href='/blog/categories/hexlife/'>Hexlife</a>
-  
-</span>
-
-
-    </p>
+  <div class="pagination">
     
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidsiaw.github.io/blog/2014/11/21/hexlife/" data-via="davidsiaw" data-counturl="http://davidsiaw.github.io/blog/2014/11/21/hexlife/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
+    <a href="archives">Blog Archives</a>
     
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2014/10/30/using-travis-to-deploy-my-blog/" title="Previous Post: Using Travis to deploy my blog">&laquo; Using Travis to deploy my blog</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2014/11/22/hexlife-part-2/" title="Next Post: Hexlife Part 2">Hexlife Part 2 &raquo;</a>
-      
-    </p>
-  </footer>
-</article>
-
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a class="next" href="/blog/page/4/">Newer &rarr;</a>
+    
+  </div>
 </div>
-  </section>
-
-</div>
-
 <aside class="sidebar">
   
     <section>
@@ -340,7 +219,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
+    <li class="loading">Status updating&#8230;</li>
   </ul>
   
   <a href="https://github.com/davidsiaw">@davidsiaw</a> on GitHub
@@ -373,7 +252,6 @@
   
 </aside>
 
-
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -388,10 +266,7 @@
       var disqus_shortname = 'davidsiawblog';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://davidsiaw.github.io/blog/2014/11/21/hexlife/';
-        var disqus_url = 'http://davidsiaw.github.io/blog/2014/11/21/hexlife/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

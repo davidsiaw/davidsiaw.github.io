@@ -9,7 +9,7 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="After playing a little with GWT, and attempting to add a map into my little webapp, I&rsquo;ve found that this is really a very good idea. By &hellip;">
+  <meta name="description" content="Today I read an interesting chapter in Writing Solid Code, and it showed an example where a supposed optimization led to code bloat: To represent the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,6 +105,262 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/12/29/thats-not-the-point/">That&#8217;s Not the Point</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-12-29T00:00:00+00:00" pubdate data-updated="true">Dec 29<span>th</span>, 2009</time>
+        
+         | <a href="/blog/2009/12/29/thats-not-the-point/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Today I read an interesting chapter in Writing Solid Code, and it showed an example where a supposed optimization led to code bloat:</p>
+
+<blockquote>
+To represent the hierarchical window structure, Character Windows used a binary tree in which one branch pointed to subwindwos, called &#8220;children&#8221; and the other branch pointed to windows with the same parent, called &#8220;siblings&#8221;:
+</blockquote>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">typedef</span> <span class="k">struct</span> <span class="n">WINDOW</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">struct</span> <span class="n">WINDOW</span> <span class="o">*</span><span class="n">pwndChild</span><span class="p">;</span>    <span class="cm">/* NULL if no children */</span>
+</span><span class='line'>  <span class="k">struct</span> <span class="n">WINDOW</span> <span class="o">*</span><span class="n">pwndSibling</span><span class="p">;</span>  <span class="cm">/* NULL if no brothers/sisters */</span>
+</span><span class='line'>  <span class="kt">char</span> <span class="o">*</span><span class="n">strWndTitle</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">.</span>
+</span><span class='line'>  <span class="p">.</span>
+</span><span class='line'>  <span class="p">.</span>
+</span><span class='line'><span class="p">}</span> <span class="n">window</span><span class="p">;</span>        <span class="cm">/* Naming: wnd, *pwnd */</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<blockquote>
+You can turn to any algorithm book and find efficient routines to manipulate binary trees, so I was a bit shocked to when I reviewed the Character Windows code for inserting a child window into the tree. The code looked like this:
+</blockquote>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="cm">/* pwndRootChildren is the pointer to the list of top-level windows</span>
+</span><span class='line'><span class="cm"> * such as the menu bar and the main document windows.</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="k">static</span> <span class="n">window</span> <span class="o">*</span><span class="n">pwndRootChildren</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">AddChild</span><span class="p">(</span><span class="n">window</span> <span class="o">*</span><span class="n">pwndParent</span><span class="p">,</span> <span class="n">window</span> <span class="o">*</span><span class="n">pwndNewBorn</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="cm">/* New windows may have children but not siblings... */</span>
+</span><span class='line'>  <span class="n">ASSERT</span><span class="p">(</span><span class="n">pwndNewBorn</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">pwndParent</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="cm">/* Add window to the top-level root list. */</span>
+</span><span class='line'>      <span class="n">pwndNewBorn</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">=</span> <span class="n">pwndRootChildren</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">pwndRootChildren</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="cm">/*  If Parent&#39;s first child, start a new sibling chain;</span>
+</span><span class='line'><span class="cm">      *  otherwise, add child to the end of the existing</span>
+</span><span class='line'><span class="cm">      *  sibling chain.</span>
+</span><span class='line'><span class="cm">      */</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">window</span> <span class="o">*</span><span class="n">pwnd</span> <span class="o">=</span> <span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span><span class="p">;</span>
+</span><span class='line'>          <span class="k">while</span> <span class="p">(</span><span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span><span class='line'>          <span class="p">{</span>
+</span><span class='line'>              <span class="n">pwnd</span> <span class="o">=</span> <span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span><span class="p">;</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>          <span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<blockquote>
+Despite the fact that the windowing structure was designed to be a binary tree, it hadn&#8217;t been implemented that way. Since the root window (the one representing the entire display) never has siblings and never has a title and since you can&#8217;t move hide or delete it, &#8230; (cut short for tl;dr)&#8230; that led somebody to decide that declaring an entire window structure was wasteful, and the wndRoot structure was replaced with pwndRootChildren, a simple pointer to the top level windows.
+
+Replacing wndRoot with a pointer may have saved a few bytes of data space, <b>but the cost in code space was enormous</b>.
+
+</blockquote>
+
+
+<p>Forgive me for copying all that out verbatim, but I think that the complete background is needed to make the point clear. Here&rsquo;s the code that was supposed to be written that&rsquo;s found later in the article:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="cm">/* pwndDisplay points to the root-level window, which is</span>
+</span><span class='line'><span class="cm"> * allocated during program initialization</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="n">window</span> <span class="o">*</span><span class="n">pwndDisplay</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="n">AddChild</span><span class="p">(</span><span class="n">window</span> <span class="o">*</span><span class="n">pwndParent</span><span class="p">,</span> <span class="n">window</span> <span class="o">*</span><span class="n">pwndNewBorn</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="cm">/* New windows may have children but not siblings... */</span>
+</span><span class='line'>  <span class="n">ASSERT</span><span class="p">(</span><span class="n">pwndNewBorn</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="cm">/*  If Parent&#39;s first child, start a new sibling chain;</span>
+</span><span class='line'><span class="cm">  *  otherwise, add child to the end of the existing</span>
+</span><span class='line'><span class="cm">  *  sibling chain.</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">window</span> <span class="o">*</span><span class="n">pwnd</span> <span class="o">=</span> <span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">while</span> <span class="p">(</span><span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">pwnd</span> <span class="o">=</span> <span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Any experienced programmer in C would have noticed two things:</p>
+
+<ul>
+<li>There was a forced special case</li><li>The cost of the optimization was greater than the yield of the optimization</li>
+</ul>
+
+
+<p>But anyone can see that. Its obvious because he said it. However, mentioned this common mistake to a couple of colleagues and said that I did make the same kind of mistake, and this is what they said:</p>
+
+<blockquote>
+Sometimes code that was written back then may be correct back then, but may not be correct now. Just as I wrote an optimization once because computers were not fast enough to handle a certain operation at the time. They do now so that piece of code actually slowed the program down. Also, Opera recently made its engine less memory intensive but more CPU intensive, but after complaints that Opera was taking too much memory, they changed it to be less CPU intensive and more memory intensive. It&#8217;s also a balancing act with more input from your users.
+</blockquote>
+
+
+<p>The first thing that came to my mind was &ldquo;Are you listening?&rdquo; I am not sure if they were trying out of kindness to make me feel better that I make these bugs because of very good reasons and that the badness is unforseeable or that they were just in their own world going off in a skew. Besides the fact that its clearly the latter and that this is not a tradeoff problem nor was it a &ldquo;we needed it at the time&rdquo; problem, since it should have been obvious that the supposed optimization was going to cost more than it was worth in memory space alone at the time of writing the code.</p>
+
+<p>I, like many fellow humans am prone to thinking about the more negative side of this. Of course, this was meant to be a negative post, but on the flipside, I learned three mistakes about fellow programmers that I must remember not to make myself.</p>
+
+<ol>
+<li>Winging it</li><li>Optimizing with a narrow view</li><li>The code I write is always flawless. I&#8217;ll fix it later if I have to.</li>
+</ol>
+
+
+<p>Firstly, winging it and not paying attention to the details of the problem is a fatal mistake I have been guilty of countless times, and have seen many people fall in to as well. our minds are complex-averse, and tend to try and group things into simple groups of things that share the same characteristics based off keywords in a conversation without really understanding it. In this case, my mention of optimization kicked off the ideas of past optimization and tradeoffs in my colleagues&#8217; heads, and was unfortunately all that occupied their heads from that moment on.</p>
+
+<p>Secondly, we programmers are often indulged in our own mindset and steamroll our way through because our egos are big and our power limitless. When we see something that could be good, like an optimization, we tend to bulldoze our way to make sure it gets done.</p>
+
+<p>Thirdly, we programmers are idealists. Not just in the sense that we want everything to be perfect, but we see perfection in everything we write too. This blindness can cause a lot of grief, and the defence is usually &ldquo;I had no choice at the time&rdquo;, which is usually an excuse to cover up a more embarrassing mistake.</p>
+
+<p>Finally, coming back to topic after a very very long strayoff, the whole idea of humans and sad facts of software is not the point. The point of the article from the book is to <b>tell you someone&rsquo;s mistake so you don&rsquo;t make it</b>, because if this one word of caution saved a bug in a simple subsystem, imagine the number of bugs that would be saved in a complex system of 100 subsystems. These are the kinds of articles books should be packed full of.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -659,65 +915,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/11/27/wordlaunch-update/">WordLaunch Update</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-11-27T00:00:00+00:00" pubdate data-updated="true">Nov 27<span>th</span>, 2008</time>
-        
-         | <a href="/blog/2008/11/27/wordlaunch-update/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Some personal problems this week have delayed development but I&rsquo;m not one with a faint heart! This week&rsquo;s project is still going. Here is version 0.1! It allows you to edit your pages, and it probably still needs a lot of work before its any good at solving my rant that started this project, but I guess this is a start.</p>
-
-<p>Here&rsquo;s a video on what the program currently does:</p>
-
-<iframe width="420" height="315" src="//www.youtube.com/embed/aZBICw5YjeY" frameborder="0" allowfullscreen></iframe>
-
-
-<p>(not the best video in the world, but it should illustrate what you should be clicking =P)
-Theres no audio in this video, so don&rsquo;t worry about letting your boss hear it =)</p>
-
-<p>In order to compile this project, you will need Visual Studio 2008 and the .NET framework (duh). Also, you&rsquo;ll need to unzip xulrunner into a folder and place it in the same directory as the binary.</p>
-
-<p>Since not everyone has the priviledge of having a MSFT compiler, I&rsquo;m also providing binaries as a download. But I won&rsquo;t be responsible if they so happen to be dodgy.</p>
-
-<p><a href="http://labs.astrobunny.net/downloads/WordLaunch_0.1.bin.zip">Binaries</a></p>
-
-<p><a href="http://labs.astrobunny.net/downloads/WordLaunch_0.1.bin.src">Sources</a></p>
-
-<p>I used some libraries in this program so some credits are in order:
-1. <a href="http://www.xml-rpc.net/">XML-RPC Library</a> courtesy of Cook Computing
-2. <a href="https://developer.mozilla.org/en/XULRunner">XULRunner</a> courtesy of Mozilla
-3. Thanks to Joseph Scott for his documentation of the XML-RPC WordPress interface.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -768,6 +965,10 @@ Theres no audio in this video, so don&rsquo;t worry about letting your boss hear
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/06/12/finding-square-roots/">Finding Square Roots</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac/">Script for setting up FTP to a folder on a Mac</a>
       </li>
     
@@ -781,10 +982,6 @@ Theres no audio in this video, so don&rsquo;t worry about letting your boss hear
     
       <li class="post">
         <a href="/blog/2014/10/30/using-travis-to-deploy-my-blog/">Using Travis to deploy my blog</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/12/new-blog/">New Blog</a>
       </li>
     
   </ul>

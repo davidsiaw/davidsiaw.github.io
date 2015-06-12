@@ -4,7 +4,7 @@
   <title><![CDATA[./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2015-01-23T01:42:12+00:00</updated>
+  <updated>2015-06-12T03:29:01+00:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -12,6 +12,386 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Finding Square Roots]]></title>
+    <link href="http://davidsiaw.github.io/blog/2015/06/12/finding-square-roots/"/>
+    <updated>2015-06-12T01:36:00+00:00</updated>
+    <id>http://davidsiaw.github.io/blog/2015/06/12/finding-square-roots</id>
+    <content type="html"><![CDATA[<p>Most of us has at some point in our lives used the <code>Math.sqrt()</code> function. We would even know that \(\sqrt{2} = 1.414\ldots\). However, we never really give how it is implemented a second thought. Thus is the power of a tight abstraction. For those of us who lived in the age of calculators, finding square roots has always been a source of mystery. For me during my teenage years, calculating a square root has really just been about looking up a numeric table.</p>
+
+<p><img src="http://davidsiaw.github.io/images/log8.jpg" alt="Table of Square Roots" /></p>
+
+<p>Obviously this very simple problem would have been solved close to the beginnings of civilization, and blazingly fast methods must already exist. But for sake of exploration, let us examine how we would implement a square root function should we need to.</p>
+
+<p>\[\sqrt{-n} = \sqrt{-1} \sqrt{n}\]</p>
+
+<p>Since square roots of negative numbers are really just square roots of positive numbers times the square root of a negative number, let us focus our efforts on finding just the square roots of positive real numbers.</p>
+
+<p><img src="http://davidsiaw.github.io/images/square.png" alt="y=x^2" /></p>
+
+<p>One way to find a square root is by looking at this graph of \(y=x^2\). Simply drawing a horizontal line from the y-axis from whose square root we desire to the graph line, and then find the intersect on the x-axis. So say we want \(\sqrt{30}\).</p>
+
+<p><img src="http://davidsiaw.github.io/images/sqrt30.png" alt="find sqrt 30" /></p>
+
+<p>We simply draw a line from the y-axis at 30 to the graph and find that it is located somewhere between 5.4 and 5.6 along the x-axis, but closer to 5.4. This makes sense. A quick glance at <a href="https://www.google.co.jp/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#q=sqrt(30">google</a>) shows \(\sqrt{30} = 5.4772255\)</p>
+
+<p><img src="http://davidsiaw.github.io/images/binaryguessing.png" alt="find sqrt 30" /></p>
+
+<p>This in-betweenness tells us something about square roots. Besides the nice square roots, the ugly ones don&rsquo;t seem to have any end to their decimals. Hence, they are always in between two numbers that we know. This means that we can keep making educated guesses about where the square root is until we get close enough.</p>
+
+<p>\[0 &lt; \sqrt{30} &lt; 30\]</p>
+
+<p>Let&rsquo;s apply this knowledge first and do the calculation by hand for the number 30 since we know its answer so we can verify that our method is correct.</p>
+
+<p>First of all, we must figure out where the root is. Obviously, it would be less than 30, since you need to multiply it by itself to get 30. Its also more than zero, because as mentioned earlier, you will always end up with a positive number.</p>
+
+<p>\[\sqrt{30} \approx 15?\]</p>
+
+<p>The number most in between of 0 and 30 is 15. But is this the number? The only way to check is by squaring 15.</p>
+
+<p>\[15^2 = 225\]</p>
+
+<p>Nope. Not even close. 225 is waaay too big. But this tells us something: the root cannot be bigger than 15 because if it was, we would get an even bigger square than 30, so we must look to the left of 15. This means our upper bound is now 15 instead of 30.</p>
+
+<p>\[0 &lt; \sqrt{30} &lt; 15\]</p>
+
+<p>The number in the middle this time is 7.5. Is this our number?</p>
+
+<p>\[7.5^2 = 56.25\]</p>
+
+<p>Still too big. This means our root must be smaller than 7.5, but still bigger than zero.</p>
+
+<p>\[0 &lt; \sqrt{30} &lt; 7.5\]</p>
+
+<p>The number in the middle of 7.5 is 3.75. Perhaps this is our number?</p>
+
+<p>\[3.75^2 = 14.0625\]</p>
+
+<p>It seems the square of 3.75 is smaller than 30! This means that that the root must be bigger than 3.75 since if the number is smaller, we get an even smaller square, we must be getting close.</p>
+
+<p>\[3.75 &lt; \sqrt{30} &lt; 7.5\]</p>
+
+<p>Now we must find out what number is in the middle. Well, from our geometry class we know that the average of two numbers is the middle number, so \(\frac{3.75 + 7.5}{2} = 5.625\). We simply need to square this number to check now.</p>
+
+<p>\[5.625^2 = 31.640625\]</p>
+
+<p>It seems we have gotten a lot closer now that we moved the lower bound up. Our guess of 5.625 seems really close to the answer now. But because its square is bigger than 30, we know the root must be smaller than 5.625, so:</p>
+
+<p>\[3.75 &lt; \sqrt{30} &lt; 5.625\]</p>
+
+<p>The middle number of this is then 4.6875.</p>
+
+<p>\[4.6875^2 = 21.972656\]</p>
+
+<p>That&rsquo;s really far away. This can&rsquo;t be the answer, but lets keep looking. Since its square is smaller than 30, we change the lower bound to this.</p>
+
+<p>\[4.6875 &lt; \sqrt{30} &lt; 5.625\]</p>
+
+<p>This time, the middle number is 5.15625.</p>
+
+<p>\[5.15625^2 = 26.586914\]</p>
+
+<p>We are getting closer again, but this is smaller than 30, so our lower bound should be changed.</p>
+
+<p>\[5.15625 &lt; \sqrt{30} &lt; 5.625\]</p>
+
+<p>I know, it starts to get frustrating at this point since we seem to be crawling, but lets stay on for another two rounds. The number in the middle is 5.390625</p>
+
+<p>\[5.390625^2 = 29.058838\]</p>
+
+<p>Our result now is very very close to 30. It is smaller, so the lower bound should be changed.</p>
+
+<p>\[5.390625 &lt; \sqrt{30} &lt; 5.625\]</p>
+
+<p>The middle number is now 5.507812. That means the square is&hellip;</p>
+
+<p>\[5.507812^2 = 30.336\]</p>
+
+<p>Okay! We are pretty close, but the important thing is we know it will eventually arrive at the answer because we kept getting closer to the answer as we went. Now, we know computers do things faster than we do so let us write some code!</p>
+
+<p>So first of all, we want to have our initial guess. The number to be rooted is 30.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">double</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">double</span> <span class="n">upperBound</span> <span class="o">=</span> <span class="n">number</span><span class="p">;</span>
+</span><span class='line'><span class="kt">double</span> <span class="n">lowerBound</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, we write down what we did in every iteration.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="c1">// We try and figure out if the middle number is the correct root</span>
+</span><span class='line'><span class="kt">double</span> <span class="n">rootGuess</span> <span class="o">=</span> <span class="p">(</span><span class="n">upperBound</span> <span class="o">+</span> <span class="n">lowerBound</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'><span class="kt">double</span> <span class="n">rootGuessSquared</span> <span class="o">=</span> <span class="n">rootGuess</span> <span class="o">*</span> <span class="n">rootGuess</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">rootGuessSquared</span> <span class="o">&gt;</span> <span class="n">number</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// if the square of our guess is bigger than the number, that means the root is too big.</span>
+</span><span class='line'>  <span class="c1">// so the root cannot be bigger than our current guess</span>
+</span><span class='line'>  <span class="n">upperBound</span> <span class="o">=</span> <span class="n">rootGuess</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// otherwise, the root cannot be smaller than our current guess.</span>
+</span><span class='line'>  <span class="n">lowerBound</span> <span class="o">=</span> <span class="n">rootGuess</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next, we tell the computer to do it over and over again until the square of our guess is the number itself, so we wrap that in a loop.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">double</span> <span class="n">rootGuess</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">do</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// We try and figure out if the middle number is the correct root</span>
+</span><span class='line'>  <span class="n">rootGuess</span> <span class="o">=</span> <span class="p">(</span><span class="n">upperBound</span> <span class="o">+</span> <span class="n">lowerBound</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">double</span> <span class="n">rootGuessSquared</span> <span class="o">=</span> <span class="n">rootGuess</span> <span class="o">*</span> <span class="n">rootGuess</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">rootGuessSquared</span> <span class="o">&gt;</span> <span class="n">number</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="c1">// if the square of our guess is bigger than the number, that means the root is too big.</span>
+</span><span class='line'>      <span class="c1">// so the root cannot be bigger than our current guess</span>
+</span><span class='line'>      <span class="n">upperBound</span> <span class="o">=</span> <span class="n">rootGuess</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="c1">// otherwise, the root cannot be smaller than our current guess.</span>
+</span><span class='line'>      <span class="n">lowerBound</span> <span class="o">=</span> <span class="n">rootGuess</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span> <span class="k">while</span><span class="p">(</span><span class="n">rootGuess</span> <span class="o">*</span> <span class="n">rootGuess</span> <span class="o">!=</span> <span class="n">number</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Great, that seems simple enough. Let&rsquo;s put it all together.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">double</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">double</span> <span class="n">upperBound</span> <span class="o">=</span> <span class="n">number</span><span class="p">;</span>
+</span><span class='line'><span class="kt">double</span> <span class="n">lowerBound</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">double</span> <span class="n">rootGuess</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">do</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// We try and figure out if the middle number is the correct root</span>
+</span><span class='line'>  <span class="n">rootGuess</span> <span class="o">=</span> <span class="p">(</span><span class="n">upperBound</span> <span class="o">+</span> <span class="n">lowerBound</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">double</span> <span class="n">rootGuessSquared</span> <span class="o">=</span> <span class="n">rootGuess</span> <span class="o">*</span> <span class="n">rootGuess</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">rootGuessSquared</span> <span class="o">&gt;</span> <span class="n">number</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="c1">// if the square of our guess is bigger than the number, that means the root is too big.</span>
+</span><span class='line'>      <span class="c1">// so the root cannot be bigger than our current guess</span>
+</span><span class='line'>      <span class="n">upperBound</span> <span class="o">=</span> <span class="n">rootGuess</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="c1">// otherwise, the root cannot be smaller than our current guess.</span>
+</span><span class='line'>      <span class="n">lowerBound</span> <span class="o">=</span> <span class="n">rootGuess</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%lf &lt; sqrt(30) &lt; %lf guess=%lf rootGuessSquared=%lf</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">upperBound</span><span class="p">,</span> <span class="n">lowerBound</span><span class="p">,</span> <span class="n">rootGuess</span><span class="p">,</span> <span class="n">rootGuessSquared</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span> <span class="k">while</span><span class="p">(</span><span class="n">rootGuess</span> <span class="o">*</span> <span class="n">rootGuess</span> <span class="o">!=</span> <span class="n">number</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">printf</span><span class="p">(</span><span class="s">&quot;result = %lf</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">rootGuess</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice I put in a printf to check the bounds as it runs. This makes it more interesting and actually shows us what&rsquo;s going on. Lets run it now.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="mf">15.000000</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.000000</span> <span class="n">guess</span><span class="o">=</span><span class="mf">15.000000</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">225.000000</span>
+</span><span class='line'><span class="mf">7.500000</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.000000</span> <span class="n">guess</span><span class="o">=</span><span class="mf">7.500000</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">56.250000</span>
+</span><span class='line'><span class="mf">7.500000</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">3.750000</span> <span class="n">guess</span><span class="o">=</span><span class="mf">3.750000</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">14.062500</span>
+</span><span class='line'><span class="mf">5.625000</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">3.750000</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.625000</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">31.640625</span>
+</span><span class='line'><span class="mf">5.625000</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">4.687500</span> <span class="n">guess</span><span class="o">=</span><span class="mf">4.687500</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">21.972656</span>
+</span><span class='line'><span class="mf">5.625000</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.156250</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.156250</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">26.586914</span>
+</span><span class='line'><span class="mf">5.625000</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.390625</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.390625</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">29.058838</span>
+</span><span class='line'><span class="mf">5.507812</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.390625</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.507812</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.335999</span>
+</span><span class='line'><span class="mf">5.507812</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.449219</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.449219</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">29.693985</span>
+</span><span class='line'><span class="mf">5.478516</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.449219</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.478516</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.014133</span>
+</span><span class='line'><span class="mf">5.478516</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.463867</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.463867</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">29.853845</span>
+</span><span class='line'><span class="mf">5.478516</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.471191</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.471191</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">29.933935</span>
+</span><span class='line'><span class="mf">5.478516</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.474854</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.474854</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">29.974021</span>
+</span><span class='line'><span class="mf">5.478516</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.476685</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.476685</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">29.994074</span>
+</span><span class='line'><span class="mf">5.477600</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.476685</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477600</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.004103</span>
+</span><span class='line'><span class="mf">5.477600</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477142</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477142</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">29.999088</span>
+</span><span class='line'><span class="mf">5.477371</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477142</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477371</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.001595</span>
+</span><span class='line'><span class="mf">5.477257</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477142</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477257</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000342</span>
+</span><span class='line'><span class="mf">5.477257</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477200</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477200</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">29.999715</span>
+</span><span class='line'><span class="mf">5.477228</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477200</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477228</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000028</span>
+</span><span class='line'><span class="mf">5.477228</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477214</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477214</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">29.999872</span>
+</span><span class='line'><span class="mf">5.477228</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477221</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477221</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">29.999950</span>
+</span><span class='line'><span class="mf">5.477228</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477225</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477225</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">29.999989</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477225</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000009</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477225</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477225</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">29.999999</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477225</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000004</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477225</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000001</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477225</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="mf">5.477226</span> <span class="o">&lt;</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">5.477226</span> <span class="n">guess</span><span class="o">=</span><span class="mf">5.477226</span> <span class="n">rootGuessSquared</span><span class="o">=</span><span class="mf">30.000000</span>
+</span><span class='line'><span class="n">result</span> <span class="o">=</span> <span class="mf">5.477226</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After all that spam, now we can see that the result is the square root of 30, since we know 5.477226 is the square root of 30.</p>
+
+<p>This method of calculating square roots is called the Bisection method, also known as a binary search. Its not very efficient as you can see, and takes a long time to converge.</p>
+
+<p>Now we know what it takes to find a square root! Now you can simply try it with a bunch of numbers and get the right answer. You can also compare the answer with the actual sqrt() function provided by the standard library.</p>
+
+<p>It is also interesting to note that you can use this method to get cube roots, quartic roots and quintic roots too.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Script for setting up FTP to a folder on a Mac]]></title>
@@ -1201,233 +1581,6 @@ double wh2 = 1.1;</p>
 
 
 <p>Would the world be a better place?</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[That's Not The Point]]></title>
-    <link href="http://davidsiaw.github.io/blog/2009/12/29/thats-not-the-point/"/>
-    <updated>2009-12-29T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2009/12/29/thats-not-the-point</id>
-    <content type="html"><![CDATA[<p>Today I read an interesting chapter in Writing Solid Code, and it showed an example where a supposed optimization led to code bloat:</p>
-
-<blockquote>
-To represent the hierarchical window structure, Character Windows used a binary tree in which one branch pointed to subwindwos, called &#8220;children&#8221; and the other branch pointed to windows with the same parent, called &#8220;siblings&#8221;:
-</blockquote>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">typedef</span> <span class="k">struct</span> <span class="n">WINDOW</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">struct</span> <span class="n">WINDOW</span> <span class="o">*</span><span class="n">pwndChild</span><span class="p">;</span>    <span class="cm">/* NULL if no children */</span>
-</span><span class='line'>  <span class="k">struct</span> <span class="n">WINDOW</span> <span class="o">*</span><span class="n">pwndSibling</span><span class="p">;</span>  <span class="cm">/* NULL if no brothers/sisters */</span>
-</span><span class='line'>  <span class="kt">char</span> <span class="o">*</span><span class="n">strWndTitle</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">.</span>
-</span><span class='line'>  <span class="p">.</span>
-</span><span class='line'>  <span class="p">.</span>
-</span><span class='line'><span class="p">}</span> <span class="n">window</span><span class="p">;</span>        <span class="cm">/* Naming: wnd, *pwnd */</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<blockquote>
-You can turn to any algorithm book and find efficient routines to manipulate binary trees, so I was a bit shocked to when I reviewed the Character Windows code for inserting a child window into the tree. The code looked like this:
-</blockquote>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="cm">/* pwndRootChildren is the pointer to the list of top-level windows</span>
-</span><span class='line'><span class="cm"> * such as the menu bar and the main document windows.</span>
-</span><span class='line'><span class="cm"> */</span>
-</span><span class='line'><span class="k">static</span> <span class="n">window</span> <span class="o">*</span><span class="n">pwndRootChildren</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">void</span> <span class="n">AddChild</span><span class="p">(</span><span class="n">window</span> <span class="o">*</span><span class="n">pwndParent</span><span class="p">,</span> <span class="n">window</span> <span class="o">*</span><span class="n">pwndNewBorn</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="cm">/* New windows may have children but not siblings... */</span>
-</span><span class='line'>  <span class="n">ASSERT</span><span class="p">(</span><span class="n">pwndNewBorn</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">pwndParent</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="cm">/* Add window to the top-level root list. */</span>
-</span><span class='line'>      <span class="n">pwndNewBorn</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">=</span> <span class="n">pwndRootChildren</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">pwndRootChildren</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">else</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="cm">/*  If Parent&#39;s first child, start a new sibling chain;</span>
-</span><span class='line'><span class="cm">      *  otherwise, add child to the end of the existing</span>
-</span><span class='line'><span class="cm">      *  sibling chain.</span>
-</span><span class='line'><span class="cm">      */</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>      <span class="k">else</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">window</span> <span class="o">*</span><span class="n">pwnd</span> <span class="o">=</span> <span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span><span class="p">;</span>
-</span><span class='line'>          <span class="k">while</span> <span class="p">(</span><span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
-</span><span class='line'>          <span class="p">{</span>
-</span><span class='line'>              <span class="n">pwnd</span> <span class="o">=</span> <span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span><span class="p">;</span>
-</span><span class='line'>          <span class="p">}</span>
-</span><span class='line'>          <span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<blockquote>
-Despite the fact that the windowing structure was designed to be a binary tree, it hadn&#8217;t been implemented that way. Since the root window (the one representing the entire display) never has siblings and never has a title and since you can&#8217;t move hide or delete it, &#8230; (cut short for tl;dr)&#8230; that led somebody to decide that declaring an entire window structure was wasteful, and the wndRoot structure was replaced with pwndRootChildren, a simple pointer to the top level windows.
-
-Replacing wndRoot with a pointer may have saved a few bytes of data space, <b>but the cost in code space was enormous</b>.
-
-</blockquote>
-
-
-<p>Forgive me for copying all that out verbatim, but I think that the complete background is needed to make the point clear. Here&rsquo;s the code that was supposed to be written that&rsquo;s found later in the article:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="cm">/* pwndDisplay points to the root-level window, which is</span>
-</span><span class='line'><span class="cm"> * allocated during program initialization</span>
-</span><span class='line'><span class="cm"> */</span>
-</span><span class='line'><span class="n">window</span> <span class="o">*</span><span class="n">pwndDisplay</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">void</span> <span class="n">AddChild</span><span class="p">(</span><span class="n">window</span> <span class="o">*</span><span class="n">pwndParent</span><span class="p">,</span> <span class="n">window</span> <span class="o">*</span><span class="n">pwndNewBorn</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="cm">/* New windows may have children but not siblings... */</span>
-</span><span class='line'>  <span class="n">ASSERT</span><span class="p">(</span><span class="n">pwndNewBorn</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="cm">/*  If Parent&#39;s first child, start a new sibling chain;</span>
-</span><span class='line'><span class="cm">  *  otherwise, add child to the end of the existing</span>
-</span><span class='line'><span class="cm">  *  sibling chain.</span>
-</span><span class='line'><span class="cm">  */</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">else</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">window</span> <span class="o">*</span><span class="n">pwnd</span> <span class="o">=</span> <span class="n">pwndParent</span><span class="o">-&gt;</span><span class="n">pwndChild</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="k">while</span> <span class="p">(</span><span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">pwnd</span> <span class="o">=</span> <span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span><span class="p">;</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>      <span class="n">pwnd</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">=</span> <span class="n">pwndNewBorn</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Any experienced programmer in C would have noticed two things:</p>
-
-<ul>
-<li>There was a forced special case</li><li>The cost of the optimization was greater than the yield of the optimization</li>
-</ul>
-
-
-<p>But anyone can see that. Its obvious because he said it. However, mentioned this common mistake to a couple of colleagues and said that I did make the same kind of mistake, and this is what they said:</p>
-
-<blockquote>
-Sometimes code that was written back then may be correct back then, but may not be correct now. Just as I wrote an optimization once because computers were not fast enough to handle a certain operation at the time. They do now so that piece of code actually slowed the program down. Also, Opera recently made its engine less memory intensive but more CPU intensive, but after complaints that Opera was taking too much memory, they changed it to be less CPU intensive and more memory intensive. It&#8217;s also a balancing act with more input from your users.
-</blockquote>
-
-
-<p>The first thing that came to my mind was &ldquo;Are you listening?&rdquo; I am not sure if they were trying out of kindness to make me feel better that I make these bugs because of very good reasons and that the badness is unforseeable or that they were just in their own world going off in a skew. Besides the fact that its clearly the latter and that this is not a tradeoff problem nor was it a &ldquo;we needed it at the time&rdquo; problem, since it should have been obvious that the supposed optimization was going to cost more than it was worth in memory space alone at the time of writing the code.</p>
-
-<p>I, like many fellow humans am prone to thinking about the more negative side of this. Of course, this was meant to be a negative post, but on the flipside, I learned three mistakes about fellow programmers that I must remember not to make myself.</p>
-
-<ol>
-<li>Winging it</li><li>Optimizing with a narrow view</li><li>The code I write is always flawless. I&#8217;ll fix it later if I have to.</li>
-</ol>
-
-
-<p>Firstly, winging it and not paying attention to the details of the problem is a fatal mistake I have been guilty of countless times, and have seen many people fall in to as well. our minds are complex-averse, and tend to try and group things into simple groups of things that share the same characteristics based off keywords in a conversation without really understanding it. In this case, my mention of optimization kicked off the ideas of past optimization and tradeoffs in my colleagues&#8217; heads, and was unfortunately all that occupied their heads from that moment on.</p>
-
-<p>Secondly, we programmers are often indulged in our own mindset and steamroll our way through because our egos are big and our power limitless. When we see something that could be good, like an optimization, we tend to bulldoze our way to make sure it gets done.</p>
-
-<p>Thirdly, we programmers are idealists. Not just in the sense that we want everything to be perfect, but we see perfection in everything we write too. This blindness can cause a lot of grief, and the defence is usually &ldquo;I had no choice at the time&rdquo;, which is usually an excuse to cover up a more embarrassing mistake.</p>
-
-<p>Finally, coming back to topic after a very very long strayoff, the whole idea of humans and sad facts of software is not the point. The point of the article from the book is to <b>tell you someone&rsquo;s mistake so you don&rsquo;t make it</b>, because if this one word of caution saved a bug in a simple subsystem, imagine the number of bugs that would be saved in a complex system of 100 subsystems. These are the kinds of articles books should be packed full of.</p>
 ]]></content>
   </entry>
   
