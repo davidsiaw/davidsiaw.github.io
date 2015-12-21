@@ -9,7 +9,7 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="[This] is a very nice Java applet that allows you to see what a cross product is. The applet shows A x B = C (i.e. C is the cross product of A and B &hellip;">
+  <meta name="description" content="I am a big fan of writing code that generates no runtime errors. This is an implementation of a function that takes the first element of an array. 1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,6 +105,115 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/28/exceptionless-programming/">Exceptionless Programming</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-28T00:00:00+00:00" pubdate data-updated="true">Nov 28<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/11/28/exceptionless-programming/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I am a big fan of writing code that generates no runtime errors. This is an implementation of a function that takes the first element of an array.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span><span class='line'><span class="n">T</span> <span class="n">first</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="k">throw</span> <span class="n">EmptyArrayException</span><span class="p">();</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is the standard way we are taught to write programs. However, there is another way to write this function that makes the exception unneccessary.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">first</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">array</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">returnCallback</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="n">returnCallback</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Suddenly the program flow is dictated by the emptiness of the array. Besides knowing well that this function will never throw an exception, the program that uses it will be structured in such a way that you can guarantee within the scope of the returnCallback function that was passed in, the function will always have the first element of the array. You don&rsquo;t even have to check for nullness.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">int</span> <span class="n">calcCheckSum</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sorted</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">first</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">sorted</span><span class="p">,</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;](</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="kt">int</span><span class="o">&amp;</span> <span class="n">res</span> <span class="o">=</span> <span class="n">result</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">last</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">sorted</span><span class="p">,</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;](</span><span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">res</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">});</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And as a perk, if this function compiles, you know that it will run without errors.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -875,80 +984,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/06/21/idioms/">Idioms</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-06-21T00:00:00+00:00" pubdate data-updated="true">Jun 21<span>st</span>, 2010</time>
-        
-         | <a href="/blog/2010/06/21/idioms/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>What if</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">doSomething</span><span class="p">();</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// and</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">i</span><span class="o">+=</span><span class="mi">2</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">doSomethingElse</span><span class="p">();</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Was</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">doSomething</span><span class="p">()</span> <span class="k">for</span> <span class="mf">1..99</span><span class="p">;</span>
-</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="mf">2..99</span><span class="p">)</span> <span class="p">{</span> <span class="n">doSomethingElse</span><span class="p">();</span> <span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Would the world be a better place?</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -992,11 +1027,15 @@
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (7)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/math/'>Math (2)</a></li><li><a href='/blog/categories/programming/'>Programming (31)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/22/rotating-integrals/">Rotating Integrals</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/06/12/finding-square-roots/">Finding Square Roots</a>
@@ -1012,10 +1051,6 @@
     
       <li class="post">
         <a href="/blog/2014/11/21/hexlife/">Hexlife</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/30/using-travis-to-deploy-my-blog/">Using Travis to deploy my blog</a>
       </li>
     
   </ul>

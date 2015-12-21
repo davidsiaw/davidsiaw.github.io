@@ -9,7 +9,23 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="Today I read an interesting chapter in Writing Solid Code, and it showed an example where a supposed optimization led to code bloat: To represent the &hellip;">
+  <meta name="description" content="What if 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+for (int i=0; i&lt;100; i++)
+{ doSomething();
+} // and for (int i=0; i&lt;100; i+=2)
+{ doSomethingElse();
+} Was 1
+2 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,6 +121,80 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/06/21/idioms/">Idioms</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-21T00:00:00+00:00" pubdate data-updated="true">Jun 21<span>st</span>, 2010</time>
+        
+         | <a href="/blog/2010/06/21/idioms/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>What if</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">doSomething</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// and</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">i</span><span class="o">+=</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">doSomethingElse</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Was</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="n">doSomething</span><span class="p">()</span> <span class="k">for</span> <span class="mf">1..99</span><span class="p">;</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="mf">2..99</span><span class="p">)</span> <span class="p">{</span> <span class="n">doSomethingElse</span><span class="p">();</span> <span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Would the world be a better place?</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -873,48 +963,6 @@ Sometimes code that was written back then may be correct back then, but may not 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/01/28/whats-your-favorite-language/">What&#8217;s Your Favorite Language?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-01-28T00:00:00+00:00" pubdate data-updated="true">Jan 28<span>th</span>, 2009</time>
-        
-         | <a href="/blog/2009/01/28/whats-your-favorite-language/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A friend asked me what my favorite language is today, and showed me a <a href="http://www.aegisub.net/2008/12/if-programming-languages-were-religions.html">page about parallels drawn between computer languages and religons</a>. I told him I didn&rsquo;t have a favorite language anymore. I did once upon a time, and that language was C++. But the reason it was my favorite language was because it was the only language I knew at the time. Well, not really, I knew 1 other language, PHP, but I didn&rsquo;t use it much, so it was still C++.</p>
-
-<p>Now, after working for about a year now, I realized that different languages are useful for different things, much like a hammer is useful for hammering nails, but not a screwdriver. The theory is that you can use a screwdriver to hammer nails too, but it wouldn&rsquo;t be as effective as a hammer. The same thing applies to languages. C is good for writing OSes, and making some really fast code, but if you really don&rsquo;t care and just want a script that reads a bunch of files and makes a list of filenames and e-mails it to someone, you could just use Python. Going by that analogy, you could think of each language you know as a tool in your toolbox, and the time you take to learn those languages is as well invested as the money you use to buy your hammer and sickle.</p>
-
-<p>Most people have a favorite language because of the same reason I once did, because its the only language they know well. But, sometimes it may be the language of choice for what they do too. Favoritism is something I can&rsquo;t really find in the languages I know now. Perhaps there would be a language that would intrigue me enough someday to make me a believer of a favorite again?</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -958,11 +1006,15 @@ Sometimes code that was written back then may be correct back then, but may not 
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/programming/'>Programming (29)</a></li><li><a href='/blog/categories/random/'>Random (7)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/math/'>Math (2)</a></li><li><a href='/blog/categories/programming/'>Programming (31)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/22/rotating-integrals/">Rotating Integrals</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/06/12/finding-square-roots/">Finding Square Roots</a>
@@ -978,10 +1030,6 @@ Sometimes code that was written back then may be correct back then, but may not 
     
       <li class="post">
         <a href="/blog/2014/11/21/hexlife/">Hexlife</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/30/using-travis-to-deploy-my-blog/">Using Travis to deploy my blog</a>
       </li>
     
   </ul>

@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>GWT: Next level of automation - ./home/davidsiaw</title>
+  <title>Rotating Integrals - ./home/davidsiaw</title>
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="After playing a little with GWT, and attempting to add a map into my little webapp, I&rsquo;ve found that this is really a very good idea. By &hellip;">
+  <meta name="description" content="This post assumes you know some trigonometry and can do some integral calculus on it. My little brother in college complained about sines and cosines &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://davidsiaw.github.io/blog/2009/11/04/gwt-next-level-of-automation/">
+  <link rel="canonical" href="http://davidsiaw.github.io/blog/2015/12/22/rotating-integrals/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -108,7 +108,7 @@
   
   <header>
     
-      <h1 class="entry-title">GWT: Next Level of Automation</h1>
+      <h1 class="entry-title">Rotating Integrals</h1>
     
     
       <p class="meta">
@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2009-11-04T00:00:00+00:00" pubdate data-updated="true">Nov 4<span>th</span>, 2009</time>
+<time datetime="2015-12-22T01:11:00+00:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2015</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -133,11 +133,166 @@
   </header>
 
 
-<div class="entry-content"><p>After playing a little with GWT, and attempting to add a map into my little webapp, I&rsquo;ve found that this is really a very good idea. By applying a language to abstract all the small difficulties of programming a webpage for different browsers, you essentially move a larger percentage of the work into actually making the application.</p>
+<div class="entry-content"><p><em>This post assumes you know some trigonometry and can do some integral calculus on it.</em></p>
 
-<p>Although GWT isn&rsquo;t perfect, and to get my app up and running I had to spend about an hour or so searching the internet about fixing up some XMLs to import the libraries properly, once that was done, the source code that involved adding a map to the page and a little Javascript button coule fit on the screen, it is a huge step over having to deal with the difficulties faced by web programmers to make their sites both compatible with IE and Firefox.</p>
+<p>My little brother in college complained about sines and cosines in an indefinite integral today. Specifically, an integration that he was annoyed with was:</p>
 
-<p>Though I advocate using the minimum amount of cool new features on your site, GWT would be the next step toward progress with the current mess that is web application programming right now.</p>
+<p>\[\int{x^3\,sin(x)\,dx}\]</p>
+
+<p>It sounded like a whine at first but upon closer inspection, his complaints are not unwarranted. This is indeed a troublesome kind of indefinite integral. There is a trick to doing it quickly, but let us try and perform this particular integration normally first:</p>
+
+<p>Since this is integration of the product of two functions, we perform integration by parts.</p>
+
+<p>\[\int{u\,dv} = uv\, &ndash; \int{v\,du}\]</p>
+
+<p>I choose \(u = x^3\) and \(dv = sin(x)\,dx\) mostly to avoid having to integrate the \(x^3\) and have fractions mess up my working.</p>
+
+<p>This results in:</p>
+
+<p>\[
+\begin{aligned}
+ u &amp; = x^3 \cr
+ du &amp; = 3x^2\,dx \cr
+ dv &amp; = sin(x)\,dx \cr
+ v &amp; = -cos(x)
+\end{aligned}
+\]</p>
+
+<p>Hence:</p>
+
+<p>\[
+\begin{aligned}
+ \int{u\,dv} &amp; = uv\, &ndash; \int{v\,du} \cr
+ &amp; = -x^3\,cos(x)\, &ndash; \int{–3x^2 cos(x)\,dx} \cr
+ &amp; = -x^3\,cos(x) + \int{3x^2 cos(x)\,dx}
+\end{aligned}
+\]</p>
+
+<p>We seem to have ended up with another integral to solve: \(\int{cos(x)(3x^2)\,dx}\), so we shall proceed to solve it.</p>
+
+<p>\[
+\begin{array}{cc}
+ \begin{aligned}
+  \int{u\,dv} &amp; = uv\, &ndash; \int{v\,du} \cr
+  \int{3x^2 cos(x)\,dx} &amp; = 3x^2 sin(x)\, &ndash; \int{6x\,sin(x)\,dx}
+ \end{aligned} &amp;
+ \begin{aligned}
+  u &amp; = 3x^2 \cr
+  du &amp; = 6x\,dx \cr
+  dv &amp; = cos(x)\,dx \cr
+  v &amp; = sin(x)
+ \end{aligned}
+\end{array}
+\]</p>
+
+<p>How vexing. We have yet another integral to solve. Let us proceed anyway.</p>
+
+<p>\[
+\begin{array}{cc}
+ \begin{aligned}
+  \int{u\,dv} &amp; = uv\, &ndash; \int{v\,du} \cr
+  \int{6x\,sin(x)\,dx} &amp; = -6x\,cos(x)\, &ndash; \int{-6\,cos(x)\,dx} \cr
+  \int{6x\,sin(x)\,dx} &amp; = -6x\,cos(x) + \int{6\,cos(x)\,dx}
+ \end{aligned} &amp;
+ \begin{aligned}
+  u &amp; = 6x \cr
+  du &amp; = 6\,dx \cr
+  dv &amp; = sin(x)\,dx \cr
+  v &amp; = -cos(x)
+ \end{aligned}
+\end{array}
+\]</p>
+
+<p>Once again, we have to solve another integral. This one seems to be the last though, because the x term has withered away into oblivion, it becomes a trivial integral.</p>
+
+<p>\[
+\begin{aligned}
+ \int{6x\,sin(x)\,dx} &amp; = -6x\,cos(x) + \int{6\,cos(x)\,dx} \cr
+ &amp; = -6x\,cos(x) + 6\int{cos(x)\,dx} \cr
+ &amp; = -6x\,cos(x) + 6\,sin(x)
+\end{aligned}
+\]</p>
+
+<p>Bringing it all together, we have:</p>
+
+<p>\[
+\begin{aligned}
+ \int{x^3\,sin(x)\,dx} &amp; = -x^3\,cos(x) + \int{3x^2 cos(x)\,dx} \cr
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, &ndash; \int{6x\,sin(x)\,dx} \cr
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, &ndash; [-6x\,cos(x) + \int{6\,cos(x)\,dx}] \cr
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, &ndash; [-6x\,cos(x) + 6\,sin(x)] \cr
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, + 6x\,cos(x) &ndash; 6\,sin(x)
+\end{aligned}
+\]</p>
+
+<p>Phew! Basically due to the fact that you have to integrate by parts as many times as the <em>power of x</em>, the amount of integration you have to do increases proportionally to x&rsquo;s power, making it troublesome.</p>
+
+<h2>A Closer Look</h2>
+
+<p>However, if you have been following the working closely, you will notice that all we are really doing when we integrate by parts is performing a derivative of both parts over and over again. Notice how the \(sin(x)\) term keeps flipping between \(sin(x)\) and \(cos(x)\).</p>
+
+<p>Better yet, if you differentiate \(sin(x)\) 4 times, the entire thing rotates back to \(sin(x)\) again. Since we integrated \(sin(x)\) 4 times in this example, that is exactly what happened. I call this kind of integral a <strong>Rotating Integral</strong> because the trigonometric term constantly rotates between the four combinations of negative and positive, \(sin(x)\) and \(cos(x)\).</p>
+
+<p>Notice also that the \(u\) term we chose right at the beginning was differentiated at every step until it became a constant:</p>
+
+<p>\[x^3\,\rightarrow\,3x^2\,\rightarrow\,6x\,\rightarrow\,6\]</p>
+
+<p>If we factorize the result, we get the following:</p>
+
+<p>\[
+ -x^3\,cos(x) + 3x^2 sin(x)\, + 6x\,cos(x) &ndash; 6\,sin(x) = (-x^3 + 6x)\,cos(x) + (3x^2 &ndash; 6)\,sin(x)
+\]</p>
+
+<p>Notice how there is a negative term in both the \(sin(x)\) and \(cos(x)\) groups. Since the starting \(u\) we chose was positive, we can see the \(sin(x)\) go through</p>
+
+<p>\[-cos(x)\,\rightarrow\,-sin(x)\,\rightarrow\,cos(x)\,\rightarrow\,sin(x)\]</p>
+
+<p>We can see a pattern of repeating derivatives distributed among the \(sin(x)\) and \(cos(x)\) groups. If we recognize that</p>
+
+<p>\[
+\begin{array}{cc}
+ x^3 &amp;\rightarrow\,3x^2 &amp;\rightarrow\,6x &amp;\rightarrow\,6 \cr
+ f &amp;\rightarrow\,f^\prime &amp;\rightarrow\,f^{\prime \prime} &amp;\rightarrow\,f^{\prime \prime \prime} \cr
+\end{array}
+\]</p>
+
+<p>And from our rearranged result,</p>
+
+<p>\[
+(-f + f^{\prime \prime})\,cos(x) + (f^\prime &ndash; f^{\prime \prime \prime})\,sin(x)
+\]</p>
+
+<p>This peaked my interest, and I decided to check the results of other powers of x:</p>
+
+<p>\[
+\begin{array}{cc}
+3 &amp; (-x^3 + 6x)\,cos(x) &amp; + (3x^2 &ndash; 6)\,sin(x) \cr
+4 &amp; (-x^4 + 12x^2 &ndash; 24)\,cos(x) &amp; + (4x^3 &ndash; 24x)\,sin(x) \cr
+5 &amp; (-x^5 + 20x^3 &ndash; 120x)\,cos(x) &amp; + (5x^4 &ndash; 60x^2 + 120)\,sin(x) \cr
+6 &amp; (-x^6 + 30x^4 &ndash; 360x^2 + 720)\,cos(x) &amp; + (6x^5 &ndash; 120x^3 + 720x)\,sin(x) \cr
+7 &amp; (-x^7 + 42x^5 &ndash; 840x^3 + 5040x)\,cos(x) &amp; + (7x^6 &ndash; 210x^4 + 2520x^2 &ndash; 5040)\,sin(x)
+\end{array}
+\]</p>
+
+<h2>The Solution!</h2>
+
+<p>After doing some more wolframming, I found that we have a general solution of:</p>
+
+<p>\[
+\int{f\,sin(x)\,dx} = (&ndash; f + f^{\prime \prime} &ndash; f^{\prime \prime \prime \prime} + \cdots &ndash; f^{\prime2n})\,cos(x) + (f^{\prime} &ndash; f^{\prime \prime \prime} + f^{\prime \prime \prime \prime \prime} &ndash; \cdots + f^{\prime2n+1})\,sin(x)
+\]</p>
+
+<p>Where odd numbered differentials are on the \(sin(x)\) group and even numbered differentials are on the \(cos(x)\) group, and each differential alternates between negative and positive signs. The \(sin(x)\) group starts with a positive sign while the \(cos(x)\) starts with a negative sign.</p>
+
+<p>Of course, the same rule slightly modified works for the \(cos(x)\) form:</p>
+
+<p>\[
+\int{f\,cos(x)\,dx} = (f &ndash; f^{\prime \prime} + f^{\prime \prime \prime \prime} &ndash; \cdots + f^{\prime2n})\,sin(x) + (f^{\prime} &ndash; f^{\prime \prime \prime} + f^{\prime \prime \prime \prime \prime} &ndash; \cdots + f^{\prime2n+1})\,cos(x)
+\]</p>
+
+<p>Note that this only works if \(f\) eventually derives into 0, and if the trigonometric function is \(sin(x)\) or \(cos(x)\). Otherwise you will need another method of finding the solution.</p>
+
+<p>With this, you can find the indefinite integral of expressions of this form by simply differentiating the non-trigonometric side. You can also use identities, factorizations and other ways to rearrange an expression into this form to use this technique to integrate this otherwise troublesome class of <strong>Rotating Integrals</strong>.</p>
 </div>
 
 
@@ -160,12 +315,12 @@
   
 
 
-<time datetime="2009-11-04T00:00:00+00:00" pubdate data-updated="true">Nov 4<span>th</span>, 2009</time>
+<time datetime="2015-12-22T01:11:00+00:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/programming/'>Programming</a>
+    <a class='category' href='/blog/categories/math/'>Math</a>
   
 </span>
 
@@ -174,7 +329,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidsiaw.github.io/blog/2009/11/04/gwt-next-level-of-automation/" data-via="davidsiaw" data-counturl="http://davidsiaw.github.io/blog/2009/11/04/gwt-next-level-of-automation/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidsiaw.github.io/blog/2015/12/22/rotating-integrals/" data-via="davidsiaw" data-counturl="http://davidsiaw.github.io/blog/2015/12/22/rotating-integrals/" >Tweet</a>
   
   
   
@@ -185,10 +340,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2009/05/04/attempt-to-rush-an-rpg/" title="Previous Post: Attempt to rush an RPG">&laquo; Attempt to rush an RPG</a>
+        <a class="basic-alignment left" href="/blog/2015/06/12/finding-square-roots/" title="Previous Post: Finding Square Roots">&laquo; Finding Square Roots</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2009/12/29/thats-not-the-point/" title="Next Post: That's Not The Point">That's Not The Point &raquo;</a>
       
     </p>
   </footer>
@@ -316,8 +469,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://davidsiaw.github.io/blog/2009/11/04/gwt-next-level-of-automation/';
-        var disqus_url = 'http://davidsiaw.github.io/blog/2009/11/04/gwt-next-level-of-automation/';
+        var disqus_identifier = 'http://davidsiaw.github.io/blog/2015/12/22/rotating-integrals/';
+        var disqus_url = 'http://davidsiaw.github.io/blog/2015/12/22/rotating-integrals/';
         var disqus_script = 'embed.js';
       
     (function () {
