@@ -9,7 +9,7 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="This post assumes you know some trigonometry and can do some integral calculus on it. My little brother in college complained about sines and cosines &hellip;">
+  <meta name="description" content="The recent victories of AlphaGo has been but an interesting demonstration that machines are finally able to outplay masters at a highly complex game &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,6 +105,68 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/04/09/an-utilitarian-view-on-intelligence/">An Utilitarian View on Intelligence</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-04-09T22:56:00+00:00" pubdate data-updated="true">Apr 9<span>th</span>, 2016</time>
+        
+         | <a href="/blog/2016/04/09/an-utilitarian-view-on-intelligence/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The recent victories of AlphaGo has been but an interesting demonstration that machines are finally able to outplay masters at a highly complex game. Some may consider this to be the beginning of a real takeover of machines ala The Terminator, which to me is simply a fear of that which we do not understand.</p>
+
+<p>As one of the many traits we can assign to people, intelligence is just one of them. However it seems to be a very valuable and desirable trait to many, and people often seek to measure this &ldquo;intelligence&rdquo; to order people by usefulness. Intelligence is measured in many different ways, from highly formal methods such as IQ tests to empirical rules judging by their personalities or the company they keep.</p>
+
+<p>However let us first understand that intelligence is indeed valuable and while measuring it accurately may not be easy, measuring its value may be easier. How do we do this? We can try a very simple form of intelligence that we have developed ourselves called &ldquo;artificial intelligence&rdquo;.</p>
+
+<p>Artificial intelligence comes in many different forms such as a computer player in games, sudoku solvers, self driving cars, the ability to read and parse written text and so on. However even with this many forms of artificial intelligence, their value is always a measure of the quality of their decisions in the domain. For example, an AI that is capable of beating most players at a game is considered better than an AI that does not. A self driving car that has less accidents on the road has a higher value than those that have more accidents. In essence the final value of a machine driven by some form of AI is always measured by its track record of decisions and results.</p>
+
+<p>Thus the real value of an AI is the quality of the decisions it forms.</p>
+
+<p>So what has AI really got to do with human intelligence? Well, I believe that AI and human intelligence actually are similar and almost equivalent in their playing field.</p>
+
+<p>In its most degenerate form, being able to count is a quality humans learn and find useful, and which humans will practice in many fields. However, under fatigue, a human may count wrongly and this may result in bad decisions. Machines have mostly replaced humans in this regard due to their ability to more consistently count without errors (notwithstanding their ability to do it faster). This explains the great drop in secretaries and clerical jobs.</p>
+
+<p>As time goes by the number of machines that can more consistently make better decisions about the actions they have to take will increase, and humans are forced to compete with this. After the industrial revolution, the value of labor has actually steadily dwindled as energy becomes more available and machines allow the conversion of energy sources into more kinds of value. Our value is more and more tied to the quality and weight of our decisions.</p>
+
+<p>High level managers in companies and leaders are often held at a higher value than those who perform labor intensive tasks such as transporting due to the low value of labor and the high value of decisions. Certain labor intensive jobs do not have high value but are still performed by humans because humans are still capable of making decisions on the job that are better than machines, such as janitors and construction work, although cleaning is slowly being taken over by machines as exemplified by robots such as the Roomba.</p>
+
+<p>In many ways we are already competing with machines to show that human decisions are still better than machine decisions in many fields. This means that if we were to assign a dollar value to machines that can do a particular work as well as a human being, that dollar value will be assigned to a human being in that field of work as well, essentially proving the equivalence of an AI and human intelligence in their ability to make decisions.</p>
+
+<p>We are now in constant competition with machines to demonstrate our value through our ability to make better decisions on the actions we make, so the real value of human intelligence and thus the human who has that intelligence is also the quality of the decisions it makes him make, equivalent to the value of artificial intelligence itself.</p>
+
+<p>IQ tests and apitude examinations have seemed to miss the point of intelligence and tested for a more abstract and less substantial quality of humans.</p>
+
+<p>So in many ways, our old view of hard work as a good quality of a person falls in the face of scrutiny when we consider the modern realities we live in. Leaving decisions to another has always been tolerated, and blame and responsibility assigned to another, when the true value of our place in society actually comes from the decisions we make. The application of hard work is also a decision we often have to make but allow others to make for us. Perhaps we should begin to teach children less about working hard and more about learning to make good decisions.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1353,121 +1415,6 @@ double wh2 = 1.1;</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/12/the-identity-of-an-array/">The Identity of an Array</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-12T00:00:00+00:00" pubdate data-updated="true">Dec 12<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/12/12/the-identity-of-an-array/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Given two arrays of integers: a and b, what does (a == b) mean?</p>
-
-<p>Most of us will say, it depends on the programming language you are using, and that is true. In the case of C, it means a and b are the pointers to the start of the same array. In Java and C# it means the arrays are Reference Equal, basically meaning that the pointer to the arrays a and b are the same.</p>
-
-<p>But how is that really useful? If you passed around these two arrays and checked if the references are the same, you are really just comparing the object with itself or not. The object is never going to be equal to anything else but itself. Even another array created in a different part of the program that has exactly the same integers in it in the same order will be a different array.</p>
-
-<p>One would agree that [1, 2, 3] and [1, 2, 3] are the same but if these two arrays were created at different places the == operator will return false. Why is the extra information that the arrays are made in two different places important to the == operator? It makes no sense when you look at arrays as a list of numbers, and not a pointer into memory, which is an implementation detail.</p>
-
-<p>So if we were to write a better == operator for arrays, what would it be?</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[1,2,3,3] == [1,2,3,3] -&gt; true
-</span><span class='line'>[1,2,3,3] == [3,2,1,3] -&gt; ?
-</span><span class='line'>[1,2,3,3] == [1,2,3,1,2,3] -&gt; ?
-</span><span class='line'>[1,2,3,3] == [2,3,1] -&gt; ?
-</span><span class='line'>[1,2,3,3] == [1,2,3] -&gt; ?
-</span><span class='line'>[1,2,3,3] == [1233] -&gt; ?
-</span><span class='line'>[1,2,3,3] == "1233" -&gt; ?</span></code></pre></td></tr></table></div></figure>
-
-
-<p>We suddenly see that the array&rsquo;s identity changes depending on what you are using it for. Let us replace those question marks with context.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[1,2,3,3] == [1,2,3,3] -&gt; true if the array is an ordered list
-</span><span class='line'>[1,2,3,3] == [3,2,1,3] -&gt; true if the array is an unordered list
-</span><span class='line'>[1,2,3,3] == [1,2,3,1,2,3] -&gt; true if the array is a bag of numbers
-</span><span class='line'>[1,2,3,3] == [2,3,1] -&gt; true if the array is an unordered set
-</span><span class='line'>[1,2,3,3] == [1,2,3] -&gt; true if the array is an ordered set
-</span><span class='line'>[1,2,3,3] == [1233] -&gt; true if the array is a collection of digits
-</span><span class='line'>[1,2,3,3] == "1233" -&gt; true if the array is a string</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The array is too general. It is actually really important that we know what the array represents. A whole bunch of things are arrays but are passed around as plain arrays. This causes maintainer programmers to wonder what exactly they represent.</p>
-
-<p>Some cite performance reasons. Fair enough, passing a struct that contains an array and a set of methods to manipulate it in C is slower than just passing the struct around. C is a very low level language where implementation detail really mixes with requirements.</p>
-
-<p>But why is it that so many other modern languages have this problem? Why isn&rsquo;t there a language that treats a set like a set, and has a compiler that really just compiles it down into an array?</p>
-
-<p>Interestingly enough, this problem does not stop at arrays. Numbers have different meanings in different contexts too. Take for example the function Math.Cos in C#. This function takes a double in <i>radians</i>.</p>
-
-<p>Why is it that the function signature is</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="kt">double</span> <span class="nf">Cos</span><span class="p">(</span><span class="kt">double</span> <span class="n">angle</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>and not</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">ratio</span> <span class="nf">Cos</span><span class="p">(</span><span class="n">radians</span> <span class="n">angle</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>where radians is just a type of double?</p>
-
-<p>If the compiler was fed this information the first place, programs like this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">degrees</span> <span class="n">a</span> <span class="p">=</span> <span class="m">40</span><span class="p">;</span>
-</span><span class='line'><span class="n">ratio</span> <span class="n">r</span> <span class="p">=</span> <span class="n">Cos</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>will cause the compiler to either throw a compiler error for passing degrees into a radians parameter, or generate code to convert degrees to radians.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1509,11 +1456,15 @@ double wh2 = 1.1;</p>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/math/'>Math (2)</a></li><li><a href='/blog/categories/programming/'>Programming (31)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/math/'>Math (2)</a></li><li><a href='/blog/categories/philosophy/'>Philosophy (1)</a></li><li><a href='/blog/categories/programming/'>Programming (31)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/04/09/an-utilitarian-view-on-intelligence/">An Utilitarian View on Intelligence</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/12/22/rotating-integrals/">Rotating Integrals</a>
@@ -1529,10 +1480,6 @@ double wh2 = 1.1;</p>
     
       <li class="post">
         <a href="/blog/2014/11/22/hexlife-part-2/">Hexlife Part 2</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/21/hexlife/">Hexlife</a>
       </li>
     
   </ul>
