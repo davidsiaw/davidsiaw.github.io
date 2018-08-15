@@ -1,0 +1,623 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Jepsen and Docker - ./home/davidsiaw</title>
+  <meta name="author" content="davidsiaw">
+
+  
+  <meta name="description" content="Recently I have been reading a series of very interesting posts by an Aphyr who tests distributed databases and then publishes their performance &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="./home/davidsiaw" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$$','$$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-44781950-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation">
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:davidsiaw.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/gallery">Gallery</a></li>
+  <li><a href="/notes">Notes</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Jepsen and Docker</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-08-16T00:06:00+00:00" pubdate data-updated="true">Aug 16<span>th</span>, 2018</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Recently I have been reading a series of very interesting posts by an Aphyr who <a href="https://aphyr.com/tags/jepsen">tests distributed databases</a> and then publishes their performance under <a href="https://aphyr.com/posts/288-the-network-is-reliable">network partition</a> conditions, clock skews, dead nodes and other interesting failure conditions.</p>
+
+<p>The tool he uses is called <a href="https://github.com/jepsen-io/jepsen">Jepsen</a> which he wrote himself, and the repo itself includes the set of tests that he used on various databases. After reading all the posts about how various supposedly industry-standard (I guess this is the industry standard) databases which claim to be quite reliable fail under precisely the conditions they are not supposed to fail under, I decided to try the tool out myself and document the experience.</p>
+
+<p>My first thought about this tool was that it would be a great application of Docker, and it turns out he had already written a <a href="https://github.com/jepsen-io/jepsen/tree/master/docker">Docker harness for Jepsen</a>. This was great since you could do all sorts of things in the container environment of Docker and still simulate network partitions and all those nasty things without needing too much hardware.</p>
+
+<p>I checked out Jepsen and ran the scripts the way it told me to.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="err">$</span> <span class="n">sh</span> <span class="n">up</span><span class="o">.</span><span class="n">sh</span>
+</span><span class='line'><span class="o">[</span><span class="no">INFO</span><span class="o">]</span> <span class="no">Generating</span> <span class="n">key</span> <span class="n">pair</span>
+</span><span class='line'><span class="no">Generating</span> <span class="kp">public</span><span class="o">/</span><span class="kp">private</span> <span class="n">rsa</span> <span class="n">key</span> <span class="n">pair</span><span class="o">.</span>
+</span><span class='line'><span class="no">Your</span> <span class="n">identification</span> <span class="n">has</span> <span class="n">been</span> <span class="n">saved</span> <span class="k">in</span> <span class="o">.</span><span class="n">/secret</span><span class="o">/</span><span class="n">id_rsa</span><span class="o">.</span>
+</span><span class='line'><span class="o">.</span>
+</span><span class='line'><span class="o">.</span>
+</span><span class='line'><span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And then it goes off and builds a bunch of containers from scratch.</p>
+
+<p><img src="/images/blogimages/notlike.png" alt="Alt text" /></p>
+
+<p>Then at the very end (after maybe 15 mins of downloading and installing) it goes</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>.
+</span><span class='line'>.
+</span><span class='line'>.
+</span><span class='line'>jepsen-control | Please run <span class="sb">`</span>docker <span class="nb">exec</span> -it jepsen-control bash<span class="sb">`</span> in another terminal to proceed.
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Excellent I can run it now!</p>
+
+<p>So I open another terminal and type it in and instantly I&rsquo;m transported to where I should be to start working with Jepsen. Hooray!</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>docker <span class="nb">exec</span> -it jepsen-control bash
+</span><span class='line'>Welcome to Jepsen on <span class="nv">Docker</span>
+</span><span class='line'><span class="o">===========================</span>
+</span><span class='line'>
+</span><span class='line'>This container runs the Jepsen tests in sub-containers.
+</span><span class='line'>
+</span><span class='line'>You are currently in the base dir of the git repo <span class="k">for </span>Jepsen.
+</span><span class='line'>If you modify the core jepsen library make sure you <span class="s2">&quot;lein install&quot;</span> it so other tests can access.
+</span><span class='line'>
+</span><span class='line'>To run a <span class="nb">test</span>:
+</span><span class='line'>   <span class="nb">cd </span>etcd <span class="o">&amp;&amp;</span> lein run <span class="nb">test</span> --concurrency 10
+</span><span class='line'>root@control:/jepsen#
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Let&rsquo;s try the next command. It looks to me like I should try running the test on etcd with 10 clients?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># cd etcd &amp;&amp; lein run test --concurrency 10</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It then goes off and spews a large amount of output</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>16:09:00.452 <span class="o">[</span>main<span class="o">]</span> INFO  jepsen.cli - Test options:
+</span><span class='line'> <span class="o">{</span>:concurrency 10,
+</span><span class='line'> :test-count 1,
+</span><span class='line'> :time-limit 60,
+</span><span class='line'> :nodes <span class="o">[</span><span class="s2">&quot;n1&quot;</span> <span class="s2">&quot;n2&quot;</span> <span class="s2">&quot;n3&quot;</span> <span class="s2">&quot;n4&quot;</span> <span class="s2">&quot;n5&quot;</span><span class="o">]</span>,
+</span><span class='line'> :ssh
+</span><span class='line'> <span class="o">{</span>:username <span class="s2">&quot;root&quot;</span>,
+</span><span class='line'>  :password <span class="s2">&quot;root&quot;</span>,
+</span><span class='line'>  :strict-host-key-checking <span class="nb">false</span>,
+</span><span class='line'>  :private-key-path nil<span class="o">}}</span>
+</span><span class='line'>.
+</span><span class='line'>.
+</span><span class='line'>.
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It basically goes off and does a large number of reads and writes. At the very end, it comes back with this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Analysis invalid! <span class="o">(</span>ﾉಥ益ಥ）ﾉ ┻━┻
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Wow that was quick. I did not expect to run into an etcd problem so fast. I did not even specify any failures.</p>
+
+<p>Seems like I had some code to read. After fumbling around I discovered the <a href="https://github.com/jepsen-io/jepsen/blob/master/etcd/src/jepsen/etcd.clj#L159">source file</a>.</p>
+
+<p>Aha.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="nv">...</span>
+</span><span class='line'><span class="p">(</span><span class="nb">merge </span><span class="nv">tests/noop-test</span>
+</span><span class='line'>         <span class="p">{</span><span class="ss">:name</span> <span class="s">&quot;etcd&quot;</span>
+</span><span class='line'>          <span class="ss">:os</span> <span class="nv">debian/os</span>
+</span><span class='line'>          <span class="ss">:db</span> <span class="p">(</span><span class="nf">db</span> <span class="s">&quot;v3.1.5&quot;</span><span class="p">)</span>
+</span><span class='line'>          <span class="ss">:client</span> <span class="p">(</span><span class="nf">client</span> <span class="nv">nil</span><span class="p">)</span>
+</span><span class='line'>          <span class="ss">:nemesis</span> <span class="p">(</span><span class="nf">nemesis/partition-random-halves</span><span class="p">)</span>
+</span><span class='line'>          <span class="ss">:model</span>  <span class="p">(</span><span class="nf">model/cas-register</span><span class="p">)</span>
+</span><span class='line'><span class="nv">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Looks like the Jepsen nemesis was baked into the test script. Well thats fine for now.</p>
+
+<h2>Knossos</h2>
+
+<p>The next step basically to me was to find out what was wrong. There was a large amount of data output so there must be a tool of some sort that can tell me what was wrong. (Or so I imagined)</p>
+
+<p>After a bit of googling I came across another project called <a href="https://github.com/jepsen-io/knossos">Knossos</a>.</p>
+
+<p>I didn&rsquo;t know very much about Clojure so I just followed through the README anyway. So first I cloned knossos</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># git clone https://github.com/jepsen-io/knossos</span>
+</span><span class='line'><span class="c"># cd knossos</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I dug around to find the .edn file from my Jepsen run and discovered it in /jepsen/etcd/store/latest/history.edn</p>
+
+<p>Then I ran the command in the README</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># lein run --model cas-register /jepsen/etcd/store/latest/history.edn </span>
+</span><span class='line'>/jepsen/etcd/store/latest/history.edn <span class="nb">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Excellent. Yes. I knew that.</p>
+
+<p>Scrolling down a little in the README I discovered it could generate the linearizability graph too. That was cool so I tried, by following the code in the README</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>root@control:/knossos# lein repl
+</span><span class='line'>nREPL server started on port 37400 on host 127.0.0.1 - nrepl://127.0.0.1:37400
+</span><span class='line'>REPL-y 0.3.7, nREPL 0.2.12
+</span><span class='line'>Clojure 1.8.0
+</span><span class='line'>OpenJDK 64-Bit Server VM 1.8.0_181-8u181-b13-0ubuntu0.16.04.1-b13
+</span><span class='line'>    Docs: <span class="o">(</span>doc <span class="k">function</span>-name-here<span class="o">)</span>
+</span><span class='line'>          <span class="o">(</span>find-doc <span class="s2">&quot;part-of-name-here&quot;</span><span class="o">)</span>
+</span><span class='line'>  Source: <span class="o">(</span><span class="nb">source </span><span class="k">function</span>-name-here<span class="o">)</span>
+</span><span class='line'> Javadoc: <span class="o">(</span>javadoc java-object-or-class-here<span class="o">)</span>
+</span><span class='line'>    Exit: Control+D or <span class="o">(</span><span class="nb">exit</span><span class="o">)</span> or <span class="o">(</span>quit<span class="o">)</span>
+</span><span class='line'> Results: Stored in vars *1, *2, *3, an exception in *e
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I am then dropped into the Clojure prompt, where I try clumsily to guess how things are done:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="nv">knossos.cli=&gt;</span> <span class="p">(</span><span class="k">def </span><span class="nv">h</span> <span class="p">(</span><span class="nf">read-history</span> <span class="s">&quot;/jepsen/etcd/store/latest/history.edn&quot;</span><span class="p">))</span>
+</span><span class='line'><span class="o">#</span><span class="ss">&#39;knossos.cli/h</span>
+</span><span class='line'><span class="nv">knossos.cli=&gt;</span> <span class="p">(</span><span class="k">def </span><span class="nv">a</span> <span class="p">(</span><span class="nf">competition/analysis</span> <span class="p">(</span><span class="nf">model/cas-register</span><span class="p">)</span> <span class="nv">h</span><span class="p">))</span>
+</span><span class='line'><span class="o">#</span><span class="ss">&#39;knossos.cli/a</span>
+</span><span class='line'><span class="nv">knossos.cli=&gt;</span> <span class="p">(</span><span class="nf">require</span> <span class="o">&#39;</span><span class="p">[</span><span class="nv">knossos.linear.report</span> <span class="ss">:as</span> <span class="nv">report</span><span class="p">])</span>
+</span><span class='line'><span class="nv">nil</span>
+</span><span class='line'><span class="nv">knossos.cli=&gt;</span> <span class="p">(</span><span class="nf">report/render-analysis!</span> <span class="nv">h</span> <span class="nv">a</span> <span class="s">&quot;linear.svg&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nv">AssertionError</span> <span class="nv">Assert</span> <span class="nv">failed</span><span class="err">:</span> <span class="nv">No</span> <span class="nv">invocation</span> <span class="nb">for </span><span class="nv">op</span> <span class="p">{</span><span class="ss">:process</span> <span class="mi">2</span>, <span class="ss">:type</span> <span class="ss">:ok</span>, <span class="ss">:f</span> <span class="ss">:read</span>, <span class="ss">:value</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">4</span><span class="p">]</span>, <span class="ss">:index</span> <span class="mi">12</span>, <span class="ss">:time</span> <span class="mi">421990474</span><span class="p">}</span>
+</span><span class='line'><span class="nv">inv</span>  <span class="nv">knossos.linear.report/time-coords/fn--5143</span> <span class="p">(</span><span class="nf">report.clj</span><span class="ss">:186</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Okay, I had no idea what that meant. Looks like there are still kinks.</p>
+
+<h2>Thoughts</h2>
+
+<p>In short I have a few thoughts:</p>
+
+<ol>
+<li>Using docker for this is way cool</li>
+<li>The analysis tool sucks</li>
+<li>This can be so much more general</li>
+</ol>
+
+
+<h3>Using docker is way cool</h3>
+
+<p>While Aphyr says that he uses his own LXC stuff to work with, I think its cool that he does provide a Docker interface. However he isn&rsquo;t taking advantage of a few things docker can do:</p>
+
+<p>a) Prebuilt docker containers
+b) Networking in docker that can be used to simulate faults
+c) Skewing clocks in the container
+d) Adding and removing new containers, simulating scaling effects and changing configuration</p>
+
+<p>It is probably because the tool is in its early stages of development, and really he knows how to use it the best, so he can do his stuff the best. But I can&rsquo;t help but feel he himself would benefit from some improvement in this domain. Perhaps he does not use it right now, or maybe he does in another way. I&rsquo;ve only sat with this code for the last 4 hours.</p>
+
+<h3>The analysis tool sucks</h3>
+
+<p>It needs to recover from weird errors nicely and maybe still present some amount of information. Unfortunately it doesn&rsquo;t, so I will need to spend some time figuring out what I did wrong. Once I get it then I will be able to truly start analysing databases myself.</p>
+
+<h3>This can be so much more general</h3>
+
+<p>All in all it looks like a large amount of the code done here is still quite research quality and tests, while composable seemed like they had to be baked into the testing code still. On the surface it felt to me that skew clocks, network failures, network delays and failing environments were things that did not have to be part of the test and could be external.</p>
+
+<p><strong> None of this makes any of Jepsen less cool </strong></p>
+
+<p>In my opinion all one should really need to do is specify what to do in order to perform a read, write or CAS, and the testing tool should attempt a combination of the three to figure out how a database puts up with it.</p>
+
+<p>Its also likely to be the case because different databases are different. Some are queues, some are data structures, some are RDBMS and some are key value stores. However they all should have the same idea that storing data stores, and automated analysis that shows if it is CP or AP and how would be incredible. This is something I might work on in a later post when I have time.</p>
+
+<h2>Conclusions</h2>
+
+<p>The world needs more of these. This run was an eye-opener to real simulations of faults, and also the idea that distributed databases are actually extremely hard to understand and build. It also has shown me how one person who makes an effort to do something advanced and difficult and documents it in a clear manner can so quickly change the landscape of a field.</p>
+
+<p>Thanks to him I am sure I and a large number of people now understand the definitions and jargon behind distributed databases which have been hidden behind walls of text in white papers and difficult to read (read longwinded) articles, and this really opens the door to helping people build better and more resilient systems.</p>
+
+<p>This probably will not be the last post on distributed databases on the blog as I, as are many others, interested in how things can scale safely. We have more or less solved it for webservers, but scaling databases, that is clearly a different beast.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">davidsiaw</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-08-16T00:06:00+00:00" pubdate data-updated="true">Aug 16<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programming/'>Programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker/" data-via="davidsiaw" data-counturl="http://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/04/09/an-utilitarian-view-on-intelligence/" title="Previous Post: An Utilitarian View on Intelligence">&laquo; An Utilitarian View on Intelligence</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <ul id="recent_posts">
+      <li class="post">
+      <a href="http://davidsiaw.github.io" alt="Home"><img src="/images/Home.png"></a>
+      <a href="http://davidsiaw.github.io/archives/" alt="Archives"><img src="/images/Calendar.png"></a>
+      
+      <a href="http://davidsiaw.github.io/atom.xml" alt="subscribe feed"><img src="/images/rss.png"></a>
+      </li>
+  </ul>
+</section>
+<section>
+  <h1>About Me</h1>
+  <p>I am a whimsical programmer with a wandering mind and a serious need to try new things all the time. I hate null and exceptions. I think this world can be a much better place than that.</p>
+</section>
+
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:davidsiaw.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/gallery">Gallery</a></li>
+  <li><a href="/notes">Notes</a></li>
+</ul>
+
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/math/'>Math (2)</a></li><li><a href='/blog/categories/philosophy/'>Philosophy (1)</a></li><li><a href='/blog/categories/programming/'>Programming (32)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/08/16/jepsen-and-docker/">Jepsen and Docker</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/04/09/an-utilitarian-view-on-intelligence/">An Utilitarian View on Intelligence</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/12/22/rotating-integrals/">Rotating Integrals</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/12/finding-square-roots/">Finding Square Roots</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac/">Script for setting up FTP to a folder on a Mac</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/davidsiaw">@davidsiaw</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'davidsiaw',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - davidsiaw -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'davidsiawblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker/';
+        var disqus_url = 'http://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

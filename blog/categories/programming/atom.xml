@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programming | ./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2018-08-15T10:26:29+00:00</updated>
+  <updated>2018-08-15T17:10:56+00:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -12,6 +12,236 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Jepsen and Docker]]></title>
+    <link href="http://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker/"/>
+    <updated>2018-08-16T00:06:00+00:00</updated>
+    <id>http://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker</id>
+    <content type="html"><![CDATA[<p>Recently I have been reading a series of very interesting posts by an Aphyr who <a href="https://aphyr.com/tags/jepsen">tests distributed databases</a> and then publishes their performance under <a href="https://aphyr.com/posts/288-the-network-is-reliable">network partition</a> conditions, clock skews, dead nodes and other interesting failure conditions.</p>
+
+<p>The tool he uses is called <a href="https://github.com/jepsen-io/jepsen">Jepsen</a> which he wrote himself, and the repo itself includes the set of tests that he used on various databases. After reading all the posts about how various supposedly industry-standard (I guess this is the industry standard) databases which claim to be quite reliable fail under precisely the conditions they are not supposed to fail under, I decided to try the tool out myself and document the experience.</p>
+
+<p>My first thought about this tool was that it would be a great application of Docker, and it turns out he had already written a <a href="https://github.com/jepsen-io/jepsen/tree/master/docker">Docker harness for Jepsen</a>. This was great since you could do all sorts of things in the container environment of Docker and still simulate network partitions and all those nasty things without needing too much hardware.</p>
+
+<p>I checked out Jepsen and ran the scripts the way it told me to.</p>
+
+<p>```ruby
+$ sh up.sh
+[INFO] Generating key pair
+Generating public/private rsa key pair.
+Your identification has been saved in ./secret/id_rsa.
+.
+.
+.</p>
+
+<p>```</p>
+
+<p>And then it goes off and builds a bunch of containers from scratch.</p>
+
+<p><img src="/images/blogimages/notlike.png" alt="Alt text" /></p>
+
+<p>Then at the very end (after maybe 15 mins of downloading and installing) it goes</p>
+
+<p><code>``bash
+.
+.
+.
+jepsen-control | Please run</code>docker exec -it jepsen-control bash` in another terminal to proceed.</p>
+
+<p>```</p>
+
+<p>Excellent I can run it now!</p>
+
+<p>So I open another terminal and type it in and instantly I&rsquo;m transported to where I should be to start working with Jepsen. Hooray!</p>
+
+<p>```bash
+$ docker exec -it jepsen-control bash</p>
+
+<h1>Welcome to Jepsen on Docker</h1>
+
+<p>This container runs the Jepsen tests in sub-containers.</p>
+
+<p>You are currently in the base dir of the git repo for Jepsen.
+If you modify the core jepsen library make sure you &ldquo;lein install&rdquo; it so other tests can access.</p>
+
+<p>To run a test:
+   cd etcd &amp;&amp; lein run test &mdash;concurrency 10
+root@control:/jepsen#</p>
+
+<p>```</p>
+
+<p>Let&rsquo;s try the next command. It looks to me like I should try running the test on etcd with 10 clients?</p>
+
+<p>```bash</p>
+
+<h1>cd etcd &amp;&amp; lein run test &mdash;concurrency 10</h1>
+
+<p>```</p>
+
+<p>It then goes off and spews a large amount of output</p>
+
+<p><code>bash
+16:09:00.452 [main] INFO  jepsen.cli - Test options:
+ {:concurrency 10,
+ :test-count 1,
+ :time-limit 60,
+ :nodes ["n1" "n2" "n3" "n4" "n5"],
+ :ssh
+ {:username "root",
+  :password "root",
+  :strict-host-key-checking false,
+  :private-key-path nil}}
+.
+.
+.
+</code></p>
+
+<p>It basically goes off and does a large number of reads and writes. At the very end, it comes back with this:</p>
+
+<p><code>bash
+Analysis invalid! (ﾉಥ益ಥ）ﾉ ┻━┻
+</code></p>
+
+<p>Wow that was quick. I did not expect to run into an etcd problem so fast. I did not even specify any failures.</p>
+
+<p>Seems like I had some code to read. After fumbling around I discovered the <a href="https://github.com/jepsen-io/jepsen/blob/master/etcd/src/jepsen/etcd.clj#L159">source file</a>.</p>
+
+<p>Aha.</p>
+
+<p>```clojure
+&hellip;
+(merge tests/noop-test</p>
+
+<pre><code>     {:name "etcd"
+      :os debian/os
+      :db (db "v3.1.5")
+      :client (client nil)
+      :nemesis (nemesis/partition-random-halves)
+      :model  (model/cas-register)
+</code></pre>
+
+<p>&hellip;
+```</p>
+
+<p>Looks like the Jepsen nemesis was baked into the test script. Well thats fine for now.</p>
+
+<h2>Knossos</h2>
+
+<p>The next step basically to me was to find out what was wrong. There was a large amount of data output so there must be a tool of some sort that can tell me what was wrong. (Or so I imagined)</p>
+
+<p>After a bit of googling I came across another project called <a href="https://github.com/jepsen-io/knossos">Knossos</a>.</p>
+
+<p>I didn&rsquo;t know very much about Clojure so I just followed through the README anyway. So first I cloned knossos</p>
+
+<p>```bash</p>
+
+<h1>git clone <a href="https://github.com/jepsen-io/knossos">https://github.com/jepsen-io/knossos</a></h1>
+
+<h1>cd knossos</h1>
+
+<p>```</p>
+
+<p>I dug around to find the .edn file from my Jepsen run and discovered it in /jepsen/etcd/store/latest/history.edn</p>
+
+<p>Then I ran the command in the README</p>
+
+<p>```bash</p>
+
+<h1>lein run &mdash;model cas-register /jepsen/etcd/store/latest/history.edn</h1>
+
+<p>/jepsen/etcd/store/latest/history.edn   false
+```</p>
+
+<p>Excellent. Yes. I knew that.</p>
+
+<p>Scrolling down a little in the README I discovered it could generate the linearizability graph too. That was cool so I tried, by following the code in the README</p>
+
+<p>```bash
+root@control:/knossos# lein repl
+nREPL server started on port 37400 on host 127.0.0.1 &ndash; nrepl://127.0.0.1:37400
+REPL-y 0.3.7, nREPL 0.2.12
+Clojure 1.8.0
+OpenJDK 64-Bit Server VM 1.8.0_181-8u181-b13-0ubuntu0.16.04.1-b13</p>
+
+<pre><code>Docs: (doc function-name-here)
+      (find-doc "part-of-name-here")
+</code></pre>
+
+<p>  Source: (source function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)</p>
+
+<pre><code>Exit: Control+D or (exit) or (quit)
+</code></pre>
+
+<p> Results: Stored in vars <em>1, </em>2, <em>3, an exception in </em>e
+```</p>
+
+<p>I am then dropped into the Clojure prompt, where I try clumsily to guess how things are done:</p>
+
+<p>```clojure
+knossos.cli=> (def h (read-history &ldquo;/jepsen/etcd/store/latest/history.edn&rdquo;))</p>
+
+<h1>&lsquo;knossos.cli/h</h1>
+
+<p>knossos.cli=> (def a (competition/analysis (model/cas-register) h))</p>
+
+<h1>&lsquo;knossos.cli/a</h1>
+
+<p>knossos.cli=> (require &lsquo;[knossos.linear.report :as report])
+nil
+knossos.cli=> (report/render-analysis! h a &ldquo;linear.svg&rdquo;)
+AssertionError Assert failed: No invocation for op {:process 2, :type :ok, :f :read, :value [0 4], :index 12, :time 421990474}
+inv  knossos.linear.report/time-coords/fn&mdash;5143 (report.clj:186)
+```</p>
+
+<p>Okay, I had no idea what that meant. Looks like there are still kinks.</p>
+
+<h2>Thoughts</h2>
+
+<p>In short I have a few thoughts:</p>
+
+<ol>
+<li>Using docker for this is way cool</li>
+<li>The analysis tool sucks</li>
+<li>This can be so much more general</li>
+</ol>
+
+
+<h3>Using docker is way cool</h3>
+
+<p>While Aphyr says that he uses his own LXC stuff to work with, I think its cool that he does provide a Docker interface. However he isn&rsquo;t taking advantage of a few things docker can do:</p>
+
+<p>a) Prebuilt docker containers
+b) Networking in docker that can be used to simulate faults
+c) Skewing clocks in the container
+d) Adding and removing new containers, simulating scaling effects and changing configuration</p>
+
+<p>It is probably because the tool is in its early stages of development, and really he knows how to use it the best, so he can do his stuff the best. But I can&rsquo;t help but feel he himself would benefit from some improvement in this domain. Perhaps he does not use it right now, or maybe he does in another way. I&rsquo;ve only sat with this code for the last 4 hours.</p>
+
+<h3>The analysis tool sucks</h3>
+
+<p>It needs to recover from weird errors nicely and maybe still present some amount of information. Unfortunately it doesn&rsquo;t, so I will need to spend some time figuring out what I did wrong. Once I get it then I will be able to truly start analysing databases myself.</p>
+
+<h3>This can be so much more general</h3>
+
+<p>All in all it looks like a large amount of the code done here is still quite research quality and tests, while composable seemed like they had to be baked into the testing code still. On the surface it felt to me that skew clocks, network failures, network delays and failing environments were things that did not have to be part of the test and could be external.</p>
+
+<p><strong> None of this makes any of Jepsen less cool </strong></p>
+
+<p>In my opinion all one should really need to do is specify what to do in order to perform a read, write or CAS, and the testing tool should attempt a combination of the three to figure out how a database puts up with it.</p>
+
+<p>Its also likely to be the case because different databases are different. Some are queues, some are data structures, some are RDBMS and some are key value stores. However they all should have the same idea that storing data stores, and automated analysis that shows if it is CP or AP and how would be incredible. This is something I might work on in a later post when I have time.</p>
+
+<h2>Conclusions</h2>
+
+<p>The world needs more of these. This run was an eye-opener to real simulations of faults, and also the idea that distributed databases are actually extremely hard to understand and build. It also has shown me how one person who makes an effort to do something advanced and difficult and documents it in a clear manner can so quickly change the landscape of a field.</p>
+
+<p>Thanks to him I am sure I and a large number of people now understand the definitions and jargon behind distributed databases which have been hidden behind walls of text in white papers and difficult to read (read longwinded) articles, and this really opens the door to helping people build better and more resilient systems.</p>
+
+<p>This probably will not be the last post on distributed databases on the blog as I, as are many others, interested in how things can scale safely. We have more or less solved it for webservers, but scaling databases, that is clearly a different beast.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Script for setting up FTP to a folder on a Mac]]></title>
@@ -175,75 +405,6 @@ window.setTimeout = window.setNativeTimeout;
 </code></p>
 
 <p>Seems to make my Cappuccino apps more responsive.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The Identity of an Array]]></title>
-    <link href="http://davidsiaw.github.io/blog/2012/12/12/the-identity-of-an-array/"/>
-    <updated>2012-12-12T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2012/12/12/the-identity-of-an-array</id>
-    <content type="html"><![CDATA[<p>Given two arrays of integers: a and b, what does (a == b) mean?</p>
-
-<p>Most of us will say, it depends on the programming language you are using, and that is true. In the case of C, it means a and b are the pointers to the start of the same array. In Java and C# it means the arrays are Reference Equal, basically meaning that the pointer to the arrays a and b are the same.</p>
-
-<p>But how is that really useful? If you passed around these two arrays and checked if the references are the same, you are really just comparing the object with itself or not. The object is never going to be equal to anything else but itself. Even another array created in a different part of the program that has exactly the same integers in it in the same order will be a different array.</p>
-
-<p>One would agree that [1, 2, 3] and [1, 2, 3] are the same but if these two arrays were created at different places the == operator will return false. Why is the extra information that the arrays are made in two different places important to the == operator? It makes no sense when you look at arrays as a list of numbers, and not a pointer into memory, which is an implementation detail.</p>
-
-<p>So if we were to write a better == operator for arrays, what would it be?</p>
-
-<p><code>
-[1,2,3,3] == [1,2,3,3] -&gt; true
-[1,2,3,3] == [3,2,1,3] -&gt; ?
-[1,2,3,3] == [1,2,3,1,2,3] -&gt; ?
-[1,2,3,3] == [2,3,1] -&gt; ?
-[1,2,3,3] == [1,2,3] -&gt; ?
-[1,2,3,3] == [1233] -&gt; ?
-[1,2,3,3] == "1233" -&gt; ?
-</code></p>
-
-<p>We suddenly see that the array&rsquo;s identity changes depending on what you are using it for. Let us replace those question marks with context.</p>
-
-<p><code>
-[1,2,3,3] == [1,2,3,3] -&gt; true if the array is an ordered list
-[1,2,3,3] == [3,2,1,3] -&gt; true if the array is an unordered list
-[1,2,3,3] == [1,2,3,1,2,3] -&gt; true if the array is a bag of numbers
-[1,2,3,3] == [2,3,1] -&gt; true if the array is an unordered set
-[1,2,3,3] == [1,2,3] -&gt; true if the array is an ordered set
-[1,2,3,3] == [1233] -&gt; true if the array is a collection of digits
-[1,2,3,3] == "1233" -&gt; true if the array is a string
-</code></p>
-
-<p>The array is too general. It is actually really important that we know what the array represents. A whole bunch of things are arrays but are passed around as plain arrays. This causes maintainer programmers to wonder what exactly they represent.</p>
-
-<p>Some cite performance reasons. Fair enough, passing a struct that contains an array and a set of methods to manipulate it in C is slower than just passing the struct around. C is a very low level language where implementation detail really mixes with requirements.</p>
-
-<p>But why is it that so many other modern languages have this problem? Why isn&rsquo;t there a language that treats a set like a set, and has a compiler that really just compiles it down into an array?</p>
-
-<p>Interestingly enough, this problem does not stop at arrays. Numbers have different meanings in different contexts too. Take for example the function Math.Cos in C#. This function takes a double in <i>radians</i>.</p>
-
-<p>Why is it that the function signature is</p>
-
-<p><code>c#
-double Cos(double angle)
-</code></p>
-
-<p>and not</p>
-
-<p><code>c#
-ratio Cos(radians angle)
-</code></p>
-
-<p>where radians is just a type of double?</p>
-
-<p>If the compiler was fed this information the first place, programs like this:
-<code>
-degrees a = 40;
-ratio r = Cos(a);
-</code></p>
-
-<p>will cause the compiler to either throw a compiler error for passing degrees into a radians parameter, or generate code to convert degrees to radians.</p>
 ]]></content>
   </entry>
   

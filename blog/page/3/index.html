@@ -9,17 +9,7 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="Here&rsquo;s a C++ quiz for all of you: somefunc() will be called from a thread. Do you think this destructor will be called? 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11 &hellip;">
+  <meta name="description" content="Several moons ago I have been working on a special blogging client, that is capable of wysiwyg blogging and allows you to take snapshots from movie &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -115,6 +105,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/04/first-test-post-from-bunnyblogger/">First Test Post From BunnyBlogger</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-04T00:00:00+00:00" pubdate data-updated="true">Jul 4<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/07/04/first-test-post-from-bunnyblogger/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><iframe width="480" height="390" src="http://www.youtube.com/embed/FvhGhKragpI" frameborder="0" allowfullscreen></iframe>
+
+
+<p>Several moons ago I have been working on a special blogging client, that is capable of wysiwyg blogging and allows you to take snapshots from movie files and add images and other images to your post.</p>
+
+<p>I have only shown this to a few people. But now, I&rsquo;ve been working to bring it up to user-standard so everyone can benefit from a way to blog quickly, without the waiting for image upload messing with your writing flow.</p>
+
+<p>This is a test post from that very program, entering its beta.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -883,110 +918,6 @@ Sometimes code that was written back then may be correct back then, but may not 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/03/10/a-resource-pool-implementation/">A Resource Pool Implementation</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-03-10T00:00:00+00:00" pubdate data-updated="true">Mar 10<span>th</span>, 2009</time>
-        
-         | <a href="/blog/2009/03/10/a-resource-pool-implementation/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>After some interesting discussion with a friend, I&rsquo;ve decided to try my hand at coding a resource pool like Apache&rsquo;s APR pools. I&rsquo;m gonna call my pool b_pool, which stands for bunny pool.</p>
-
-<p>Its not going to be a copy of APR pools however, it will just by my idea of what a pool should be like. It will be able handle not only memory, but file handles, socket descriptors and other shared system resources and manage them. Thus, instead of calling it just a memory pool, I call it a resource pool.</p>
-
-<p>You can check it out from LaunchPad using Bazaar version control.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>bzr branch lp:~davidsiaw/bpool/trunk</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Currently the only way to build bpool is by using Visual Studio 2008. I&rsquo;ll check in some autogen scripts sometime later this week. Or someone can help me write a temporary makefile that I can merge into the tree ^_^.</p>
-
-<p>This resource pool is meant to be used inside a subsystem that has a limited lifetime, but uses memory in a complex enough way to make tracking the lifetimes of objects allocated inside it difficult. The idea of a pool is that you create a pool just before you run the subsystem, and the subsystem will use the pool to allocate memory and other resources, in other words, allocate resources inside the pool. When the subsystem is no longer needed, the pool is destroyed, taking along with it all the resources it was used to allocate. The subsystem has the freedom to free memory if it wants to, or it can allocate memory to be used at a later time.</p>
-
-<p>The b_pool is still in its infancy and I still have a lot of things I want to add to it such as string manipulation functions that use the b_pool, which would be tremendously useful if used together with a subsystem that uses strings a lot.</p>
-
-<p>How do you use the pool?</p>
-
-<p>Well right now there&rsquo;s only one way to use it, and it can only pool memory at the moment. In order to create a pool, simply create a variable to hold a pointer to the pool and call b_create_pool</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">b_pool</span><span class="o">*</span> <span class="n">pool</span><span class="p">;</span>
-</span><span class='line'><span class="n">b_create_pool</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pool</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>When you are sure you are finished with it, you call</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">b_destroy_pool</span><span class="p">(</span><span class="n">pool</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This frees all the memory allocated in the pool.</p>
-
-<p>In order for the subsystem to allocate memory in the pool, it needs to call the function b_alloc, which is basically a replacement for malloc, but it is used slightly differently.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">mysubsystem</span><span class="p">(</span><span class="n">b_pool</span><span class="o">*</span> <span class="n">pool</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="kt">char</span><span class="o">*</span> <span class="n">mem1</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">b_alloc</span><span class="p">(</span><span class="n">pool</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mem1</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>b_alloc takes 3 parameters, it takes the pointer to the pool, a reference to the pointer to memory that it will assign to, and the size of memory requested. b_alloc will then fill in the pointer with an address where the requested memory has been prepared. It returns a number too, 0 for success and anything else for fail. I might add an enumeration later.</p>
-
-<p>If you so wish to free the memory because you know you are finished with it, you can use</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">b_free</span><span class="p">(</span><span class="n">pool</span><span class="p">,</span> <span class="n">mem</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Similar to free() in libc, b_free frees up memory to be allocated by somebody else again. Although this is optional as long as you destroy the pool when your subsystem has done its job, this is useful whenever you want to keep the memory usage to a minimum constantly, which is the case in memory-constrained environments like mobile phones.</p>
-
-<p>So whats the difference between using a memory pool and malloc to allocate memory? Isn&rsquo;t it just putting a big malloc and free around a set of function calls? It may seem absurd and unuseful on the outset, but the only rule you must definitely observe when using a pool is that you must Never make a global pool in your application, because that&rsquo;s what your application address space already is. Essentially, yes. It is putting a big malloc and free around a set of function calls. But the usage of memory is simplified in the sense that you can ignore having to worry about trying to reuse memory that isn&rsquo;t used anymore inside your subsystem, or resizing the amount of memory you allocated for your subsystem in order to let it store more data. All you need to do is ask for memory, which is one less worry in a low-level language.</p>
-
-<p>It is also faster to have a userland routine manage your memory for you, since it does not incur the cost of changing privilege levels, which is expensive on most CPU architectures, and is required whenever you want to ask the OS to reserve memory for you. Eventually I will create more routines to allow the registration of destructors, deep copiers for other kinds of custom resources into the pool. I am also thinking of turning it into a layer over a set of OS resource requesting functions, so one can write subsystems that are platform-independant, and all one needs to do to use a subsystem on another platform is to implement the b_pool for that platform and use the subsystem.</p>
-
-<p>So, have fun with experimenting with it and tell me what you think about it, or even, tell me your idea of what you think a resource pool should be like!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -1030,11 +961,15 @@ Sometimes code that was written back then may be correct back then, but may not 
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/math/'>Math (2)</a></li><li><a href='/blog/categories/philosophy/'>Philosophy (1)</a></li><li><a href='/blog/categories/programming/'>Programming (31)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/math/'>Math (2)</a></li><li><a href='/blog/categories/philosophy/'>Philosophy (1)</a></li><li><a href='/blog/categories/programming/'>Programming (32)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/08/16/jepsen-and-docker/">Jepsen and Docker</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2016/04/09/an-utilitarian-view-on-intelligence/">An Utilitarian View on Intelligence</a>
@@ -1050,10 +985,6 @@ Sometimes code that was written back then may be correct back then, but may not 
     
       <li class="post">
         <a href="/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac/">Script for setting up FTP to a folder on a Mac</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/22/hexlife-part-2/">Hexlife Part 2</a>
       </li>
     
   </ul>
