@@ -127,7 +127,7 @@
   
 
 
-<time datetime="2018-08-16T00:06:00+00:00" pubdate data-updated="true">Aug 16<span>th</span>, 2018</time>
+<time datetime="2018-08-16T00:06:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2018/08/16/jepsen-and-docker/#disqus_thread">Comments</a>
         
@@ -174,7 +174,7 @@
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>.
 </span><span class='line'>.
 </span><span class='line'>.
-</span><span class='line'>jepsen-control | Please run <span class="sb">`</span>docker <span class="nb">exec</span> -it jepsen-control bash<span class="sb">`</span> in another terminal to proceed.
+</span><span class='line'>jepsen-control <span class="p">|</span> Please run <span class="sb">`</span>docker <span class="nb">exec</span> -it jepsen-control bash<span class="sb">`</span> in another terminal to proceed.
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -200,7 +200,7 @@
 </span><span class='line'>
 </span><span class='line'>This container runs the Jepsen tests in sub-containers.
 </span><span class='line'>
-</span><span class='line'>You are currently in the base dir of the git repo <span class="k">for </span>Jepsen.
+</span><span class='line'>You are currently in the base dir of the git repo <span class="k">for</span> Jepsen.
 </span><span class='line'>If you modify the core jepsen library make sure you <span class="s2">&quot;lein install&quot;</span> it so other tests can access.
 </span><span class='line'>
 </span><span class='line'>To run a <span class="nb">test</span>:
@@ -325,7 +325,7 @@
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>root@control:/knossos# lein repl
-</span><span class='line'>nREPL server started on port 37400 on host 127.0.0.1 - nrepl://127.0.0.1:37400
+</span><span class='line'>nREPL server started on port <span class="m">37400</span> on host 127.0.0.1 - nrepl://127.0.0.1:37400
 </span><span class='line'>REPL-y 0.3.7, nREPL 0.2.12
 </span><span class='line'>Clojure 1.8.0
 </span><span class='line'>OpenJDK 64-Bit Server VM 1.8.0_181-8u181-b13-0ubuntu0.16.04.1-b13
@@ -374,14 +374,17 @@
 </ol>
 
 
-<h3>Using docker is way cool</h3>
+<h3>Using docker is way cool  aaa</h3>
 
 <p>While Aphyr says that he uses his own LXC stuff to work with, I think its cool that he does provide a Docker interface. However he isn&rsquo;t taking advantage of a few things docker can do:</p>
 
-<p>a) Prebuilt docker containers
-b) Networking in docker that can be used to simulate faults
-c) Skewing clocks in the container
-d) Adding and removing new containers, simulating scaling effects and changing configuration</p>
+<ol type="a">
+<li>Prebuilt docker containers</li>
+<li>Networking in docker that can be used to simulate faults</li>
+<li>Skewing clocks in the container</li>
+<li>Adding and removing new containers, simulating scaling effects and changing configuration</li>
+</ol>
+
 
 <p>It is probably because the tool is in its early stages of development, and really he knows how to use it the best, so he can do his stuff the best. But I can&rsquo;t help but feel he himself would benefit from some improvement in this domain. Perhaps he does not use it right now, or maybe he does in another way. I&rsquo;ve only sat with this code for the last 4 hours.</p>
 
@@ -434,7 +437,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
   
 
 
-<time datetime="2016-04-09T22:56:00+00:00" pubdate data-updated="true">Apr 9<span>th</span>, 2016</time>
+<time datetime="2016-04-09T22:56:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2016/04/09/an-utilitarian-view-on-intelligence/#disqus_thread">Comments</a>
         
@@ -496,7 +499,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
   
 
 
-<time datetime="2015-12-22T01:11:00+00:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2015</time>
+<time datetime="2015-12-22T01:11:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2015/12/22/rotating-integrals/#disqus_thread">Comments</a>
         
@@ -515,7 +518,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 
 <p>Since this is integration of the product of two functions, we perform integration by parts.</p>
 
-<p>\[\int{u\,dv} = uv\, &ndash; \int{v\,du}\]</p>
+<p>\[\int{u\,dv} = uv\, - \int{v\,du}\]</p>
 
 <p>I choose \(u = x^3\) and \(dv = sin(x)\,dx\) mostly to avoid having to integrate the \(x^3\) and have fractions mess up my working.</p>
 
@@ -534,8 +537,8 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 
 <p>\[
 \begin{aligned}
- \int{u\,dv} &amp; = uv\, &ndash; \int{v\,du} \cr
- &amp; = -x^3\,cos(x)\, &ndash; \int{–3x^2 cos(x)\,dx} \cr
+ \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
+ &amp; = -x^3\,cos(x)\, - \int{–3x^2 cos(x)\,dx} \cr
  &amp; = -x^3\,cos(x) + \int{3x^2 cos(x)\,dx}
 \end{aligned}
 \]</p>
@@ -545,8 +548,8 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 <p>\[
 \begin{array}{cc}
  \begin{aligned}
-  \int{u\,dv} &amp; = uv\, &ndash; \int{v\,du} \cr
-  \int{3x^2 cos(x)\,dx} &amp; = 3x^2 sin(x)\, &ndash; \int{6x\,sin(x)\,dx}
+  \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
+  \int{3x^2 cos(x)\,dx} &amp; = 3x^2 sin(x)\, - \int{6x\,sin(x)\,dx}
  \end{aligned} &amp;
  \begin{aligned}
   u &amp; = 3x^2 \cr
@@ -562,8 +565,8 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 <p>\[
 \begin{array}{cc}
  \begin{aligned}
-  \int{u\,dv} &amp; = uv\, &ndash; \int{v\,du} \cr
-  \int{6x\,sin(x)\,dx} &amp; = -6x\,cos(x)\, &ndash; \int{-6\,cos(x)\,dx} \cr
+  \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
+  \int{6x\,sin(x)\,dx} &amp; = -6x\,cos(x)\, - \int{-6\,cos(x)\,dx} \cr
   \int{6x\,sin(x)\,dx} &amp; = -6x\,cos(x) + \int{6\,cos(x)\,dx}
  \end{aligned} &amp;
  \begin{aligned}
@@ -590,10 +593,10 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 <p>\[
 \begin{aligned}
  \int{x^3\,sin(x)\,dx} &amp; = -x^3\,cos(x) + \int{3x^2 cos(x)\,dx} \cr
- &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, &ndash; \int{6x\,sin(x)\,dx} \cr
- &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, &ndash; [-6x\,cos(x) + \int{6\,cos(x)\,dx}] \cr
- &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, &ndash; [-6x\,cos(x) + 6\,sin(x)] \cr
- &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, + 6x\,cos(x) &ndash; 6\,sin(x)
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, - \int{6x\,sin(x)\,dx} \cr
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, - [-6x\,cos(x) + \int{6\,cos(x)\,dx}] \cr
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, - [-6x\,cos(x) + 6\,sin(x)] \cr
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, + 6x\,cos(x) - 6\,sin(x)
 \end{aligned}
 \]</p>
 
@@ -612,7 +615,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 <p>If we factorize the result, we get the following:</p>
 
 <p>\[
- -x^3\,cos(x) + 3x^2 sin(x)\, + 6x\,cos(x) &ndash; 6\,sin(x) = (-x^3 + 6x)\,cos(x) + (3x^2 &ndash; 6)\,sin(x)
+ -x^3\,cos(x) + 3x^2 sin(x)\, + 6x\,cos(x) - 6\,sin(x) = (-x^3 + 6x)\,cos(x) + (3x^2 - 6)\,sin(x)
 \]</p>
 
 <p>Notice how there is a negative term in both the \(sin(x)\) and \(cos(x)\) groups. Since the starting \(u\) we chose was positive, we can see the \(sin(x)\) go through</p>
@@ -631,18 +634,18 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 <p>And from our rearranged result,</p>
 
 <p>\[
-(-f + f^{\prime \prime})\,cos(x) + (f^\prime &ndash; f^{\prime \prime \prime})\,sin(x)
+(-f + f^{\prime \prime})\,cos(x) + (f^\prime - f^{\prime \prime \prime})\,sin(x)
 \]</p>
 
 <p>This peaked my interest, and I decided to check the results of other powers of x:</p>
 
 <p>\[
 \begin{array}{cc}
-3 &amp; (-x^3 + 6x)\,cos(x) &amp; + (3x^2 &ndash; 6)\,sin(x) \cr
-4 &amp; (-x^4 + 12x^2 &ndash; 24)\,cos(x) &amp; + (4x^3 &ndash; 24x)\,sin(x) \cr
-5 &amp; (-x^5 + 20x^3 &ndash; 120x)\,cos(x) &amp; + (5x^4 &ndash; 60x^2 + 120)\,sin(x) \cr
-6 &amp; (-x^6 + 30x^4 &ndash; 360x^2 + 720)\,cos(x) &amp; + (6x^5 &ndash; 120x^3 + 720x)\,sin(x) \cr
-7 &amp; (-x^7 + 42x^5 &ndash; 840x^3 + 5040x)\,cos(x) &amp; + (7x^6 &ndash; 210x^4 + 2520x^2 &ndash; 5040)\,sin(x)
+3 &amp; (-x^3 + 6x)\,cos(x) &amp; + (3x^2 - 6)\,sin(x) \cr
+4 &amp; (-x^4 + 12x^2 - 24)\,cos(x) &amp; + (4x^3 - 24x)\,sin(x) \cr
+5 &amp; (-x^5 + 20x^3 - 120x)\,cos(x) &amp; + (5x^4 - 60x^2 + 120)\,sin(x) \cr
+6 &amp; (-x^6 + 30x^4 - 360x^2 + 720)\,cos(x) &amp; + (6x^5 - 120x^3 + 720x)\,sin(x) \cr
+7 &amp; (-x^7 + 42x^5 - 840x^3 + 5040x)\,cos(x) &amp; + (7x^6 - 210x^4 + 2520x^2 - 5040)\,sin(x)
 \end{array}
 \]</p>
 
@@ -651,7 +654,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 <p>After doing some more wolframming, I found that we have a general solution of:</p>
 
 <p>\[
-\int{f\,sin(x)\,dx} = (&ndash; f + f^{\prime \prime} &ndash; f^{\prime \prime \prime \prime} + \cdots &ndash; f^{\prime2n})\,cos(x) + (f^{\prime} &ndash; f^{\prime \prime \prime} + f^{\prime \prime \prime \prime \prime} &ndash; \cdots + f^{\prime2n+1})\,sin(x)
+\int{f\,sin(x)\,dx} = (- f + f^{\prime \prime} - f^{\prime \prime \prime \prime} + \cdots - f^{\prime2n})\,cos(x) + (f^{\prime} - f^{\prime \prime \prime} + f^{\prime \prime \prime \prime \prime} - \cdots + f^{\prime2n+1})\,sin(x)
 \]</p>
 
 <p>Where odd numbered differentials are on the \(sin(x)\) group and even numbered differentials are on the \(cos(x)\) group, and each differential alternates between negative and positive signs. The \(sin(x)\) group starts with a positive sign while the \(cos(x)\) starts with a negative sign.</p>
@@ -659,7 +662,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 <p>Of course, the same rule slightly modified works for the \(cos(x)\) form:</p>
 
 <p>\[
-\int{f\,cos(x)\,dx} = (f &ndash; f^{\prime \prime} + f^{\prime \prime \prime \prime} &ndash; \cdots + f^{\prime2n})\,sin(x) + (f^{\prime} &ndash; f^{\prime \prime \prime} + f^{\prime \prime \prime \prime \prime} &ndash; \cdots + f^{\prime2n+1})\,cos(x)
+\int{f\,cos(x)\,dx} = (f - f^{\prime \prime} + f^{\prime \prime \prime \prime} - \cdots + f^{\prime2n})\,sin(x) + (f^{\prime} - f^{\prime \prime \prime} + f^{\prime \prime \prime \prime \prime} - \cdots + f^{\prime2n+1})\,cos(x)
 \]</p>
 
 <p>Note that this only works if \(f\) eventually derives into 0, and if the trigonometric function is \(sin(x)\) or \(cos(x)\). Otherwise you will need another method of finding the solution.</p>
@@ -676,10 +679,10 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 
 <p>\[
 \begin{align}
- \int{e^x\,sin(x)\,dx} &amp; = (&ndash; e^x + e^x &ndash; e^x + \cdots)\,cos(x) + (e^x &ndash; e^x + e^x &ndash; \cdots)\,sin(x) &amp; \cr
-  &amp; = (&ndash; e^x + e^x &ndash; e^x + \cdots)\,cos(x) &ndash; (-e^x + e^x &ndash; e^x + \cdots)\,sin(x) &amp; \text{If we flip the sign}\cr
-  &amp; = (&ndash; e^x + e^x &ndash; e^x + \cdots)(cos(x) &ndash; sin(x)) &amp; \text{Hence} \cr
-  &amp; = (-1+1-1+\cdots)(e^x)(cos(x) &ndash; sin(x)) &amp;
+ \int{e^x\,sin(x)\,dx} &amp; = (- e^x + e^x - e^x + \cdots)\,cos(x) + (e^x - e^x + e^x - \cdots)\,sin(x) &amp; \cr
+  &amp; = (- e^x + e^x - e^x + \cdots)\,cos(x) - (-e^x + e^x - e^x + \cdots)\,sin(x) &amp; \text{If we flip the sign}\cr
+  &amp; = (- e^x + e^x - e^x + \cdots)(cos(x) - sin(x)) &amp; \text{Hence} \cr
+  &amp; = (-1+1-1+\cdots)(e^x)(cos(x) - sin(x)) &amp;
 \end{align}
 \]</p>
 
@@ -690,16 +693,16 @@ d) Adding and removing new containers, simulating scaling effects and changing c
  S &amp; = -1+1-1+1-1+1\cdots \cr
  S &amp; = -1-S \cr
  2S &amp; = -1 \cr
- S &amp; = &ndash;\frac{1}{2} \cr
+ S &amp; = -\frac{1}{2} \cr
 \end{align}
 \]</p>
 
-<p>Oh so that infinite sum actually evaluates to \(&ndash;\frac{1}{2}\). This may seem dubious but proving that is outside the scope of this post. (Lots of people have done it anyway.) This just means that our thing above should look like this:</p>
+<p>Oh so that infinite sum actually evaluates to \(-\frac{1}{2}\). This may seem dubious but proving that is outside the scope of this post. (Lots of people have done it anyway.) This just means that our thing above should look like this:</p>
 
 <p>\[
 \begin{align}
- \int{e^x\,sin(x)\,dx}&amp; = (-1+1-1+\cdots)(e^x)(cos(x) &ndash; sin(x)) \cr
- &amp; = &ndash;\frac{1}{2}(e^x)(cos(x) &ndash; sin(x)) \cr
+ \int{e^x\,sin(x)\,dx}&amp; = (-1+1-1+\cdots)(e^x)(cos(x) - sin(x)) \cr
+ &amp; = -\frac{1}{2}(e^x)(cos(x) - sin(x)) \cr
  &amp; = \frac{1}{2}(e^x)(sin(x)-cos(x)) \cr
 \end{align}
 \]</p>
@@ -708,15 +711,15 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 
 <h2>Verifying again</h2>
 
-<p>To verify, let us perform it again with good ol&#8217; integration by parts.</p>
+<p>To verify, let us perform it again with good ol' integration by parts.</p>
 
 <p>\[\int{e^x\,sin(x)\,dx}\]</p>
 
 <p>\[
 \begin{array}{cc}
  \begin{aligned}
-  \int{u\,dv} &amp; = uv\, &ndash; \int{v\,du} \cr
-  \int{sin(x)(e^x)\,dx} &amp; =  sin(x)(e^x)\, &ndash; \int{e^x\,cos(x)\,dx}
+  \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
+  \int{sin(x)(e^x)\,dx} &amp; =  sin(x)(e^x)\, - \int{e^x\,cos(x)\,dx}
  \end{aligned} &amp;
  \begin{aligned}
   u &amp; = sin(x) \cr
@@ -732,7 +735,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 <p>\[
 \begin{array}{cc}
  \begin{aligned}
-  \int{u\,dv} &amp; = uv\, &ndash; \int{v\,du} \cr
+  \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
   \int{e^x\,cos(x)\,dx} &amp; =  cos(x)(e^x)\, + \int{e^x\,sin(x)\,dx}
  \end{aligned} &amp;
  \begin{aligned}
@@ -748,9 +751,9 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 
 <p>\[
 \begin{aligned}
- \int{sin(x)(e^x)\,dx} &amp; = sin(x)(e^x)\, &ndash; \int{e^x\,cos(x)\,dx} \cr
- &amp; = sin(x)(e^x)\, &ndash; cos(x)(e^x)\, &ndash; \int{e^x\,sin(x)\,dx} \cr
- 2\int{sin(x)(e^x)\,dx} &amp; = sin(x)(e^x)\, &ndash; cos(x)(e^x) \cr
+ \int{sin(x)(e^x)\,dx} &amp; = sin(x)(e^x)\, - \int{e^x\,cos(x)\,dx} \cr
+ &amp; = sin(x)(e^x)\, - cos(x)(e^x)\, - \int{e^x\,sin(x)\,dx} \cr
+ 2\int{sin(x)(e^x)\,dx} &amp; = sin(x)(e^x)\, - cos(x)(e^x) \cr
  \int{sin(x)(e^x)\,dx} &amp; = \frac{1}{2}(e^x)(sin(x)-cos(x))
 \end{aligned}
 \]</p>
@@ -786,7 +789,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
   
 
 
-<time datetime="2015-06-12T01:36:00+00:00" pubdate data-updated="true">Jun 12<span>th</span>, 2015</time>
+<time datetime="2015-06-12T01:36:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2015/06/12/finding-square-roots/#disqus_thread">Comments</a>
         
@@ -1195,7 +1198,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
   
 
 
-<time datetime="2015-01-23T10:34:00+00:00" pubdate data-updated="true">Jan 23<span>rd</span>, 2015</time>
+<time datetime="2015-01-23T10:34:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac/#disqus_thread">Comments</a>
         
@@ -1282,7 +1285,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
   
 
 
-<time datetime="2014-11-22T11:47:00+00:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2014</time>
+<time datetime="2014-11-22T11:47:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2014/11/22/hexlife-part-2/#disqus_thread">Comments</a>
         
@@ -1342,7 +1345,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
   
 
 
-<time datetime="2014-11-21T10:46:00+00:00" pubdate data-updated="true">Nov 21<span>st</span>, 2014</time>
+<time datetime="2014-11-21T10:46:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2014/11/21/hexlife/#disqus_thread">Comments</a>
         
@@ -1371,8 +1374,8 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 <table>
 <thead>
 <tr>
-<th> Picture                                     </th>
-<th> Description </th>
+<th>Picture                                     </th>
+<th> Description</th>
 </tr>
 </thead>
 <tbody>
@@ -1457,7 +1460,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
   
 
 
-<time datetime="2014-10-30T01:07:00+00:00" pubdate data-updated="true">Oct 30<span>th</span>, 2014</time>
+<time datetime="2014-10-30T01:07:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2014/10/30/using-travis-to-deploy-my-blog/#disqus_thread">Comments</a>
         
@@ -1591,7 +1594,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
   
 
 
-<time datetime="2013-10-12T16:03:00+00:00" pubdate data-updated="true">Oct 12<span>th</span>, 2013</time>
+<time datetime="2013-10-12T16:03:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2013/10/12/new-blog/#disqus_thread">Comments</a>
         
@@ -1636,7 +1639,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
   
 
 
-<time datetime="2013-03-18T00:00:00+00:00" pubdate data-updated="true">Mar 18<span>th</span>, 2013</time>
+<time datetime="2013-03-18T00:00:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2013/03/18/online-vs-batch-learning/#disqus_thread">Comments</a>
         
@@ -1679,7 +1682,7 @@ double wh2 = 1.1;</p>
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="2">&larr; Older</a>
     
     <a href="archives">Blog Archives</a>
     
@@ -1718,7 +1721,7 @@ double wh2 = 1.1;</p>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/math/'>Math (2)</a></li><li><a href='/blog/categories/philosophy/'>Philosophy (1)</a></li><li><a href='/blog/categories/programming/'>Programming (32)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>hexlife (2)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/philosophy/'>philosophy (1)</a></li><li><a href='/blog/categories/programming/'>programming (32)</a></li><li><a href='/blog/categories/random/'>random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
@@ -1750,7 +1753,7 @@ double wh2 = 1.1;</p>
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/davidsiaw">@davidsiaw</a> on GitHub

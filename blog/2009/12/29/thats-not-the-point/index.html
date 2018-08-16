@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2009-12-29T00:00:00+00:00" pubdate data-updated="true">Dec 29<span>th</span>, 2009</time>
+<time datetime="2009-12-29T00:00:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -136,7 +136,7 @@
 <div class="entry-content"><p>Today I read an interesting chapter in Writing Solid Code, and it showed an example where a supposed optimization led to code bloat:</p>
 
 <blockquote>
-To represent the hierarchical window structure, Character Windows used a binary tree in which one branch pointed to subwindwos, called &#8220;children&#8221; and the other branch pointed to windows with the same parent, called &#8220;siblings&#8221;:
+To represent the hierarchical window structure, Character Windows used a binary tree in which one branch pointed to subwindwos, called "children" and the other branch pointed to windows with the same parent, called "siblings":
 </blockquote>
 
 
@@ -214,7 +214,7 @@ You can turn to any algorithm book and find efficient routines to manipulate bin
 </span><span class='line'><span class="cm"> */</span>
 </span><span class='line'><span class="k">static</span> <span class="n">window</span> <span class="o">*</span><span class="n">pwndRootChildren</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'><span class="kt">void</span> <span class="n">AddChild</span><span class="p">(</span><span class="n">window</span> <span class="o">*</span><span class="n">pwndParent</span><span class="p">,</span> <span class="n">window</span> <span class="o">*</span><span class="n">pwndNewBorn</span><span class="p">)</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">AddChild</span><span class="p">(</span><span class="n">window</span> <span class="o">*</span><span class="n">pwndParent</span><span class="p">,</span> <span class="n">window</span> <span class="o">*</span><span class="n">pwndNewBorn</span><span class="p">)</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>  <span class="cm">/* New windows may have children but not siblings... */</span>
 </span><span class='line'>  <span class="n">ASSERT</span><span class="p">(</span><span class="n">pwndNewBorn</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
@@ -252,7 +252,7 @@ You can turn to any algorithm book and find efficient routines to manipulate bin
 
 
 <blockquote>
-Despite the fact that the windowing structure was designed to be a binary tree, it hadn&#8217;t been implemented that way. Since the root window (the one representing the entire display) never has siblings and never has a title and since you can&#8217;t move hide or delete it, &#8230; (cut short for tl;dr)&#8230; that led somebody to decide that declaring an entire window structure was wasteful, and the wndRoot structure was replaced with pwndRootChildren, a simple pointer to the top level windows.
+Despite the fact that the windowing structure was designed to be a binary tree, it hadn't been implemented that way. Since the root window (the one representing the entire display) never has siblings and never has a title and since you can't move hide or delete it, ... (cut short for tl;dr)... that led somebody to decide that declaring an entire window structure was wasteful, and the wndRoot structure was replaced with pwndRootChildren, a simple pointer to the top level windows.
 
 Replacing wndRoot with a pointer may have saved a few bytes of data space, <b>but the cost in code space was enormous</b>.
 
@@ -295,7 +295,7 @@ Replacing wndRoot with a pointer may have saved a few bytes of data space, <b>bu
 </span><span class='line'><span class="cm"> */</span>
 </span><span class='line'><span class="n">window</span> <span class="o">*</span><span class="n">pwndDisplay</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'><span class="kt">void</span> <span class="n">AddChild</span><span class="p">(</span><span class="n">window</span> <span class="o">*</span><span class="n">pwndParent</span><span class="p">,</span> <span class="n">window</span> <span class="o">*</span><span class="n">pwndNewBorn</span><span class="p">)</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">AddChild</span><span class="p">(</span><span class="n">window</span> <span class="o">*</span><span class="n">pwndParent</span><span class="p">,</span> <span class="n">window</span> <span class="o">*</span><span class="n">pwndNewBorn</span><span class="p">)</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>  <span class="cm">/* New windows may have children but not siblings... */</span>
 </span><span class='line'>  <span class="n">ASSERT</span><span class="p">(</span><span class="n">pwndNewBorn</span><span class="o">-&gt;</span><span class="n">pwndSibling</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
@@ -332,7 +332,7 @@ Replacing wndRoot with a pointer may have saved a few bytes of data space, <b>bu
 <p>But anyone can see that. Its obvious because he said it. However, mentioned this common mistake to a couple of colleagues and said that I did make the same kind of mistake, and this is what they said:</p>
 
 <blockquote>
-Sometimes code that was written back then may be correct back then, but may not be correct now. Just as I wrote an optimization once because computers were not fast enough to handle a certain operation at the time. They do now so that piece of code actually slowed the program down. Also, Opera recently made its engine less memory intensive but more CPU intensive, but after complaints that Opera was taking too much memory, they changed it to be less CPU intensive and more memory intensive. It&#8217;s also a balancing act with more input from your users.
+Sometimes code that was written back then may be correct back then, but may not be correct now. Just as I wrote an optimization once because computers were not fast enough to handle a certain operation at the time. They do now so that piece of code actually slowed the program down. Also, Opera recently made its engine less memory intensive but more CPU intensive, but after complaints that Opera was taking too much memory, they changed it to be less CPU intensive and more memory intensive. It's also a balancing act with more input from your users.
 </blockquote>
 
 
@@ -341,11 +341,11 @@ Sometimes code that was written back then may be correct back then, but may not 
 <p>I, like many fellow humans am prone to thinking about the more negative side of this. Of course, this was meant to be a negative post, but on the flipside, I learned three mistakes about fellow programmers that I must remember not to make myself.</p>
 
 <ol>
-<li>Winging it</li><li>Optimizing with a narrow view</li><li>The code I write is always flawless. I&#8217;ll fix it later if I have to.</li>
+<li>Winging it</li><li>Optimizing with a narrow view</li><li>The code I write is always flawless. I'll fix it later if I have to.</li>
 </ol>
 
 
-<p>Firstly, winging it and not paying attention to the details of the problem is a fatal mistake I have been guilty of countless times, and have seen many people fall in to as well. our minds are complex-averse, and tend to try and group things into simple groups of things that share the same characteristics based off keywords in a conversation without really understanding it. In this case, my mention of optimization kicked off the ideas of past optimization and tradeoffs in my colleagues&#8217; heads, and was unfortunately all that occupied their heads from that moment on.</p>
+<p>Firstly, winging it and not paying attention to the details of the problem is a fatal mistake I have been guilty of countless times, and have seen many people fall in to as well. our minds are complex-averse, and tend to try and group things into simple groups of things that share the same characteristics based off keywords in a conversation without really understanding it. In this case, my mention of optimization kicked off the ideas of past optimization and tradeoffs in my colleagues' heads, and was unfortunately all that occupied their heads from that moment on.</p>
 
 <p>Secondly, we programmers are often indulged in our own mindset and steamroll our way through because our egos are big and our power limitless. When we see something that could be good, like an optimization, we tend to bulldoze our way to make sure it gets done.</p>
 
@@ -374,12 +374,12 @@ Sometimes code that was written back then may be correct back then, but may not 
   
 
 
-<time datetime="2009-12-29T00:00:00+00:00" pubdate data-updated="true">Dec 29<span>th</span>, 2009</time>
+<time datetime="2009-12-29T00:00:00+00:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/programming/'>Programming</a>
+    <a class='category' href='/blog/categories/programming/'>programming</a>
   
 </span>
 
@@ -449,7 +449,7 @@ Sometimes code that was written back then may be correct back then, but may not 
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/math/'>Math (2)</a></li><li><a href='/blog/categories/philosophy/'>Philosophy (1)</a></li><li><a href='/blog/categories/programming/'>Programming (32)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>hexlife (2)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/philosophy/'>philosophy (1)</a></li><li><a href='/blog/categories/programming/'>programming (32)</a></li><li><a href='/blog/categories/random/'>random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>

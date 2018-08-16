@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Programming | ./home/davidsiaw]]></title>
+  <title><![CDATA[Category: programming | ./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/blog/categories/programming/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2018-08-15T17:10:56+00:00</updated>
+  <updated>2018-08-16T02:26:39+00:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -26,16 +26,14 @@
 
 <p>I checked out Jepsen and ran the scripts the way it told me to.</p>
 
-<p>```ruby
-$ sh up.sh
+<pre><code class="ruby">$ sh up.sh
 [INFO] Generating key pair
 Generating public/private rsa key pair.
 Your identification has been saved in ./secret/id_rsa.
 .
 .
-.</p>
-
-<p>```</p>
+.
+</code></pre>
 
 <p>And then it goes off and builds a bunch of containers from scratch.</p>
 
@@ -43,46 +41,38 @@ Your identification has been saved in ./secret/id_rsa.
 
 <p>Then at the very end (after maybe 15 mins of downloading and installing) it goes</p>
 
-<p><code>``bash
+<pre><code class="bash">.
 .
 .
-.
-jepsen-control | Please run</code>docker exec -it jepsen-control bash` in another terminal to proceed.</p>
-
-<p>```</p>
+jepsen-control | Please run `docker exec -it jepsen-control bash` in another terminal to proceed.
+</code></pre>
 
 <p>Excellent I can run it now!</p>
 
 <p>So I open another terminal and type it in and instantly I&rsquo;m transported to where I should be to start working with Jepsen. Hooray!</p>
 
-<p>```bash
-$ docker exec -it jepsen-control bash</p>
+<pre><code class="bash">$ docker exec -it jepsen-control bash
+Welcome to Jepsen on Docker
+===========================
 
-<h1>Welcome to Jepsen on Docker</h1>
+This container runs the Jepsen tests in sub-containers.
 
-<p>This container runs the Jepsen tests in sub-containers.</p>
+You are currently in the base dir of the git repo for Jepsen.
+If you modify the core jepsen library make sure you "lein install" it so other tests can access.
 
-<p>You are currently in the base dir of the git repo for Jepsen.
-If you modify the core jepsen library make sure you &ldquo;lein install&rdquo; it so other tests can access.</p>
-
-<p>To run a test:
-   cd etcd &amp;&amp; lein run test &mdash;concurrency 10
-root@control:/jepsen#</p>
-
-<p>```</p>
+To run a test:
+   cd etcd &amp;&amp; lein run test --concurrency 10
+root@control:/jepsen# 
+</code></pre>
 
 <p>Let&rsquo;s try the next command. It looks to me like I should try running the test on etcd with 10 clients?</p>
 
-<p>```bash</p>
-
-<h1>cd etcd &amp;&amp; lein run test &mdash;concurrency 10</h1>
-
-<p>```</p>
+<pre><code class="bash"># cd etcd &amp;&amp; lein run test --concurrency 10
+</code></pre>
 
 <p>It then goes off and spews a large amount of output</p>
 
-<p><code>bash
-16:09:00.452 [main] INFO  jepsen.cli - Test options:
+<pre><code class="bash">16:09:00.452 [main] INFO  jepsen.cli - Test options:
  {:concurrency 10,
  :test-count 1,
  :time-limit 60,
@@ -95,13 +85,12 @@ root@control:/jepsen#</p>
 .
 .
 .
-</code></p>
+</code></pre>
 
 <p>It basically goes off and does a large number of reads and writes. At the very end, it comes back with this:</p>
 
-<p><code>bash
-Analysis invalid! (ﾉಥ益ಥ）ﾉ ┻━┻
-</code></p>
+<pre><code class="bash">Analysis invalid! (ﾉಥ益ಥ）ﾉ ┻━┻
+</code></pre>
 
 <p>Wow that was quick. I did not expect to run into an etcd problem so fast. I did not even specify any failures.</p>
 
@@ -109,20 +98,16 @@ Analysis invalid! (ﾉಥ益ಥ）ﾉ ┻━┻
 
 <p>Aha.</p>
 
-<p>```clojure
-&hellip;
-(merge tests/noop-test</p>
-
-<pre><code>     {:name "etcd"
-      :os debian/os
-      :db (db "v3.1.5")
-      :client (client nil)
-      :nemesis (nemesis/partition-random-halves)
-      :model  (model/cas-register)
+<pre><code class="clojure">...
+(merge tests/noop-test
+         {:name "etcd"
+          :os debian/os
+          :db (db "v3.1.5")
+          :client (client nil)
+          :nemesis (nemesis/partition-random-halves)
+          :model  (model/cas-register)
+...
 </code></pre>
-
-<p>&hellip;
-```</p>
 
 <p>Looks like the Jepsen nemesis was baked into the test script. Well thats fine for now.</p>
 
@@ -134,66 +119,47 @@ Analysis invalid! (ﾉಥ益ಥ）ﾉ ┻━┻
 
 <p>I didn&rsquo;t know very much about Clojure so I just followed through the README anyway. So first I cloned knossos</p>
 
-<p>```bash</p>
-
-<h1>git clone <a href="https://github.com/jepsen-io/knossos">https://github.com/jepsen-io/knossos</a></h1>
-
-<h1>cd knossos</h1>
-
-<p>```</p>
+<pre><code class="bash"># git clone https://github.com/jepsen-io/knossos
+# cd knossos
+</code></pre>
 
 <p>I dug around to find the .edn file from my Jepsen run and discovered it in /jepsen/etcd/store/latest/history.edn</p>
 
 <p>Then I ran the command in the README</p>
 
-<p>```bash</p>
-
-<h1>lein run &mdash;model cas-register /jepsen/etcd/store/latest/history.edn</h1>
-
-<p>/jepsen/etcd/store/latest/history.edn   false
-```</p>
+<pre><code class="bash"># lein run --model cas-register /jepsen/etcd/store/latest/history.edn 
+/jepsen/etcd/store/latest/history.edn   false
+</code></pre>
 
 <p>Excellent. Yes. I knew that.</p>
 
 <p>Scrolling down a little in the README I discovered it could generate the linearizability graph too. That was cool so I tried, by following the code in the README</p>
 
-<p>```bash
-root@control:/knossos# lein repl
-nREPL server started on port 37400 on host 127.0.0.1 &ndash; nrepl://127.0.0.1:37400
+<pre><code class="bash">root@control:/knossos# lein repl
+nREPL server started on port 37400 on host 127.0.0.1 - nrepl://127.0.0.1:37400
 REPL-y 0.3.7, nREPL 0.2.12
 Clojure 1.8.0
-OpenJDK 64-Bit Server VM 1.8.0_181-8u181-b13-0ubuntu0.16.04.1-b13</p>
-
-<pre><code>Docs: (doc function-name-here)
-      (find-doc "part-of-name-here")
+OpenJDK 64-Bit Server VM 1.8.0_181-8u181-b13-0ubuntu0.16.04.1-b13
+    Docs: (doc function-name-here)
+          (find-doc "part-of-name-here")
+  Source: (source function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+    Exit: Control+D or (exit) or (quit)
+ Results: Stored in vars *1, *2, *3, an exception in *e
 </code></pre>
-
-<p>  Source: (source function-name-here)
- Javadoc: (javadoc java-object-or-class-here)</p>
-
-<pre><code>Exit: Control+D or (exit) or (quit)
-</code></pre>
-
-<p> Results: Stored in vars <em>1, </em>2, <em>3, an exception in </em>e
-```</p>
 
 <p>I am then dropped into the Clojure prompt, where I try clumsily to guess how things are done:</p>
 
-<p>```clojure
-knossos.cli=> (def h (read-history &ldquo;/jepsen/etcd/store/latest/history.edn&rdquo;))</p>
-
-<h1>&lsquo;knossos.cli/h</h1>
-
-<p>knossos.cli=> (def a (competition/analysis (model/cas-register) h))</p>
-
-<h1>&lsquo;knossos.cli/a</h1>
-
-<p>knossos.cli=> (require &lsquo;[knossos.linear.report :as report])
+<pre><code class="clojure">knossos.cli=&gt; (def h (read-history "/jepsen/etcd/store/latest/history.edn"))
+#'knossos.cli/h
+knossos.cli=&gt; (def a (competition/analysis (model/cas-register) h))
+#'knossos.cli/a
+knossos.cli=&gt; (require '[knossos.linear.report :as report])
 nil
-knossos.cli=> (report/render-analysis! h a &ldquo;linear.svg&rdquo;)
+knossos.cli=&gt; (report/render-analysis! h a "linear.svg")
 AssertionError Assert failed: No invocation for op {:process 2, :type :ok, :f :read, :value [0 4], :index 12, :time 421990474}
-inv  knossos.linear.report/time-coords/fn&mdash;5143 (report.clj:186)
-```</p>
+inv  knossos.linear.report/time-coords/fn--5143 (report.clj:186)
+</code></pre>
 
 <p>Okay, I had no idea what that meant. Looks like there are still kinks.</p>
 
@@ -208,14 +174,17 @@ inv  knossos.linear.report/time-coords/fn&mdash;5143 (report.clj:186)
 </ol>
 
 
-<h3>Using docker is way cool</h3>
+<h3>Using docker is way cool  aaa</h3>
 
 <p>While Aphyr says that he uses his own LXC stuff to work with, I think its cool that he does provide a Docker interface. However he isn&rsquo;t taking advantage of a few things docker can do:</p>
 
-<p>a) Prebuilt docker containers
-b) Networking in docker that can be used to simulate faults
-c) Skewing clocks in the container
-d) Adding and removing new containers, simulating scaling effects and changing configuration</p>
+<ol type="a">
+<li>Prebuilt docker containers</li>
+<li>Networking in docker that can be used to simulate faults</li>
+<li>Skewing clocks in the container</li>
+<li>Adding and removing new containers, simulating scaling effects and changing configuration</li>
+</ol>
+
 
 <p>It is probably because the tool is in its early stages of development, and really he knows how to use it the best, so he can do his stuff the best. But I can&rsquo;t help but feel he himself would benefit from some improvement in this domain. Perhaps he does not use it right now, or maybe he does in another way. I&rsquo;ve only sat with this code for the last 4 hours.</p>
 
@@ -258,29 +227,25 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 
 <p>Tested on Mavericks</p>
 
-<p>```ruby</p>
+<pre><code class="ruby">#!/usr/bin/env ruby
 
-<h1>!/usr/bin/env ruby</h1>
+#puts ARGV.inspect
 
-<h1>puts ARGV.inspect</h1>
+puts `sudo -s launchctl unload -w /System/Library/LaunchDaemons/ftp.plist`
 
-<p>puts <code>sudo -s launchctl unload -w /System/Library/LaunchDaemons/ftp.plist</code></p>
-
-<p>config = &lt;&lt;-THEFILE</p>
-
-<h1>Set the ftp root dir to this folder</h1>
-
-<p>umask all 022
+config = &lt;&lt;-THEFILE
+# Set the ftp root dir to this folder
+umask all 022
 chroot GUEST #{ARGV[0]}
 modify guest off
 umask  guest 0707
 upload guest on
-THEFILE</p>
+THEFILE
 
-<p>File.open(&ldquo;/etc/ftpd.conf&rdquo;, &lsquo;w&rsquo;) { |file| file.write(config) }</p>
+File.open("/etc/ftpd.conf", 'w') { |file| file.write(config) }
 
-<p>puts <code>sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist</code>
-```</p>
+puts `sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist`
+</code></pre>
 
 <p>With this you will have an ftpd turn on whose root folder is the folder you named. in this case it is <code>/directoryIWantToShare</code></p>
 ]]></content>
@@ -301,12 +266,11 @@ THEFILE</p>
 
 <p>In this post I will show you how to set it up. First of all, I create a key that will give push access to my blog&rsquo;s repository at <a href="https://github.com/davidsiaw/davidsiaw.github.io">https://github.com/davidsiaw/davidsiaw.github.io</a> by calling up <code>ssh-keygen</code></p>
 
-<p><code>
-nagatsuki david$ ssh-keygen
+<pre><code class="">nagatsuki david$ ssh-keygen
 Generating public/private rsa key pair.
 Enter file in which to save the key (/Users/david/.ssh/id_rsa): deploy_key
-Enter passphrase (empty for no passphrase):
-Enter same passphrase again:
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
 Your identification has been saved in deploy_key.
 Your public key has been saved in deploy_key.pub.
 The key fingerprint is:
@@ -323,38 +287,35 @@ The key's randomart image is:
 |                 |
 |                 |
 +-----------------+
-</code></p>
+</code></pre>
 
 <p>I then place the deploy_key.pub in my github repository.</p>
 
 <p>Next, I make use of the Travis gem to encrypt my private key. I add the <code>--add</code> parameter to make it write to my .travis.yml (I am in the directory.)</p>
 
-<p>```
-nagatsuki david$ travis encrypt-file deploy_key &mdash;add
+<pre><code>nagatsuki david$ travis encrypt-file deploy_key --add
 encrypting deploy_key for davidsiaw/davidsiaw.github.io
 storing result as deploy_key.enc
-storing secure env variables for decryption</p>
+storing secure env variables for decryption
 
-<p>Make sure to add deploy_key.enc to the git repository.
+Make sure to add deploy_key.enc to the git repository.
 Make sure not to add deploy_key to the git repository.
 Commit all changes to your .travis.yml.
-```</p>
+</code></pre>
 
 <p>This gives me a deploy_key.enc that is my encrypted private key.</p>
 
 <p>In order to use this key, I need to add some more lines to <a href="https://github.com/davidsiaw/davidsiaw.github.io.source/blob/master/.travis.yml">.travis.yml</a> to enable it to push to github. First of all, I need to install the key into the .ssh folder so git can use it. I also chmod it so ssh will not complain.</p>
 
-<p><code>yml
-- chmod 600 deploy-key
+<pre><code class="yml">- chmod 600 deploy-key
 - cp deploy-key ~/.ssh/id_rsa
-</code></p>
+</code></pre>
 
 <p>With this, I can now tell Travis to push the generated files. All I do is tell it to generate the site (since this is just Jekyll), and then call my <a href="https://github.com/davidsiaw/davidsiaw.github.io.source/blob/master/deploy">deploy script</a> which simply pushes the right stuff up to github.</p>
 
-<p><code>
-- bundle exec rake generate
+<pre><code>- bundle exec rake generate
 - bash deploy
-</code></p>
+</code></pre>
 
 <p>With this, my website gets updated everytime I push my changes to <a href="https://github.com/davidsiaw/davidsiaw.github.io.source">https://github.com/davidsiaw/davidsiaw.github.io.source</a>, Travis will automatically update my blog.</p>
 ]]></content>
@@ -400,9 +361,8 @@ double wh2 = 1.1;</p>
     <id>http://davidsiaw.github.io/blog/2012/12/19/this-seems-to-make-cappuccino-faster</id>
     <content type="html"><![CDATA[<p>My lack of knowledge about Cappuccino&rsquo;s implementation details may play a role, but</p>
 
-<p><code>javascript
-window.setTimeout = window.setNativeTimeout;
-</code></p>
+<pre><code class="javascript">window.setTimeout = window.setNativeTimeout;
+</code></pre>
 
 <p>Seems to make my Cappuccino apps more responsive.</p>
 ]]></content>

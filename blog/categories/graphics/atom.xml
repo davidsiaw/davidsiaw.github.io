@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Graphics | ./home/davidsiaw]]></title>
+  <title><![CDATA[Category: graphics | ./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/blog/categories/graphics/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2018-08-15T17:10:56+00:00</updated>
+  <updated>2018-08-16T02:26:39+00:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -20,72 +20,69 @@
     <id>http://davidsiaw.github.io/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness</id>
     <content type="html"><![CDATA[<p>I find myself wanting to do this sometimes, so here&rsquo;s a bit of code (I&rsquo;m sure I stole this code from somewhere else);</p>
 
-<p>``` csharp
-public static Color ColorFromAhsb(int a, float h, float s, float b) {</p>
+<pre><code class="csharp">public static Color ColorFromAhsb(int a, float h, float s, float b) {
 
-<pre><code>if (0 &gt; a || 255 &lt; a) {
-    throw new ArgumentOutOfRangeException(&amp;quot;a&amp;quot;);
-}
-if (0f &gt; h || 360f &lt; h) {
-    throw new ArgumentOutOfRangeException(&amp;quot;h&amp;quot;);
-}
-if (0f &gt; s || 1f &lt; s) {
-    throw new ArgumentOutOfRangeException(&amp;quot;s&amp;quot;);
-}
-if (0f &gt; b || 1f &lt; b) {
-    throw new ArgumentOutOfRangeException(&amp;quot;b&amp;quot;);
-}
+    if (0 &gt; a || 255 &lt; a) {
+        throw new ArgumentOutOfRangeException(&amp;quot;a&amp;quot;);
+    }
+    if (0f &gt; h || 360f &lt; h) {
+        throw new ArgumentOutOfRangeException(&amp;quot;h&amp;quot;);
+    }
+    if (0f &gt; s || 1f &lt; s) {
+        throw new ArgumentOutOfRangeException(&amp;quot;s&amp;quot;);
+    }
+    if (0f &gt; b || 1f &lt; b) {
+        throw new ArgumentOutOfRangeException(&amp;quot;b&amp;quot;);
+    }
 
-if (0 == s) {
-    return Color.FromArgb(a, Convert.ToInt32(b * 255),
-        Convert.ToInt32(b * 255), Convert.ToInt32(b * 255));
-}
+    if (0 == s) {
+        return Color.FromArgb(a, Convert.ToInt32(b * 255),
+            Convert.ToInt32(b * 255), Convert.ToInt32(b * 255));
+    }
 
-float fMax, fMid, fMin;
-int iSextant, iMax, iMid, iMin;
+    float fMax, fMid, fMin;
+    int iSextant, iMax, iMid, iMin;
 
-if (0.5 &lt; b) {
-    fMax = b - (b * s) + s;
-    fMin = b + (b * s) - s;
-} else {
-    fMax = b + (b * s);
-    fMin = b - (b * s);
-}
+    if (0.5 &lt; b) {
+        fMax = b - (b * s) + s;
+        fMin = b + (b * s) - s;
+    } else {
+        fMax = b + (b * s);
+        fMin = b - (b * s);
+    }
 
-iSextant = (int)Math.Floor(h / 60f);
-if (300f &lt;= h) {
-    h -= 360f;
-}
-h /= 60f;
-h -= 2f * (float)Math.Floor(((iSextant + 1f) % 6f) / 2f);
-if (0 == iSextant % 2) {
-    fMid = h * (fMax - fMin) + fMin;
-} else {
-    fMid = fMin - h * (fMax - fMin);
-}
+    iSextant = (int)Math.Floor(h / 60f);
+    if (300f &lt;= h) {
+        h -= 360f;
+    }
+    h /= 60f;
+    h -= 2f * (float)Math.Floor(((iSextant + 1f) % 6f) / 2f);
+    if (0 == iSextant % 2) {
+        fMid = h * (fMax - fMin) + fMin;
+    } else {
+        fMid = fMin - h * (fMax - fMin);
+    }
 
-iMax = Convert.ToInt32(fMax * 255);
-iMid = Convert.ToInt32(fMid * 255);
-iMin = Convert.ToInt32(fMin * 255);
+    iMax = Convert.ToInt32(fMax * 255);
+    iMid = Convert.ToInt32(fMid * 255);
+    iMin = Convert.ToInt32(fMin * 255);
 
-switch (iSextant) {
-    case 1:
-        return Color.FromArgb(a, iMid, iMax, iMin);
-    case 2:
-        return Color.FromArgb(a, iMin, iMax, iMid);
-    case 3:
-        return Color.FromArgb(a, iMin, iMid, iMax);
-    case 4:
-        return Color.FromArgb(a, iMid, iMin, iMax);
-    case 5:
-        return Color.FromArgb(a, iMax, iMin, iMid);
-    default:
-        return Color.FromArgb(a, iMax, iMid, iMin);
+    switch (iSextant) {
+        case 1:
+            return Color.FromArgb(a, iMid, iMax, iMin);
+        case 2:
+            return Color.FromArgb(a, iMin, iMax, iMid);
+        case 3:
+            return Color.FromArgb(a, iMin, iMid, iMax);
+        case 4:
+            return Color.FromArgb(a, iMid, iMin, iMax);
+        case 5:
+            return Color.FromArgb(a, iMax, iMin, iMid);
+        default:
+            return Color.FromArgb(a, iMax, iMid, iMin);
+    }
 }
 </code></pre>
-
-<p>}
-```</p>
 ]]></content>
   </entry>
   
@@ -153,50 +150,43 @@ switch (iSextant) {
 
 <p>Some sample code stolen from somewhere below:</p>
 
-<p>``` c++
-void glEnable2D()
-{</p>
+<pre><code class="c++">void glEnable2D()
+{
+    glEnable (GL_ALPHA_TEST); 
 
-<pre><code>glEnable (GL_ALPHA_TEST); 
+    int vPort[4];
 
-int vPort[4];
+    glGetIntegerv(GL_VIEWPORT, vPort);
 
-glGetIntegerv(GL_VIEWPORT, vPort);
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
 
-glMatrixMode(GL_PROJECTION);
-glPushMatrix();
-glLoadIdentity();
+    gluOrtho2D(0.0, vPort[2], vPort[3], 0.0);
 
-gluOrtho2D(0.0, vPort[2], vPort[3], 0.0);
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
 
-glMatrixMode(GL_MODELVIEW);
-glPushMatrix();
-glLoadIdentity();
+}
 </code></pre>
-
-<p>}
-```</p>
 
 <p>So setting up OpenGL for 2D drawing is extremely simple. To draw something on the screen, simply go:</p>
 
-<p>``` c++
-void drawFilledRectangle()
-{</p>
+<pre><code class="c++">void drawFilledRectangle()
+{
+    glColor4f(255.0 , 0.0, 0.0, 255.0);
 
-<pre><code>glColor4f(255.0 , 0.0, 0.0, 255.0);
+    glBindTexture( GL_TEXTURE_2D, 0 );
 
-glBindTexture( GL_TEXTURE_2D, 0 );
-
-glBegin( GL_QUADS );
-glVertex3i( 0, 0, 0 );
-glVertex3i( 100, 0, 0 );
-glVertex3i( 100, 100, 0 );
-glVertex3i( 0, 100, 0 );
-glEnd();
+    glBegin( GL_QUADS );
+    glVertex3i( 0, 0, 0 );
+    glVertex3i( 100, 0, 0 );
+    glVertex3i( 100, 100, 0 );
+    glVertex3i( 0, 100, 0 );
+    glEnd();
+}
 </code></pre>
-
-<p>}
-```</p>
 
 <p>There we go, we have successfully drawn a rectangle on the screen. This may just become the start of a series of tutorials that I will write up as I learn more about using OpenGL for 2D drawings.</p>
 ]]></content>
@@ -214,8 +204,8 @@ glEnd();
 
 <p>The first difference is, in intermediate mode, one would send vertices one by one to the GPU inside glBegin and glEnd blocks, so openGL can draw them to a screen. Using a VBO, however, you get to send a whole pile of vertices to the GPU at once, and save them there, and when you refresh the screen, all you need to do is tell the GPU where the vertices are and they will get drawn to the screen. Alright, lets look at some code to illustrate this: (this is the refresh function by the way, which gets called every frame, stolen from the previous post)</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Intermediate mode </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>Intermediate mode </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -235,13 +225,11 @@ glEnd();
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
 <span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="n">refresh</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="nf">refresh</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">glBegin</span><span class="p">(</span><span class="n">GL_QUADS</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">glBegin</span><span class="p">(</span><span class="n">GL_QUADS</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">glColor4f</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="n">glColor4f</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">);</span>
 </span><span class='line'>    <span class="n">glVertex3i</span><span class="p">(</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">0</span> <span class="p">);</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="n">glColor3f</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">);</span>
@@ -257,10 +245,10 @@ glEnd();
 </span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Vertex Buffer Object </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>Vertex Buffer Object </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -271,58 +259,48 @@ glEnd();
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="n">refresh</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="nf">refresh</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">glBindBuffer</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span> <span class="n">vbo</span><span class="p">);</span>     <span class="c1">// Use the buffer called &amp;lsquo;vbo&amp;rsquo;&lt;/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">glBindBuffer</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span> <span class="n">vbo</span><span class="p">);</span>     <span class="c1">// Use the buffer called &#39;vbo&#39;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">glVertexPointer</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">GL_FLOAT</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>     <span class="c1">// The vertex information start at 0, and have 3 numbers</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="n">glVertexPointer</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">GL_FLOAT</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>     <span class="c1">// The vertex information start at 0, and have 3 numbers</span>
 </span><span class='line'>    <span class="n">glColorPointer</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">GL_FLOAT</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)(</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span> <span class="p">));</span>    <span class="c1">// The vertex information start at offset (sizeof(vertices)) and have 3 numbers</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="n">glDrawArrays</span><span class="p">(</span><span class="n">GL_QUADS</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>     <span class="c1">// Draw quads. You should find 4 complete vertices and colors in the places I just mentioned</span>
 </span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Whoa whoa now, how does openGL know what to draw in the second refresh function, and where did the variables &lsquo;vbo&rsquo; and &lsquo;vertices&rsquo; come from? You may ask. Well, the secret lies in the initialization, or what happens before we start flipping buffers. Which brings us to the second difference between Intermediate Mode and VBOs: You need to give the vertex buffer objects to the GPU first, then, you just tell the GPU &ldquo;hey, I wanna draw the stuff I told you about&rdquo;. Here is the initialization code for the VBO refresh function you just saw:</p>
 
-<p>``` c++
-GLuint vbo;</p>
+<pre><code class="c++">GLuint vbo;
 
-<p>GLfloat vertices[] = {</p>
+GLfloat vertices[] = {
+    250.0, 250.0, 0.0, 
+    300.0, 250.0, 0.0, 
+    300.0, 300.0, 0.0,
+    250.0, 300.0, 0.0};
 
-<pre><code>250.0, 250.0, 0.0, 
-300.0, 250.0, 0.0, 
-300.0, 300.0, 0.0,
-250.0, 300.0, 0.0};
+GLfloat colors[] = {
+    1.0,0.0,0.0, 
+    0.0,1.0,0.0, 
+    0.0,0.0,1.0, 
+    1.0,1.0,1.0};
+
+void initvbo()
+{
+    glGenBuffers(1, &amp;vbo);      // Can I has 1 buffer
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);     // The buffer is for an array of floats
+
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices)+sizeof(colors), 0, GL_STATIC_DRAW);   // The buffer is empty
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);    // Starting from zero to (sizeof(vertices)), copy the contents of vertices to the buffer
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(colors), colors);    // Starting from (sizeof(vertices)) to (sizeof(colors)) later, copy the contents of the array colors to the buffer.
+
+        glEnableClientState(GL_COLOR_ARRAY);    // Make it so that you can use color arrays
+        glEnableClientState(GL_VERTEX_ARRAY);  // Make it so that you can use vertex arrays
+}
 </code></pre>
-
-<p>GLfloat colors[] = {</p>
-
-<pre><code>1.0,0.0,0.0, 
-0.0,1.0,0.0, 
-0.0,0.0,1.0, 
-1.0,1.0,1.0};
-</code></pre>
-
-<p>void initvbo()
-{</p>
-
-<pre><code>glGenBuffers(1, &amp;vbo);      // Can I has 1 buffer
-glBindBuffer(GL_ARRAY_BUFFER, vbo);     // The buffer is for an array of floats
-
-glBufferData(GL_ARRAY_BUFFER, sizeof(vertices)+sizeof(colors), 0, GL_STATIC_DRAW);   // The buffer is empty
-glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);    // Starting from zero to (sizeof(vertices)), copy the contents of vertices to the buffer
-glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(colors), colors);    // Starting from (sizeof(vertices)) to (sizeof(colors)) later, copy the contents of the array colors to the buffer.
-
-    glEnableClientState(GL_COLOR_ARRAY);    // Make it so that you can use color arrays
-    glEnableClientState(GL_VERTEX_ARRAY);  // Make it so that you can use vertex arrays
-</code></pre>
-
-<p>}
-```</p>
 
 <p>Basically, the before you tell the GPU what to draw, you need to tell it how to draw it first. In Intermediate mode, you tell the GPU how to draw shapes in every frame, so there is no initialization code, but using a VBO, you tell the GPU how to draw shapes once, and tell it to draw it every frame. This doesn&rsquo;t seem like a very useful thing until your program starts slowing down when you have too many things on the screen in Intermediate mode. VBOs solve that problem by avoiding having to send vertices to the GPU all the time like in intermediate mode, which takes a while.</p>
 
@@ -344,134 +322,119 @@ glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(colors), colors);    /
 
 <p>For those of you who are wondering how you go about using GLSL, here&rsquo;s a simple example that I used in my code:</p>
 
-<p>``` c++
-const char* fshadersource =</p>
+<pre><code class="c++">const char* fshadersource = 
+    "void main()"
+    "{"
+    "   mat4 tform = mat4("
+    "   1/200.0,0,0,0, "
+    "   0,1/200.0,0,0, "
+    "   0,0,1/200.0,0, "
+    "   1.0,1.0,1.0,1.0);"
+    "   vec4 comp = vec4(0, 0, 0, 1.0);"
+    "   gl_FragColor = gl_FragCoord * tform + comp;"
+    "}"
+;
 
-<pre><code>"void main()"
-"{"
-"   mat4 tform = mat4("
-"   1/200.0,0,0,0, "
-"   0,1/200.0,0,0, "
-"   0,0,1/200.0,0, "
-"   1.0,1.0,1.0,1.0);"
-"   vec4 comp = vec4(0, 0, 0, 1.0);"
-"   gl_FragColor = gl_FragCoord * tform + comp;"
-"}"
+const char* vshadersource = 
+    "void main()"
+    "{"
+    "   gl_Position = ftransform();"
+    "}"
+;
+
+void useProgram()
+{
+
+    glewInit();
+    GLuint fshader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fshader, 1, &amp;fshadersource, NULL);
+    GLuint vshader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vshader, 1, &amp;vshadersource, NULL);
+    glCompileShader(fshader);
+    printShaderInfoLog(fshader);
+
+    glCompileShader(vshader);
+    printShaderInfoLog(vshader);
+
+    GLuint prog = glCreateProgram();
+    glAttachShader(prog, fshader);
+    printProgramInfoLog(prog);
+
+    glAttachShader(prog, vshader);
+    printProgramInfoLog(prog);
+
+    glLinkProgram(prog);
+    printProgramInfoLog(prog);
+
+    glUseProgram(prog);
+
+}
+
+void draw()
+{
+    glLoadIdentity();
+
+    glBindTexture( GL_TEXTURE_2D, 0 );
+    glBegin(GL_QUADS);
+
+        glColor4f(1.0,0.0,0.0,1.0);
+        glVertex3i( 50, 50, 0 );
+
+        glColor4f(0.0,1.0,0.0,0.2);
+        glVertex3i( 100, 50, 0 );
+
+        glColor4f(0.0,0.0,1.0,1.0);
+        glVertex3i( 100, 100, 0 );
+
+        glColor4f(1.0,1.0,1.0,1.0);
+        glVertex3i( 50,100, 0 );
+
+    glEnd();
+
+    glBegin(GL_QUADS);
+
+        glColor3f(1.0,0.0,0.0);
+        glVertex3i( 250, 250, 0 );
+
+        glColor3f(0.0,1.0,0.0);
+        glVertex3i( 300, 250, 0 );
+
+        glColor3f(0.0,0.0,1.0);
+        glVertex3i( 300, 300, 0 );
+
+        glColor3f(1.0,1.0,1.0);
+        glVertex3i( 250, 300, 0 );
+
+    glEnd();
+}
+
+void init ()
+{
+    glShadeModel(GL_SMOOTH);        
+    glClearColor(0.0f, 0.0f, 0.0f, 0.5f);               
+    glClear( GL_COLOR_BUFFER_BIT );
+    glDisable(GL_DEPTH_TEST);
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);  
+    glEnable (GL_TEXTURE_2D);                           
+    glEnable (GL_ALPHA_TEST); 
+    glEnable (GL_BLEND); 
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glViewport( 0, 0, 800, 600 );
+
+    int vPort[4];
+
+    glGetIntegerv(GL_VIEWPORT, vPort);
+
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+
+    glOrtho(0, vPort[2], 0, vPort[3], -1, 1);
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+}
 </code></pre>
-
-<p>;</p>
-
-<p>const char* vshadersource =</p>
-
-<pre><code>"void main()"
-"{"
-"   gl_Position = ftransform();"
-"}"
-</code></pre>
-
-<p>;</p>
-
-<p>void useProgram()
-{</p>
-
-<pre><code>glewInit();
-GLuint fshader = glCreateShader(GL_FRAGMENT_SHADER);
-glShaderSource(fshader, 1, &amp;fshadersource, NULL);
-GLuint vshader = glCreateShader(GL_VERTEX_SHADER);
-glShaderSource(vshader, 1, &amp;vshadersource, NULL);
-glCompileShader(fshader);
-printShaderInfoLog(fshader);
-
-glCompileShader(vshader);
-printShaderInfoLog(vshader);
-
-GLuint prog = glCreateProgram();
-glAttachShader(prog, fshader);
-printProgramInfoLog(prog);
-
-glAttachShader(prog, vshader);
-printProgramInfoLog(prog);
-
-glLinkProgram(prog);
-printProgramInfoLog(prog);
-
-glUseProgram(prog);
-</code></pre>
-
-<p>}</p>
-
-<p>void draw()
-{</p>
-
-<pre><code>glLoadIdentity();
-
-glBindTexture( GL_TEXTURE_2D, 0 );
-glBegin(GL_QUADS);
-
-    glColor4f(1.0,0.0,0.0,1.0);
-    glVertex3i( 50, 50, 0 );
-
-    glColor4f(0.0,1.0,0.0,0.2);
-    glVertex3i( 100, 50, 0 );
-
-    glColor4f(0.0,0.0,1.0,1.0);
-    glVertex3i( 100, 100, 0 );
-
-    glColor4f(1.0,1.0,1.0,1.0);
-    glVertex3i( 50,100, 0 );
-
-glEnd();
-
-glBegin(GL_QUADS);
-
-    glColor3f(1.0,0.0,0.0);
-    glVertex3i( 250, 250, 0 );
-
-    glColor3f(0.0,1.0,0.0);
-    glVertex3i( 300, 250, 0 );
-
-    glColor3f(0.0,0.0,1.0);
-    glVertex3i( 300, 300, 0 );
-
-    glColor3f(1.0,1.0,1.0);
-    glVertex3i( 250, 300, 0 );
-
-glEnd();
-</code></pre>
-
-<p>}</p>
-
-<p>void init ()
-{</p>
-
-<pre><code>glShadeModel(GL_SMOOTH);        
-glClearColor(0.0f, 0.0f, 0.0f, 0.5f);               
-glClear( GL_COLOR_BUFFER_BIT );
-glDisable(GL_DEPTH_TEST);
-glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);  
-glEnable (GL_TEXTURE_2D);                           
-glEnable (GL_ALPHA_TEST); 
-glEnable (GL_BLEND); 
-glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-glViewport( 0, 0, 800, 600 );
-
-int vPort[4];
-
-glGetIntegerv(GL_VIEWPORT, vPort);
-
-glMatrixMode(GL_PROJECTION);
-glPushMatrix();
-glLoadIdentity();
-
-glOrtho(0, vPort[2], 0, vPort[3], -1, 1);
-glMatrixMode(GL_MODELVIEW);
-glPushMatrix();
-glLoadIdentity();
-</code></pre>
-
-<p>}</p>
-
-<p>```</p>
 
 <p><img src="/images/blogimages/glsl.png"></p>
 

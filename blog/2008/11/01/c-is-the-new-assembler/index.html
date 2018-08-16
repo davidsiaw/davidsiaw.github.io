@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2008-11-01T00:00:00+00:00" pubdate data-updated="true">Nov 1<span>st</span>, 2008</time>
+<time datetime="2008-11-01T00:00:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -143,7 +143,7 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="n">ReadArray</span><span class="p">(</span><span class="n">Array</span> <span class="n">arr</span><span class="p">,</span> <span class="n">PopulateCallback</span> <span class="n">cb</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="nf">ReadArray</span><span class="p">(</span><span class="n">Array</span> <span class="n">arr</span><span class="p">,</span> <span class="n">PopulateCallback</span> <span class="n">cb</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">GetCount</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span><span class='line'>  <span class="p">{</span>
@@ -172,7 +172,7 @@
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
 </pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="cp">#define INITIALSIZE 32</span>
-</span><span class='line'><span class="n">Hashtable</span><span class="o">*</span> <span class="n">CreateHashtable</span><span class="p">()</span>
+</span><span class='line'><span class="n">Hashtable</span><span class="o">*</span> <span class="nf">CreateHashtable</span><span class="p">()</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>  <span class="n">Hashtable</span><span class="o">*</span> <span class="n">h</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Hashtable</span><span class="p">));</span>
 </span><span class='line'>  <span class="n">h</span><span class="o">-&gt;</span><span class="n">array</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">INITIALSIZE</span><span class="p">));</span>
@@ -181,7 +181,7 @@
 </span><span class='line'>  <span class="k">return</span> <span class="n">h</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="kt">void</span> <span class="n">DeleteHashtable</span><span class="p">(</span><span class="n">Hashtable</span><span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">DeleteHashtable</span><span class="p">(</span><span class="n">Hashtable</span><span class="o">*</span> <span class="n">h</span><span class="p">)</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>  <span class="n">free</span><span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">array</span><span class="p">);</span>
 </span><span class='line'>  <span class="n">free</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
@@ -272,7 +272,7 @@ easily maintainable, and highly flexible when responding to code changes, layer 
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">int</span> <span class="n">NearestPow2</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">int</span> <span class="nf">NearestPow2</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>  <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span><span class='line'>
@@ -298,13 +298,13 @@ easily maintainable, and highly flexible when responding to code changes, layer 
 </span><span class='line'><span class="c1">// It will be given a pointer to a particular point in the array and it is cb&#39;s duty to modify</span>
 </span><span class='line'><span class="c1">// the contents of each cell.</span>
 </span><span class='line'><span class="c1">// data is any generic data that you can provide your cb for its use.</span>
-</span><span class='line'><span class="kt">void</span> <span class="n">PopulateArray</span><span class="p">(</span><span class="n">Array</span> <span class="n">arr</span><span class="p">,</span> <span class="n">PopulateCallback</span> <span class="n">cb</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">);</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">PopulateArray</span><span class="p">(</span><span class="n">Array</span> <span class="n">arr</span><span class="p">,</span> <span class="n">PopulateCallback</span> <span class="n">cb</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>Writing such a compiler would also be easier than writing a compiler that targets assembler. There are more people who know C than people who know assembler, and it is an easy language to write automatically, since the same things are done over and over again when we write C code, in the form of maintaining declarations and definitions.</p>
 
-<p>In order to target C for existing C compilers, one cannot realistically automate writing code for pure ANSI C. Instead, one must target a defined subset of C that resolves into machine code in a predictable way. There are many definitions out there such as C&mdash; and CIL, however none of them have been put to significant practical use.</p>
+<p>In order to target C for existing C compilers, one cannot realistically automate writing code for pure ANSI C. Instead, one must target a defined subset of C that resolves into machine code in a predictable way. There are many definitions out there such as C&ndash; and CIL, however none of them have been put to significant practical use.</p>
 
 <pre>astrobunny@localhost$ ./program.cexe</pre>
 
@@ -335,12 +335,12 @@ easily maintainable, and highly flexible when responding to code changes, layer 
   
 
 
-<time datetime="2008-11-01T00:00:00+00:00" pubdate data-updated="true">Nov 1<span>st</span>, 2008</time>
+<time datetime="2008-11-01T00:00:00+00:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/programming/'>Programming</a>
+    <a class='category' href='/blog/categories/programming/'>programming</a>
   
 </span>
 
@@ -410,7 +410,7 @@ easily maintainable, and highly flexible when responding to code changes, layer 
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/math/'>Math (2)</a></li><li><a href='/blog/categories/philosophy/'>Philosophy (1)</a></li><li><a href='/blog/categories/programming/'>Programming (32)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>hexlife (2)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/philosophy/'>philosophy (1)</a></li><li><a href='/blog/categories/programming/'>programming (32)</a></li><li><a href='/blog/categories/random/'>random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>

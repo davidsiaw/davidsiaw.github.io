@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2009-02-07T00:00:00+00:00" pubdate data-updated="true">Feb 7<span>th</span>, 2009</time>
+<time datetime="2009-02-07T00:00:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -259,10 +259,10 @@
 </span><span class='line'>
 </span><span class='line'>  <span class="kr">__asm</span> <span class="p">{</span>
 </span><span class='line'>      <span class="n">mov</span> <span class="n">ebx</span><span class="p">,</span> <span class="mi">2</span><span class="p">;</span>             <span class="c1">// ebx is the current factor </span>
-</span><span class='line'><span class="nl">startloop:</span>
+</span><span class='line'><span class="nl">startloop</span><span class="p">:</span>
 </span><span class='line'>
 </span><span class='line'>      <span class="n">mov</span> <span class="n">ecx</span><span class="p">,</span> <span class="mi">2</span><span class="p">;</span>             <span class="c1">// check if its prime. ecx is the number to divide ebx by. if ebx%ecx is zero and if ecx is not ebx, then go to next factor</span>
-</span><span class='line'><span class="nl">startcheckprime:</span>
+</span><span class='line'><span class="nl">startcheckprime</span><span class="p">:</span>
 </span><span class='line'>      <span class="n">mov</span> <span class="n">eax</span><span class="p">,</span> <span class="n">ebx</span><span class="p">;</span>            <span class="c1">// set the high</span>
 </span><span class='line'>      <span class="n">cdq</span><span class="p">;</span>                  <span class="c1">// set the low</span>
 </span><span class='line'>      <span class="n">idiv</span> <span class="n">ecx</span><span class="p">;</span>              <span class="c1">// divide ebx by ecx, the remainder is in edx</span>
@@ -272,7 +272,7 @@
 </span><span class='line'>      <span class="n">je</span> <span class="n">contcheckprime</span><span class="p">;</span>
 </span><span class='line'>      <span class="n">jmp</span> <span class="n">contloop</span><span class="p">;</span>          <span class="c1">// aha. factor is not a prime. continue</span>
 </span><span class='line'>
-</span><span class='line'><span class="nl">contcheckprime:</span>
+</span><span class='line'><span class="nl">contcheckprime</span><span class="p">:</span>
 </span><span class='line'>      <span class="n">add</span> <span class="n">ecx</span><span class="p">,</span> <span class="mi">1</span><span class="p">;</span>
 </span><span class='line'>      <span class="n">cmp</span> <span class="n">ecx</span><span class="p">,</span> <span class="n">ebx</span><span class="p">;</span>            
 </span><span class='line'>      <span class="n">jl</span> <span class="n">startcheckprime</span><span class="p">;</span>        <span class="c1">// if ecx &lt; ebx then next</span>
@@ -280,7 +280,7 @@
 </span><span class='line'>      <span class="n">mov</span> <span class="n">ecx</span><span class="p">,</span> <span class="mi">0</span><span class="p">;</span>
 </span><span class='line'>      <span class="n">mov</span> <span class="n">eax</span><span class="p">,</span> <span class="n">num</span><span class="p">;</span>
 </span><span class='line'>      <span class="n">mov</span> <span class="n">edx</span><span class="p">,</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="nl">divideloop:</span>
+</span><span class='line'><span class="nl">divideloop</span><span class="p">:</span>
 </span><span class='line'>      <span class="n">mov</span> <span class="n">num</span><span class="p">,</span> <span class="n">eax</span>
 </span><span class='line'>      <span class="n">cdq</span><span class="p">;</span>
 </span><span class='line'>      <span class="n">idiv</span> <span class="n">ebx</span><span class="p">;</span>
@@ -289,7 +289,7 @@
 </span><span class='line'>      <span class="n">add</span> <span class="n">ecx</span><span class="p">,</span> <span class="mi">1</span><span class="p">;</span>
 </span><span class='line'>      <span class="n">jmp</span> <span class="n">divideloop</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'><span class="nl">printout:</span>
+</span><span class='line'><span class="nl">printout</span><span class="p">:</span>
 </span><span class='line'>      <span class="n">cmp</span> <span class="n">ecx</span><span class="p">,</span> <span class="mi">0</span><span class="p">;</span>
 </span><span class='line'>      <span class="n">je</span> <span class="n">contloop</span><span class="p">;</span>
 </span><span class='line'>      <span class="n">mov</span> <span class="n">esi</span><span class="p">,</span><span class="n">esp</span><span class="p">;</span>
@@ -298,7 +298,7 @@
 </span><span class='line'>      <span class="n">call</span> <span class="n">print</span><span class="p">;</span>
 </span><span class='line'>      <span class="n">add</span> <span class="n">esp</span><span class="p">,</span> <span class="mi">08</span><span class="n">h</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'><span class="nl">contloop:</span>
+</span><span class='line'><span class="nl">contloop</span><span class="p">:</span>
 </span><span class='line'>
 </span><span class='line'>      <span class="n">add</span> <span class="n">ebx</span><span class="p">,</span> <span class="mi">1</span><span class="p">;</span>
 </span><span class='line'>      <span class="n">cmp</span> <span class="n">ebx</span><span class="p">,</span> <span class="n">num</span><span class="p">;</span>
@@ -331,12 +331,12 @@
   
 
 
-<time datetime="2009-02-07T00:00:00+00:00" pubdate data-updated="true">Feb 7<span>th</span>, 2009</time>
+<time datetime="2009-02-07T00:00:00+00:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/programming/'>Programming</a>
+    <a class='category' href='/blog/categories/programming/'>programming</a>
   
 </span>
 
@@ -406,7 +406,7 @@
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/math/'>Math (2)</a></li><li><a href='/blog/categories/philosophy/'>Philosophy (1)</a></li><li><a href='/blog/categories/programming/'>Programming (32)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>hexlife (2)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/philosophy/'>philosophy (1)</a></li><li><a href='/blog/categories/programming/'>programming (32)</a></li><li><a href='/blog/categories/random/'>random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>

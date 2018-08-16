@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Random | ./home/davidsiaw]]></title>
+  <title><![CDATA[Category: random | ./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/blog/categories/random/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2018-08-15T17:10:56+00:00</updated>
+  <updated>2018-08-16T02:26:39+00:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -39,20 +39,18 @@
 
 <p>Believing in the power of existing tools, I was sure someone out there would have solved this problem for me. After googling around I found Jekyll-Bootstrap. It seemed fairly simple to set up, since it was simply a starting point with Rakefiles and preset templates for blogging. It also used pygments for syntax highlighting, and had theming support and plugins.</p>
 
-<p><code>bash
-$ rake new_post title="Rants of today"
+<pre><code class="bash">$ rake new_post title="Rants of today"
 $ rake new_page title="My new page"
 $ rake preview
-</code></p>
+</code></pre>
 
 <p>You had to have an empty repository to start with Jekyll-bootstrap because it needs to dictate how things are in your blog. The easiest way to do this it seems is to begin your repository contents with the contents of Jekyll-bootstrap.</p>
 
-<p><code>bash
-$ git clone https://github.com/plusjade/jekyll-bootstrap.git USERNAME.github.com
+<pre><code class="bash">$ git clone https://github.com/plusjade/jekyll-bootstrap.git USERNAME.github.com
 $ cd USERNAME.github.com
 $ git remote set-url origin git@github.com:USERNAME/USERNAME.github.com.git
 $ git push origin master
-</code></p>
+</code></pre>
 
 <p>The site, being a set of markdown and html files with Liquid markups would then simply be checked in to github where it would automatically be run through Jekyll and displayed.</p>
 
@@ -60,9 +58,8 @@ $ git push origin master
 
 <p><a href="http://themes.jekyllbootstrap.com/">Jekyll-bootstrap Themes</a></p>
 
-<p><code>bash
-$ rake theme:install git="https://github.com/dhulihan/hooligan.git"
-</code></p>
+<pre><code class="bash">$ rake theme:install git="https://github.com/dhulihan/hooligan.git"
+</code></pre>
 
 <p>I was surprised at the seeming lack of extra examples that can be copy-pasted in to set the blog up. As it turns out jekyll-bootstrap hasn&rsquo;t been maintained for a while, since its maintainer has moved on to create another static site generator.</p>
 
@@ -72,21 +69,20 @@ $ rake theme:install git="https://github.com/dhulihan/hooligan.git"
 
 <p>The alternative was Octopress. Octopress is different from Jekyll-bootstrap in the sense that it wasn&rsquo;t just a template for blogging sites. It is a small collection of tools that allow you to set themes and generate your site locally. Another difference is that the static site generation is actually done on your own PC, and you push the result to github. This means it would work for any other site, which was fairly attractive. Similar to Jekyll-bootstrap, you would fork Octopress and clone your modifications in to another repository, and not your site.</p>
 
-<p>``` bash
-$ git clone git://github.com/davidsiaw/octopress.git Octopress   # from my forked repository
+<pre><code class="bash">$ git clone git://github.com/davidsiaw/octopress.git Octopress   # from my forked repository
 $ cd octopress
 $ gem install bundler
 $ rbenv rehash
 $ bundle install        # prepares the set of tools required to maintain your site
-$ rake install          # generates your site&rsquo;s bootstrap sources</p>
+$ rake install          # generates your site's bootstrap sources
 
-<p>$ rake generate
-$ rake deploy           # automatically creates a _deploy folder and pushes that to your site</p>
+$ rake generate
+$ rake deploy           # automatically creates a _deploy folder and pushes that to your site
 
-<p>$ git add .             # add the created sources and sass folders that contain the real sources for your site
-$ git commit -m &ldquo;update sources&rdquo;
-$ git pushes            # push your site&rsquo;s sources
-```</p>
+$ git add .             # add the created sources and sass folders that contain the real sources for your site
+$ git commit -m "update sources"
+$ git pushes            # push your site's sources
+</code></pre>
 
 <p>Octopress also has a much larger set of themes available to use to customize your site. Like Jekyll-bootstrap, the theme is on a github repository that you can clone and install with.</p>
 
@@ -104,15 +100,11 @@ $ git pushes            # push your site&rsquo;s sources
 
 <p>This is not desirable because in HTML format the newlines are ignored and the posts look fairly retarded, so I renamed all the extensions to .md.</p>
 
-<p>``` bash
-$ gem install jekyll-import &mdash;pre
+<pre><code class="bash">$ gem install jekyll-import --pre
 $ gem install hpricot
-$ ruby -rubygems -e &lsquo;require &ldquo;jekyll/jekyll-import/wordpressdotcom&rdquo;;</p>
-
-<pre><code>JekyllImport::WordpressDotCom.process({ :source =&gt; "wordpress.xml" })'
+$ ruby -rubygems -e 'require "jekyll/jekyll-import/wordpressdotcom";
+    JekyllImport::WordpressDotCom.process({ :source =&gt; "wordpress.xml" })'
 </code></pre>
-
-<p>```</p>
 
 <p>However, the export was far from perfect. My WordPress install used a lot of plugins, meaning the content was littered with shortcodes that did not look like part of any content. I had to touch nearly every generated file that was imported to get everything nice and polished again.</p>
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Hexlife | ./home/davidsiaw]]></title>
+  <title><![CDATA[Category: hexlife | ./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/blog/categories/hexlife/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2018-08-15T17:10:56+00:00</updated>
+  <updated>2018-08-16T02:26:39+00:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -69,8 +69,8 @@
 <table>
 <thead>
 <tr>
-<th> Picture                                     </th>
-<th> Description </th>
+<th>Picture                                     </th>
+<th> Description</th>
 </tr>
 </thead>
 <tbody>

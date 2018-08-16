@@ -9,7 +9,7 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="Octopress Cheat Sheet Jan 17th, 2014 Create a new post rake new_post["title"] Create a new page rake new_page["title"] Re-build the site including &hellip;">
+  <meta name="description" content="Octopress Cheat Sheet Create a new post rake new_post[&ldquo;title&rdquo;] Create a new page rake new_page[&ldquo;title&rdquo;] Re-build the site &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -120,40 +120,28 @@
   
 
 
-<time datetime="2014-01-17T10:56:00+00:00" pubdate data-updated="true">Jan 17<span>th</span>, 2014</time></p>
+<time datetime="2014-01-17T10:56:00+00:00" pubdate data-updated="true"></time></p>
   </header>
   
-  <p>Create a new post</p>
+  <p>Create a new post
+    rake new_post[&ldquo;title&rdquo;]</p>
 
-<pre><code>rake new_post["title"]
-</code></pre>
+<p>Create a new page
+    rake new_page[&ldquo;title&rdquo;]</p>
 
-<p>Create a new page</p>
+<p>Re-build the site including any recent changes
+    rake generate</p>
 
-<pre><code>rake new_page["title"]
-</code></pre>
+<p>Run WEBrick server locally on port 4000
+    rake preview</p>
 
-<p>Re-build the site including any recent changes</p>
+<p>Push changes to github (master branch)
+    rake deploy</p>
 
-<pre><code>rake generate
-</code></pre>
-
-<p>Run WEBrick server locally on port 4000</p>
-
-<pre><code>rake preview
-</code></pre>
-
-<p>Push changes to github (master branch)</p>
-
-<pre><code>rake deploy
-</code></pre>
-
-<p>Commit recent changes and push to github (source branch)</p>
-
-<pre><code>git add .
-git commit -m 'description of commit'
-git push origin source
-</code></pre>
+<p>Commit recent changes and push to github (source branch)
+    git add .
+    git commit -m &lsquo;description of commit&rsquo;
+    git push origin source</p>
 
   
     <footer>
@@ -171,7 +159,7 @@ git push origin source
   
 
 
-<time datetime="2014-01-17T10:56:00+00:00" pubdate data-updated="true">Jan 17<span>th</span>, 2014</time>
+<time datetime="2014-01-17T10:56:00+00:00" pubdate data-updated="true"></time>
         
       </p>
       
@@ -231,7 +219,7 @@ git push origin source
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/math/'>Math (2)</a></li><li><a href='/blog/categories/philosophy/'>Philosophy (1)</a></li><li><a href='/blog/categories/programming/'>Programming (32)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>hexlife (2)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/philosophy/'>philosophy (1)</a></li><li><a href='/blog/categories/programming/'>programming (32)</a></li><li><a href='/blog/categories/random/'>random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>

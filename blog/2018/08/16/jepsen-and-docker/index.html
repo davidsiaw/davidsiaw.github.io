@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2018-08-16T00:06:00+00:00" pubdate data-updated="true">Aug 16<span>th</span>, 2018</time>
+<time datetime="2018-08-16T00:06:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -171,7 +171,7 @@
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>.
 </span><span class='line'>.
 </span><span class='line'>.
-</span><span class='line'>jepsen-control | Please run <span class="sb">`</span>docker <span class="nb">exec</span> -it jepsen-control bash<span class="sb">`</span> in another terminal to proceed.
+</span><span class='line'>jepsen-control <span class="p">|</span> Please run <span class="sb">`</span>docker <span class="nb">exec</span> -it jepsen-control bash<span class="sb">`</span> in another terminal to proceed.
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -197,7 +197,7 @@
 </span><span class='line'>
 </span><span class='line'>This container runs the Jepsen tests in sub-containers.
 </span><span class='line'>
-</span><span class='line'>You are currently in the base dir of the git repo <span class="k">for </span>Jepsen.
+</span><span class='line'>You are currently in the base dir of the git repo <span class="k">for</span> Jepsen.
 </span><span class='line'>If you modify the core jepsen library make sure you <span class="s2">&quot;lein install&quot;</span> it so other tests can access.
 </span><span class='line'>
 </span><span class='line'>To run a <span class="nb">test</span>:
@@ -322,7 +322,7 @@
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>root@control:/knossos# lein repl
-</span><span class='line'>nREPL server started on port 37400 on host 127.0.0.1 - nrepl://127.0.0.1:37400
+</span><span class='line'>nREPL server started on port <span class="m">37400</span> on host 127.0.0.1 - nrepl://127.0.0.1:37400
 </span><span class='line'>REPL-y 0.3.7, nREPL 0.2.12
 </span><span class='line'>Clojure 1.8.0
 </span><span class='line'>OpenJDK 64-Bit Server VM 1.8.0_181-8u181-b13-0ubuntu0.16.04.1-b13
@@ -371,14 +371,17 @@
 </ol>
 
 
-<h3>Using docker is way cool</h3>
+<h3>Using docker is way cool  aaa</h3>
 
 <p>While Aphyr says that he uses his own LXC stuff to work with, I think its cool that he does provide a Docker interface. However he isn&rsquo;t taking advantage of a few things docker can do:</p>
 
-<p>a) Prebuilt docker containers
-b) Networking in docker that can be used to simulate faults
-c) Skewing clocks in the container
-d) Adding and removing new containers, simulating scaling effects and changing configuration</p>
+<ol type="a">
+<li>Prebuilt docker containers</li>
+<li>Networking in docker that can be used to simulate faults</li>
+<li>Skewing clocks in the container</li>
+<li>Adding and removing new containers, simulating scaling effects and changing configuration</li>
+</ol>
+
 
 <p>It is probably because the tool is in its early stages of development, and really he knows how to use it the best, so he can do his stuff the best. But I can&rsquo;t help but feel he himself would benefit from some improvement in this domain. Perhaps he does not use it right now, or maybe he does in another way. I&rsquo;ve only sat with this code for the last 4 hours.</p>
 
@@ -425,12 +428,12 @@ d) Adding and removing new containers, simulating scaling effects and changing c
   
 
 
-<time datetime="2018-08-16T00:06:00+00:00" pubdate data-updated="true">Aug 16<span>th</span>, 2018</time>
+<time datetime="2018-08-16T00:06:00+00:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/programming/'>Programming</a>
+    <a class='category' href='/blog/categories/programming/'>programming</a>
   
 </span>
 
@@ -498,7 +501,7 @@ d) Adding and removing new containers, simulating scaling effects and changing c
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/math/'>Math (2)</a></li><li><a href='/blog/categories/philosophy/'>Philosophy (1)</a></li><li><a href='/blog/categories/programming/'>Programming (32)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>hexlife (2)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/philosophy/'>philosophy (1)</a></li><li><a href='/blog/categories/programming/'>programming (32)</a></li><li><a href='/blog/categories/random/'>random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>

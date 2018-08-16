@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Math | ./home/davidsiaw]]></title>
+  <title><![CDATA[Category: math | ./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/blog/categories/math/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2018-08-15T17:10:56+00:00</updated>
+  <updated>2018-08-16T02:26:39+00:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -28,7 +28,7 @@
 
 <p>Since this is integration of the product of two functions, we perform integration by parts.</p>
 
-<p>\[\int{u\,dv} = uv\, &ndash; \int{v\,du}\]</p>
+<p>\[\int{u\,dv} = uv\, - \int{v\,du}\]</p>
 
 <p>I choose \(u = x^3\) and \(dv = sin(x)\,dx\) mostly to avoid having to integrate the \(x^3\) and have fractions mess up my working.</p>
 
@@ -47,8 +47,8 @@
 
 <p>\[
 \begin{aligned}
- \int{u\,dv} &amp; = uv\, &ndash; \int{v\,du} \cr
- &amp; = -x^3\,cos(x)\, &ndash; \int{–3x^2 cos(x)\,dx} \cr
+ \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
+ &amp; = -x^3\,cos(x)\, - \int{–3x^2 cos(x)\,dx} \cr
  &amp; = -x^3\,cos(x) + \int{3x^2 cos(x)\,dx}
 \end{aligned}
 \]</p>
@@ -58,8 +58,8 @@
 <p>\[
 \begin{array}{cc}
  \begin{aligned}
-  \int{u\,dv} &amp; = uv\, &ndash; \int{v\,du} \cr
-  \int{3x^2 cos(x)\,dx} &amp; = 3x^2 sin(x)\, &ndash; \int{6x\,sin(x)\,dx}
+  \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
+  \int{3x^2 cos(x)\,dx} &amp; = 3x^2 sin(x)\, - \int{6x\,sin(x)\,dx}
  \end{aligned} &amp;
  \begin{aligned}
   u &amp; = 3x^2 \cr
@@ -75,8 +75,8 @@
 <p>\[
 \begin{array}{cc}
  \begin{aligned}
-  \int{u\,dv} &amp; = uv\, &ndash; \int{v\,du} \cr
-  \int{6x\,sin(x)\,dx} &amp; = -6x\,cos(x)\, &ndash; \int{-6\,cos(x)\,dx} \cr
+  \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
+  \int{6x\,sin(x)\,dx} &amp; = -6x\,cos(x)\, - \int{-6\,cos(x)\,dx} \cr
   \int{6x\,sin(x)\,dx} &amp; = -6x\,cos(x) + \int{6\,cos(x)\,dx}
  \end{aligned} &amp;
  \begin{aligned}
@@ -103,10 +103,10 @@
 <p>\[
 \begin{aligned}
  \int{x^3\,sin(x)\,dx} &amp; = -x^3\,cos(x) + \int{3x^2 cos(x)\,dx} \cr
- &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, &ndash; \int{6x\,sin(x)\,dx} \cr
- &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, &ndash; [-6x\,cos(x) + \int{6\,cos(x)\,dx}] \cr
- &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, &ndash; [-6x\,cos(x) + 6\,sin(x)] \cr
- &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, + 6x\,cos(x) &ndash; 6\,sin(x)
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, - \int{6x\,sin(x)\,dx} \cr
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, - [-6x\,cos(x) + \int{6\,cos(x)\,dx}] \cr
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, - [-6x\,cos(x) + 6\,sin(x)] \cr
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, + 6x\,cos(x) - 6\,sin(x)
 \end{aligned}
 \]</p>
 
@@ -125,7 +125,7 @@
 <p>If we factorize the result, we get the following:</p>
 
 <p>\[
- -x^3\,cos(x) + 3x^2 sin(x)\, + 6x\,cos(x) &ndash; 6\,sin(x) = (-x^3 + 6x)\,cos(x) + (3x^2 &ndash; 6)\,sin(x)
+ -x^3\,cos(x) + 3x^2 sin(x)\, + 6x\,cos(x) - 6\,sin(x) = (-x^3 + 6x)\,cos(x) + (3x^2 - 6)\,sin(x)
 \]</p>
 
 <p>Notice how there is a negative term in both the \(sin(x)\) and \(cos(x)\) groups. Since the starting \(u\) we chose was positive, we can see the \(sin(x)\) go through</p>
@@ -144,18 +144,18 @@
 <p>And from our rearranged result,</p>
 
 <p>\[
-(-f + f^{\prime \prime})\,cos(x) + (f^\prime &ndash; f^{\prime \prime \prime})\,sin(x)
+(-f + f^{\prime \prime})\,cos(x) + (f^\prime - f^{\prime \prime \prime})\,sin(x)
 \]</p>
 
 <p>This peaked my interest, and I decided to check the results of other powers of x:</p>
 
 <p>\[
 \begin{array}{cc}
-3 &amp; (-x^3 + 6x)\,cos(x) &amp; + (3x^2 &ndash; 6)\,sin(x) \cr
-4 &amp; (-x^4 + 12x^2 &ndash; 24)\,cos(x) &amp; + (4x^3 &ndash; 24x)\,sin(x) \cr
-5 &amp; (-x^5 + 20x^3 &ndash; 120x)\,cos(x) &amp; + (5x^4 &ndash; 60x^2 + 120)\,sin(x) \cr
-6 &amp; (-x^6 + 30x^4 &ndash; 360x^2 + 720)\,cos(x) &amp; + (6x^5 &ndash; 120x^3 + 720x)\,sin(x) \cr
-7 &amp; (-x^7 + 42x^5 &ndash; 840x^3 + 5040x)\,cos(x) &amp; + (7x^6 &ndash; 210x^4 + 2520x^2 &ndash; 5040)\,sin(x)
+3 &amp; (-x^3 + 6x)\,cos(x) &amp; + (3x^2 - 6)\,sin(x) \cr
+4 &amp; (-x^4 + 12x^2 - 24)\,cos(x) &amp; + (4x^3 - 24x)\,sin(x) \cr
+5 &amp; (-x^5 + 20x^3 - 120x)\,cos(x) &amp; + (5x^4 - 60x^2 + 120)\,sin(x) \cr
+6 &amp; (-x^6 + 30x^4 - 360x^2 + 720)\,cos(x) &amp; + (6x^5 - 120x^3 + 720x)\,sin(x) \cr
+7 &amp; (-x^7 + 42x^5 - 840x^3 + 5040x)\,cos(x) &amp; + (7x^6 - 210x^4 + 2520x^2 - 5040)\,sin(x)
 \end{array}
 \]</p>
 
@@ -164,7 +164,7 @@
 <p>After doing some more wolframming, I found that we have a general solution of:</p>
 
 <p>\[
-\int{f\,sin(x)\,dx} = (&ndash; f + f^{\prime \prime} &ndash; f^{\prime \prime \prime \prime} + \cdots &ndash; f^{\prime2n})\,cos(x) + (f^{\prime} &ndash; f^{\prime \prime \prime} + f^{\prime \prime \prime \prime \prime} &ndash; \cdots + f^{\prime2n+1})\,sin(x)
+\int{f\,sin(x)\,dx} = (- f + f^{\prime \prime} - f^{\prime \prime \prime \prime} + \cdots - f^{\prime2n})\,cos(x) + (f^{\prime} - f^{\prime \prime \prime} + f^{\prime \prime \prime \prime \prime} - \cdots + f^{\prime2n+1})\,sin(x)
 \]</p>
 
 <p>Where odd numbered differentials are on the \(sin(x)\) group and even numbered differentials are on the \(cos(x)\) group, and each differential alternates between negative and positive signs. The \(sin(x)\) group starts with a positive sign while the \(cos(x)\) starts with a negative sign.</p>
@@ -172,7 +172,7 @@
 <p>Of course, the same rule slightly modified works for the \(cos(x)\) form:</p>
 
 <p>\[
-\int{f\,cos(x)\,dx} = (f &ndash; f^{\prime \prime} + f^{\prime \prime \prime \prime} &ndash; \cdots + f^{\prime2n})\,sin(x) + (f^{\prime} &ndash; f^{\prime \prime \prime} + f^{\prime \prime \prime \prime \prime} &ndash; \cdots + f^{\prime2n+1})\,cos(x)
+\int{f\,cos(x)\,dx} = (f - f^{\prime \prime} + f^{\prime \prime \prime \prime} - \cdots + f^{\prime2n})\,sin(x) + (f^{\prime} - f^{\prime \prime \prime} + f^{\prime \prime \prime \prime \prime} - \cdots + f^{\prime2n+1})\,cos(x)
 \]</p>
 
 <p>Note that this only works if \(f\) eventually derives into 0, and if the trigonometric function is \(sin(x)\) or \(cos(x)\). Otherwise you will need another method of finding the solution.</p>
@@ -189,10 +189,10 @@
 
 <p>\[
 \begin{align}
- \int{e^x\,sin(x)\,dx} &amp; = (&ndash; e^x + e^x &ndash; e^x + \cdots)\,cos(x) + (e^x &ndash; e^x + e^x &ndash; \cdots)\,sin(x) &amp; \cr
-  &amp; = (&ndash; e^x + e^x &ndash; e^x + \cdots)\,cos(x) &ndash; (-e^x + e^x &ndash; e^x + \cdots)\,sin(x) &amp; \text{If we flip the sign}\cr
-  &amp; = (&ndash; e^x + e^x &ndash; e^x + \cdots)(cos(x) &ndash; sin(x)) &amp; \text{Hence} \cr
-  &amp; = (-1+1-1+\cdots)(e^x)(cos(x) &ndash; sin(x)) &amp;
+ \int{e^x\,sin(x)\,dx} &amp; = (- e^x + e^x - e^x + \cdots)\,cos(x) + (e^x - e^x + e^x - \cdots)\,sin(x) &amp; \cr
+  &amp; = (- e^x + e^x - e^x + \cdots)\,cos(x) - (-e^x + e^x - e^x + \cdots)\,sin(x) &amp; \text{If we flip the sign}\cr
+  &amp; = (- e^x + e^x - e^x + \cdots)(cos(x) - sin(x)) &amp; \text{Hence} \cr
+  &amp; = (-1+1-1+\cdots)(e^x)(cos(x) - sin(x)) &amp;
 \end{align}
 \]</p>
 
@@ -203,16 +203,16 @@
  S &amp; = -1+1-1+1-1+1\cdots \cr
  S &amp; = -1-S \cr
  2S &amp; = -1 \cr
- S &amp; = &ndash;\frac{1}{2} \cr
+ S &amp; = -\frac{1}{2} \cr
 \end{align}
 \]</p>
 
-<p>Oh so that infinite sum actually evaluates to \(&ndash;\frac{1}{2}\). This may seem dubious but proving that is outside the scope of this post. (Lots of people have done it anyway.) This just means that our thing above should look like this:</p>
+<p>Oh so that infinite sum actually evaluates to \(-\frac{1}{2}\). This may seem dubious but proving that is outside the scope of this post. (Lots of people have done it anyway.) This just means that our thing above should look like this:</p>
 
 <p>\[
 \begin{align}
- \int{e^x\,sin(x)\,dx}&amp; = (-1+1-1+\cdots)(e^x)(cos(x) &ndash; sin(x)) \cr
- &amp; = &ndash;\frac{1}{2}(e^x)(cos(x) &ndash; sin(x)) \cr
+ \int{e^x\,sin(x)\,dx}&amp; = (-1+1-1+\cdots)(e^x)(cos(x) - sin(x)) \cr
+ &amp; = -\frac{1}{2}(e^x)(cos(x) - sin(x)) \cr
  &amp; = \frac{1}{2}(e^x)(sin(x)-cos(x)) \cr
 \end{align}
 \]</p>
@@ -228,8 +228,8 @@
 <p>\[
 \begin{array}{cc}
  \begin{aligned}
-  \int{u\,dv} &amp; = uv\, &ndash; \int{v\,du} \cr
-  \int{sin(x)(e^x)\,dx} &amp; =  sin(x)(e^x)\, &ndash; \int{e^x\,cos(x)\,dx}
+  \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
+  \int{sin(x)(e^x)\,dx} &amp; =  sin(x)(e^x)\, - \int{e^x\,cos(x)\,dx}
  \end{aligned} &amp;
  \begin{aligned}
   u &amp; = sin(x) \cr
@@ -245,7 +245,7 @@
 <p>\[
 \begin{array}{cc}
  \begin{aligned}
-  \int{u\,dv} &amp; = uv\, &ndash; \int{v\,du} \cr
+  \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
   \int{e^x\,cos(x)\,dx} &amp; =  cos(x)(e^x)\, + \int{e^x\,sin(x)\,dx}
  \end{aligned} &amp;
  \begin{aligned}
@@ -261,9 +261,9 @@
 
 <p>\[
 \begin{aligned}
- \int{sin(x)(e^x)\,dx} &amp; = sin(x)(e^x)\, &ndash; \int{e^x\,cos(x)\,dx} \cr
- &amp; = sin(x)(e^x)\, &ndash; cos(x)(e^x)\, &ndash; \int{e^x\,sin(x)\,dx} \cr
- 2\int{sin(x)(e^x)\,dx} &amp; = sin(x)(e^x)\, &ndash; cos(x)(e^x) \cr
+ \int{sin(x)(e^x)\,dx} &amp; = sin(x)(e^x)\, - \int{e^x\,cos(x)\,dx} \cr
+ &amp; = sin(x)(e^x)\, - cos(x)(e^x)\, - \int{e^x\,sin(x)\,dx} \cr
+ 2\int{sin(x)(e^x)\,dx} &amp; = sin(x)(e^x)\, - cos(x)(e^x) \cr
  \int{sin(x)(e^x)\,dx} &amp; = \frac{1}{2}(e^x)(sin(x)-cos(x))
 \end{aligned}
 \]</p>
@@ -373,107 +373,91 @@
 
 <p>So first of all, we want to have our initial guess. The number to be rooted is 30.</p>
 
-<p>```c++
-double number = 30;</p>
+<pre><code class="c++">double number = 30;
 
-<p>double upperBound = number;
+double upperBound = number;
 double lowerBound = 0;
-```</p>
+</code></pre>
 
 <p>Then, we write down what we did in every iteration.</p>
 
-<p>```c++
-// We try and figure out if the middle number is the correct root
+<pre><code class="c++">// We try and figure out if the middle number is the correct root
 double rootGuess = (upperBound + lowerBound) / 2;
-double rootGuessSquared = rootGuess * rootGuess;</p>
+double rootGuessSquared = rootGuess * rootGuess;
 
-<p>if (rootGuessSquared > number)
-{</p>
-
-<pre><code>// if the square of our guess is bigger than the number, that means the root is too big.
-// so the root cannot be bigger than our current guess
-upperBound = rootGuess;
-</code></pre>
-
-<p>}
+if (rootGuessSquared &gt; number)
+{
+    // if the square of our guess is bigger than the number, that means the root is too big.
+    // so the root cannot be bigger than our current guess
+    upperBound = rootGuess;
+}
 else
-{</p>
-
-<pre><code>// otherwise, the root cannot be smaller than our current guess.
-lowerBound = rootGuess;
+{
+    // otherwise, the root cannot be smaller than our current guess.
+    lowerBound = rootGuess;
+}
 </code></pre>
-
-<p>}
-```</p>
 
 <p>Next, we tell the computer to do it over and over again until the square of our guess is the number itself, so we wrap that in a loop.</p>
 
-<p>```c++
-double rootGuess = 0;
+<pre><code class="c++">double rootGuess = 0;
 do
-{</p>
-
-<pre><code>// We try and figure out if the middle number is the correct root
-rootGuess = (upperBound + lowerBound) / 2;
-double rootGuessSquared = rootGuess * rootGuess;
-
-if (rootGuessSquared &gt; number)
 {
-    // if the square of our guess is bigger than the number, that means the root is too big.
-    // so the root cannot be bigger than our current guess
-    upperBound = rootGuess;
-}
-else
-{
-    // otherwise, the root cannot be smaller than our current guess.
-    lowerBound = rootGuess;
-}
+    // We try and figure out if the middle number is the correct root
+    rootGuess = (upperBound + lowerBound) / 2;
+    double rootGuessSquared = rootGuess * rootGuess;
+
+    if (rootGuessSquared &gt; number)
+    {
+        // if the square of our guess is bigger than the number, that means the root is too big.
+        // so the root cannot be bigger than our current guess
+        upperBound = rootGuess;
+    }
+    else
+    {
+        // otherwise, the root cannot be smaller than our current guess.
+        lowerBound = rootGuess;
+    }
+
+} while(rootGuess * rootGuess != number);
 </code></pre>
-
-<p>} while(rootGuess * rootGuess != number);
-```</p>
 
 <p>Great, that seems simple enough. Let&rsquo;s put it all together.</p>
 
-<p>```c++
-double number = 30;</p>
+<pre><code class="c++">double number = 30;
 
-<p>double upperBound = number;
-double lowerBound = 0;</p>
+double upperBound = number;
+double lowerBound = 0;
 
-<p>double rootGuess = 0;
+double rootGuess = 0;
 do
-{</p>
-
-<pre><code>// We try and figure out if the middle number is the correct root
-rootGuess = (upperBound + lowerBound) / 2;
-double rootGuessSquared = rootGuess * rootGuess;
-
-if (rootGuessSquared &gt; number)
 {
-    // if the square of our guess is bigger than the number, that means the root is too big.
-    // so the root cannot be bigger than our current guess
-    upperBound = rootGuess;
-}
-else
-{
-    // otherwise, the root cannot be smaller than our current guess.
-    lowerBound = rootGuess;
-}
+    // We try and figure out if the middle number is the correct root
+    rootGuess = (upperBound + lowerBound) / 2;
+    double rootGuessSquared = rootGuess * rootGuess;
 
-printf("%lf &lt; sqrt(30) &lt; %lf guess=%lf rootGuessSquared=%lf\n", upperBound, lowerBound, rootGuess, rootGuessSquared);
+    if (rootGuessSquared &gt; number)
+    {
+        // if the square of our guess is bigger than the number, that means the root is too big.
+        // so the root cannot be bigger than our current guess
+        upperBound = rootGuess;
+    }
+    else
+    {
+        // otherwise, the root cannot be smaller than our current guess.
+        lowerBound = rootGuess;
+    }
+
+    printf("%lf &lt; sqrt(30) &lt; %lf guess=%lf rootGuessSquared=%lf\n", upperBound, lowerBound, rootGuess, rootGuessSquared);
+
+} while(rootGuess * rootGuess != number);
+
+printf("result = %lf\n", rootGuess);
 </code></pre>
-
-<p>} while(rootGuess * rootGuess != number);</p>
-
-<p>printf(&ldquo;result = %lf\n&rdquo;, rootGuess);</p>
-
-<p>```</p>
 
 <p>Notice I put in a printf to check the bounds as it runs. This makes it more interesting and actually shows us what&rsquo;s going on. Lets run it now.</p>
 
-<p><code>
-15.000000 &lt; sqrt(30) &lt; 0.000000 guess=15.000000 rootGuessSquared=225.000000
+<pre><code>15.000000 &lt; sqrt(30) &lt; 0.000000 guess=15.000000 rootGuessSquared=225.000000
 7.500000 &lt; sqrt(30) &lt; 0.000000 guess=7.500000 rootGuessSquared=56.250000
 7.500000 &lt; sqrt(30) &lt; 3.750000 guess=3.750000 rootGuessSquared=14.062500
 5.625000 &lt; sqrt(30) &lt; 3.750000 guess=5.625000 rootGuessSquared=31.640625
@@ -529,7 +513,7 @@ printf("%lf &lt; sqrt(30) &lt; %lf guess=%lf rootGuessSquared=%lf\n", upperBound
 5.477226 &lt; sqrt(30) &lt; 5.477226 guess=5.477226 rootGuessSquared=30.000000
 5.477226 &lt; sqrt(30) &lt; 5.477226 guess=5.477226 rootGuessSquared=30.000000
 result = 5.477226
-</code></p>
+</code></pre>
 
 <p>After all that spam, now we can see that the result is the square root of 30, since we know 5.477226 is the square root of 30.</p>
 

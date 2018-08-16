@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2008-09-16T00:00:00+00:00" pubdate data-updated="true">Sep 16<span>th</span>, 2008</time>
+<time datetime="2008-09-16T00:00:00+00:00" pubdate data-updated="true"></time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -141,7 +141,7 @@
 <p>The first difference is, in intermediate mode, one would send vertices one by one to the GPU inside glBegin and glEnd blocks, so openGL can draw them to a screen. Using a VBO, however, you get to send a whole pile of vertices to the GPU at once, and save them there, and when you refresh the screen, all you need to do is tell the GPU where the vertices are and they will get drawn to the screen. Alright, lets look at some code to illustrate this: (this is the refresh function by the way, which gets called every frame, stolen from the previous post)</p>
 
 <figure class='code'><figcaption><span>Intermediate mode </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -159,7 +159,7 @@
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="n">refresh</span><span class="p">()</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="nf">refresh</span><span class="p">()</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>  <span class="n">glBegin</span><span class="p">(</span><span class="n">GL_QUADS</span><span class="p">);</span>
 </span><span class='line'>
@@ -183,7 +183,7 @@
 
 
 <figure class='code'><figcaption><span>Vertex Buffer Object </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -192,7 +192,7 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="n">refresh</span><span class="p">()</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="kt">void</span> <span class="nf">refresh</span><span class="p">()</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>  <span class="n">glBindBuffer</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span> <span class="n">vbo</span><span class="p">);</span>     <span class="c1">// Use the buffer called &#39;vbo&#39;</span>
 </span><span class='line'>
@@ -246,7 +246,7 @@
 </span><span class='line'>  <span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span>
 </span><span class='line'>  <span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">};</span>
 </span><span class='line'>
-</span><span class='line'><span class="kt">void</span> <span class="n">initvbo</span><span class="p">()</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">initvbo</span><span class="p">()</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>  <span class="n">glGenBuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">vbo</span><span class="p">);</span>      <span class="c1">// Can I has 1 buffer</span>
 </span><span class='line'>  <span class="n">glBindBuffer</span><span class="p">(</span><span class="n">GL_ARRAY_BUFFER</span><span class="p">,</span> <span class="n">vbo</span><span class="p">);</span>     <span class="c1">// The buffer is for an array of floats</span>
@@ -288,12 +288,12 @@
   
 
 
-<time datetime="2008-09-16T00:00:00+00:00" pubdate data-updated="true">Sep 16<span>th</span>, 2008</time>
+<time datetime="2008-09-16T00:00:00+00:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/graphics/'>Graphics</a>, <a class='category' href='/blog/categories/programming/'>Programming</a>
+    <a class='category' href='/blog/categories/graphics/'>graphics</a>, <a class='category' href='/blog/categories/programming/'>programming</a>
   
 </span>
 
@@ -363,7 +363,7 @@
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>Graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>Hexlife (2)</a></li><li><a href='/blog/categories/math/'>Math (2)</a></li><li><a href='/blog/categories/philosophy/'>Philosophy (1)</a></li><li><a href='/blog/categories/programming/'>Programming (32)</a></li><li><a href='/blog/categories/random/'>Random (6)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>hexlife (2)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/philosophy/'>philosophy (1)</a></li><li><a href='/blog/categories/programming/'>programming (32)</a></li><li><a href='/blog/categories/random/'>random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
