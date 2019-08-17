@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://davidsiaw.github.io/blog/2019/08/17/working-with-mruby/</loc>
+<lastmod>2019-08-17T13:55:01+00:00</lastmod>
+</url>
+<url>
 <loc>http://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker/</loc>
 <lastmod>2018-08-16T00:06:00+00:00</lastmod>
 </url>
@@ -183,22 +187,22 @@
 <loc>http://davidsiaw.github.io/</loc>
 </url>
 <url>
-<loc>http://davidsiaw.github.io/archives/</loc>
-</url>
-<url>
 <loc>http://davidsiaw.github.io/blog/archives/</loc>
 </url>
 <url>
-<loc>http://davidsiaw.github.io/notes/</loc>
+<loc>http://davidsiaw.github.io/archives/</loc>
 </url>
 <url>
 <loc>http://davidsiaw.github.io/notes/octopress-cheat-sheet/</loc>
 </url>
 <url>
-<loc>http://davidsiaw.github.io/gallery/keyboardpics/</loc>
+<loc>http://davidsiaw.github.io/gallery/</loc>
 </url>
 <url>
-<loc>http://davidsiaw.github.io/gallery/</loc>
+<loc>http://davidsiaw.github.io/notes/</loc>
+</url>
+<url>
+<loc>http://davidsiaw.github.io/gallery/keyboardpics/</loc>
 </url>
 <url>
 <loc>http://davidsiaw.github.io/blog/categories/random/</loc>

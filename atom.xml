@@ -4,7 +4,7 @@
   <title><![CDATA[./home/davidsiaw]]></title>
   <link href="http://davidsiaw.github.io/atom.xml" rel="self"/>
   <link href="http://davidsiaw.github.io/"/>
-  <updated>2018-08-16T02:26:39+00:00</updated>
+  <updated>2019-08-17T15:32:24+00:00</updated>
   <id>http://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -12,6 +12,139 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Working with mruby]]></title>
+    <link href="http://davidsiaw.github.io/blog/2019/08/17/working-with-mruby/"/>
+    <updated>2019-08-17T13:55:01+00:00</updated>
+    <id>http://davidsiaw.github.io/blog/2019/08/17/working-with-mruby</id>
+    <content type="html"><![CDATA[<p>Having worked with Lua before and made a <a href="https://github.com/davidsiaw/luacppinterface">LuaCppInterface</a>, I decided about a year ago to start working on a C++ interface for mounting mruby as a scripting language.</p>
+
+<p>To start, I have been developing in Ruby for several years now and I found it to be quite a pleasant language to work with. The particularly attractive thing about Ruby is its ability to create very clean DSLs. I have proceeded to use this to build some <a href="https://github.com/davidsiaw/sumomo">DSLs of</a> <a href="https://github.com/davidsiaw/weaver">my own</a>.</p>
+
+<p>Despite the power of Ruby, it turned out to be incredibly hard to use as scripting language. However, recently a Japanese-Government-funded project <a href="http://www.mruby.org/">mruby</a> has been taking off and has headed into version 2.0.1. A year ago when I tried using it it was in version 1.4.0, and it was already in a fairly stable state. Since its syntax is meant to be compatible with Ruby 1.9 and its easy to compile into a C++ project, I decided to try it out.</p>
+
+<h2>mruby-cpp</h2>
+
+<p>To that end, I created <a href="https://github.com/davidsiaw/mruby-cpp">mruby-cpp</a> which provides a C++ frontend into mruby. Its still in beta as I trawl through the mruby C API and slowly gain an understanding of it. I&rsquo;ll continue to evolve it until it makes sense in both the C++ and mruby contexts.</p>
+
+<h3>Simple introduction</h3>
+
+<p>To start, <a href="https://github.com/davidsiaw/mruby-cpp">mruby-cpp</a> is a header-only C++ library. Just clone it into your sources as a submodule or copy it in and start using it. Your executable obviously needs to be linked with <code>libmruby.a</code>.</p>
+
+<p>You can run scripts like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="cp">#include &lt;mruby.hpp&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">vm</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&quot;puts &#39;hello ruby&#39;&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can also set and get global variables, instance variables and class variables:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="n">vm</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&quot;$a = 100;&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">global_a</span> <span class="o">=</span> <span class="n">vm</span><span class="p">.</span><span class="n">get_global_variable</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;$a&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">vm</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&quot;@a = 100;&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">instance_a</span> <span class="o">=</span> <span class="n">vm</span><span class="p">.</span><span class="n">get_instance_variable</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;@a&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">vm</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&quot;@@a = 100;&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">class_a</span> <span class="o">=</span> <span class="n">vm</span><span class="p">.</span><span class="n">get_class_variable</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;@@a&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can bind your C++ classes and their methods to mruby, and specify constructor arguments too!</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="k">class</span> <span class="nc">Person</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+</span><span class='line'><span class="k">public</span><span class="o">:</span>
+</span><span class='line'>  <span class="n">Person</span><span class="p">(</span><span class="kt">int</span> <span class="n">age</span><span class="p">)</span> <span class="o">:</span> <span class="n">age</span><span class="p">(</span><span class="n">age</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">how_old</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">age</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">auto</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">vm</span><span class="p">.</span><span class="n">create_class</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;Person&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">cls</span><span class="p">.</span><span class="n">bind_instance_method</span><span class="p">(</span><span class="s">&quot;how_old&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Person</span><span class="o">::</span><span class="n">how_old</span><span class="p">);</span>
+</span><span class='line'><span class="n">vm</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&quot;puts Person.new(5).how_old&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hopefully you will have a good idea of what I plan to achieve with this library. There are more examples in the <a href="https://github.com/davidsiaw/mruby-cpp/tree/master/tests">tests folder</a>.</p>
+
+<h3>See the tests for more examples!</h3>
+
+<p>All the capabilities of <a href="https://github.com/davidsiaw/mruby-cpp">mruby-cpp</a> are tested by the <a href="https://github.com/davidsiaw/mruby-cpp/tree/master/tests">tests</a> which are also really good examples of how to use <a href="https://github.com/davidsiaw/mruby-cpp">mruby-cpp</a>.</p>
+
+<h2>mruby</h2>
+
+<p>While I was writing this library, I&rsquo;ve learned a few things about mruby and actually about Ruby itself too.</p>
+
+<h3>The C API isn&rsquo;t well documented</h3>
+
+<p>One of the first things I realize when I started looking for ways to do things in mruby is its C API is sparsely documented. There are a bunch of comments in the headers but they are not nearly detailed enough.</p>
+
+<p>A lot of functions have very abbreviated names such as</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">mrb_value</span> <span class="nf">mrb_vm_special_get</span><span class="p">(</span><span class="n">mrb_state</span><span class="o">*</span><span class="p">,</span> <span class="n">mrb_sym</span><span class="p">);</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">mrb_vm_special_set</span><span class="p">(</span><span class="n">mrb_state</span><span class="o">*</span><span class="p">,</span> <span class="n">mrb_sym</span><span class="p">,</span> <span class="n">mrb_value</span><span class="p">);</span>
+</span><span class='line'><span class="n">mrb_value</span> <span class="nf">mrb_vm_cv_get</span><span class="p">(</span><span class="n">mrb_state</span><span class="o">*</span><span class="p">,</span> <span class="n">mrb_sym</span><span class="p">);</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">mrb_vm_cv_set</span><span class="p">(</span><span class="n">mrb_state</span><span class="o">*</span><span class="p">,</span> <span class="n">mrb_sym</span><span class="p">,</span> <span class="n">mrb_value</span><span class="p">);</span>
+</span><span class='line'><span class="n">mrb_value</span> <span class="nf">mrb_vm_const_get</span><span class="p">(</span><span class="n">mrb_state</span><span class="o">*</span><span class="p">,</span> <span class="n">mrb_sym</span><span class="p">);</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">mrb_vm_const_set</span><span class="p">(</span><span class="n">mrb_state</span><span class="o">*</span><span class="p">,</span> <span class="n">mrb_sym</span><span class="p">,</span> <span class="n">mrb_value</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I still don&rsquo;t know what <code>mrb_vm_special_get</code> mean, but I know <code>cv</code> means class variable and <code>const</code> means constant. These are the <code>vm</code> variations, which means they only access global scope. Strangely enough, matz removed <code>vm</code> variations for the instance variables. Not sure why that is the case.</p>
+
+<p>Sometimes typenames are confusing and its not entirely clear how some types are converted to other types, such as <code>RProc*</code> and <code>mrb_value</code>.</p>
+
+<h3>Difficulties I faced</h3>
+
+<p>While writing mruby-cpp, I encountered some difficulty with unifying mruby objects. All things in mruby are objects but they are not treated that way in the API. This is something I still have to solve.</p>
+
+<p>Contrast with Lua where it exposes its GC reference api allowing you to increment and decrement references to its objects, and allowing you to create your own objects on the Lua GC and reference them the same way. This means that you can basically have a variant of the <code>shared_pointer</code> but managed by the Lua GC.</p>
+
+<p>In mruby when you create a function you are forced to assign it to a class with a name. However, you can create a <code>proc</code> but it has a transparent <code>self</code> keyword, which means its impossible to associate it to an object.</p>
+
+<p>As a result, the easiest way to work with mruby-cpp right now is to create classes and bind functions to them so you can use them in mruby. It makes little to no sense creating a function and assigning it to a variable. I am still working on a nice way to do this, and I spent hours trying to find a way to pass a function to mruby as a callable object.</p>
+
+<p>The differences between procs, objects, classes and modules also mean that it was difficult to create an <code>mruby::Object</code> class. Meaning, pure ruby objects cannot really be passed to C++ with mruby-cpp right now.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Jepsen and Docker]]></title>
@@ -256,7 +389,7 @@
 </ol>
 
 
-<h3>Using docker is way cool  aaa</h3>
+<h3>Using docker is way cool</h3>
 
 <p>While Aphyr says that he uses his own LXC stuff to work with, I think its cool that he does provide a Docker interface. However he isn&rsquo;t taking advantage of a few things docker can do:</p>
 
@@ -1942,113 +2075,6 @@ double wh2 = 1.1;</p>
 <p><a href="http://labs.astrobunny.net/wp-content/uploads/2011/10/wpid-glewstatic.jpg" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2011/10/wpid-glewstatic.jpg" alt="" title="Picture" width="487" height="359" class="alignnone size-medium wp-image-1204" /></a></p>
 
 <p>It&rsquo;s easy to fix. Just add GLEW_STATIC to the preprocessor definitions and you&rsquo;re done. This is because without it the header specifies dllimport instead of just extern, which is needed for static linkage.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Why I Prefer Initialization Through Constructors]]></title>
-    <link href="http://davidsiaw.github.io/blog/2011/09/18/why-i-prefer-initialization-through-constructors/"/>
-    <updated>2011-09-18T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2011/09/18/why-i-prefer-initialization-through-constructors</id>
-    <content type="html"><![CDATA[<p>I always prefer initializing my class through the use of a constructor like this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">Apple</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">Color</span> <span class="n">color</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">Taste</span> <span class="n">taste</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">countries</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">public</span> <span class="nf">Apple</span><span class="p">(</span><span class="n">Color</span> <span class="n">color</span><span class="p">,</span> <span class="n">Taste</span> <span class="n">taste</span><span class="p">,</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">countries</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">color</span> <span class="p">=</span> <span class="n">color</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">taste</span> <span class="p">=</span> <span class="n">taste</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">countries</span> <span class="p">=</span> <span class="n">countries</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">void</span> <span class="nf">DoSomething</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">grownInCountries</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
-</span><span class='line'>  <span class="n">grownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Japan&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">grownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;New Zealand&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">grownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Poland&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">Apple</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Apple</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="n">Green</span><span class="p">,</span> <span class="n">Taste</span><span class="p">.</span><span class="n">Sweet</span><span class="p">,</span> <span class="n">grownInCountries</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">DoStuffWith</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Instead of</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">Apple</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">public</span> <span class="n">Color</span> <span class="n">color</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">public</span> <span class="n">Taste</span> <span class="n">taste</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">countries</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">void</span> <span class="nf">DoSomething</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">Apple</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Apple</span><span class="p">();</span>
-</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">Color</span> <span class="p">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">Green</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">Taste</span> <span class="p">=</span> <span class="n">Taste</span><span class="p">.</span><span class="n">Sweet</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Japan&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;New Zealand&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Poland&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">DoStuffWith</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To some, the answer seems obvious: constructors enforce filling in all the fields. To others, it may look like a waste of time and increased complexity to apply the boilerplate: less code = less bugs. Either that or the argument is the class becomes less serialization-friendly.</p>
-
-<p>The C# compiler (or C++ or Java compilers for that matter) provide us with Constructors as a facility to make sure that our fields are all initialized upon construction, besides being able to imply the size required for the data structure to the new operator.</p>
-
-<p>The second example also means that encapsulation has been broken and other classes are free to access the variables within Apple (causing coupling). We could argue that the readonly qualifier could be applied to them, but the &ldquo;countries&rdquo; field is a reference type and still modifiable via its own methods.</p>
-
-<p>This way you can avoid forgetting to initialize a certain set of fields. Whenever a field is added, the constructor should also get a parameter, forcing the implementor to ensure that all places that create instances of this class will have to initialize the new field, eliminating a whole class of bugs related to uninitialized variables.</p>
 ]]></content>
   </entry>
   

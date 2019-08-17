@@ -9,8 +9,7 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="My lack of knowledge about Cappuccino&rsquo;s implementation details may play a role, but 1
-window.setTimeout = window.setNativeTimeout; Seems to &hellip;">
+  <meta name="description" content="While debugging neuron, my new neural network simulation application, I found some (visually) interesting differences between online and batch &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -25,6 +24,7 @@ window.setTimeout = window.setNativeTimeout; Seems to &hellip;">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/arrvis.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="./home/davidsiaw" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
@@ -106,6 +106,68 @@ window.setTimeout = window.setNativeTimeout; Seems to &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/18/online-vs-batch-learning/">Online vs Batch Learning</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-18T00:00:00+00:00" pubdate data-updated="true"></time>
+        
+         | <a href="/blog/2013/03/18/online-vs-batch-learning/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>While debugging neuron, my new neural network simulation application, I found some (visually) interesting differences between online and batch learning. While batch learning is usually touted as a better form of learning, I found that the two don&rsquo;t seem to make much difference, except for a steppy curve from online learning, as I would expect as the gradient changes differently if you keep calculating the values in a cycle instead of calculating the combined gradient of all the training data.</p>
+
+<p>Here are the results from training a 2-2-1 network with biases with XOR as training data:</p>
+
+<p><a href="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron2.jpg" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron2-500x81.jpg" alt="" title="Picture" width="500" height="81" class="alignnone size-medium wp-image-1204" /></a></p>
+
+<p>with the weights initialized to:</p>
+
+<p>double[] wx0 = { 0.1, 0.2 };
+double[] wx1 = { 0.3, 0.4 };
+double[] wx2 = { 0.5, 0.6 };</p>
+
+<p>double wh0 = 0.7;
+double wh1 = 0.9;
+double wh2 = 1.1;</p>
+
+<p>Where wx are the values between the input and hidden layer and wh are the values between the hidden and output layer.</p>
+
+<p>Here is the network topography:</p>
+
+<p><a href="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron1.jpg" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron1-500x361.jpg" alt="" title="Picture" width="500" height="361" class="alignnone size-medium wp-image-1204" /></a></p>
+
+<p>Here is the training error:</p>
+
+<p><a href="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-chart_1-1.png" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-chart_1-1-500x272.png" alt="" title="Picture" width="500" height="272" class="alignnone size-medium wp-image-1204" /></a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -889,142 +951,6 @@ window.setTimeout = window.setNativeTimeout; Seems to &hellip;">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/09/18/why-i-prefer-initialization-through-constructors/">Why I Prefer Initialization Through Constructors</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-09-18T00:00:00+00:00" pubdate data-updated="true"></time>
-        
-         | <a href="/blog/2011/09/18/why-i-prefer-initialization-through-constructors/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I always prefer initializing my class through the use of a constructor like this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">Apple</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">Color</span> <span class="n">color</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">Taste</span> <span class="n">taste</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">countries</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">public</span> <span class="nf">Apple</span><span class="p">(</span><span class="n">Color</span> <span class="n">color</span><span class="p">,</span> <span class="n">Taste</span> <span class="n">taste</span><span class="p">,</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">countries</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">color</span> <span class="p">=</span> <span class="n">color</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">taste</span> <span class="p">=</span> <span class="n">taste</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">countries</span> <span class="p">=</span> <span class="n">countries</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">void</span> <span class="nf">DoSomething</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">grownInCountries</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
-</span><span class='line'>  <span class="n">grownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Japan&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">grownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;New Zealand&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">grownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Poland&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">Apple</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Apple</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="n">Green</span><span class="p">,</span> <span class="n">Taste</span><span class="p">.</span><span class="n">Sweet</span><span class="p">,</span> <span class="n">grownInCountries</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">DoStuffWith</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Instead of</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">Apple</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">public</span> <span class="n">Color</span> <span class="n">color</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">public</span> <span class="n">Taste</span> <span class="n">taste</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">countries</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">void</span> <span class="nf">DoSomething</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">Apple</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Apple</span><span class="p">();</span>
-</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">Color</span> <span class="p">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">Green</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">Taste</span> <span class="p">=</span> <span class="n">Taste</span><span class="p">.</span><span class="n">Sweet</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Japan&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;New Zealand&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Poland&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">DoStuffWith</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To some, the answer seems obvious: constructors enforce filling in all the fields. To others, it may look like a waste of time and increased complexity to apply the boilerplate: less code = less bugs. Either that or the argument is the class becomes less serialization-friendly.</p>
-
-<p>The C# compiler (or C++ or Java compilers for that matter) provide us with Constructors as a facility to make sure that our fields are all initialized upon construction, besides being able to imply the size required for the data structure to the new operator.</p>
-
-<p>The second example also means that encapsulation has been broken and other classes are free to access the variables within Apple (causing coupling). We could argue that the readonly qualifier could be applied to them, but the &ldquo;countries&rdquo; field is a reference type and still modifiable via its own methods.</p>
-
-<p>This way you can avoid forgetting to initialize a certain set of fields. Whenever a field is added, the constructor should also get a parameter, forcing the implementor to ensure that all places that create instances of this class will have to initialize the new field, eliminating a whole class of bugs related to uninitialized variables.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="3">&larr; Older</a>
@@ -1068,11 +994,15 @@ window.setTimeout = window.setNativeTimeout; Seems to &hellip;">
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>hexlife (2)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/philosophy/'>philosophy (1)</a></li><li><a href='/blog/categories/programming/'>programming (32)</a></li><li><a href='/blog/categories/random/'>random (6)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>hexlife (2)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/philosophy/'>philosophy (1)</a></li><li><a href='/blog/categories/programming/'>programming (33)</a></li><li><a href='/blog/categories/random/'>random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2019/08/17/working-with-mruby/">Working with mruby</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/08/16/jepsen-and-docker/">Jepsen and Docker</a>
@@ -1088,10 +1018,6 @@ window.setTimeout = window.setNativeTimeout; Seems to &hellip;">
     
       <li class="post">
         <a href="/blog/2015/06/12/finding-square-roots/">Finding Square Roots</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac/">Script for setting up FTP to a folder on a Mac</a>
       </li>
     
   </ul>
@@ -1136,7 +1062,7 @@ window.setTimeout = window.setNativeTimeout; Seems to &hellip;">
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2018 - davidsiaw -
+  Copyright &copy; 2019 - davidsiaw -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

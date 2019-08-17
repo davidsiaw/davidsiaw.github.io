@@ -9,7 +9,29 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="Several moons ago I have been working on a special blogging client, that is capable of wysiwyg blogging and allows you to take snapshots from movie &hellip;">
+  <meta name="description" content="I always prefer initializing my class through the use of a constructor like this: 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+class &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,6 +46,7 @@
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/arrvis.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="./home/davidsiaw" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
@@ -105,6 +128,142 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/18/why-i-prefer-initialization-through-constructors/">Why I Prefer Initialization Through Constructors</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-18T00:00:00+00:00" pubdate data-updated="true"></time>
+        
+         | <a href="/blog/2011/09/18/why-i-prefer-initialization-through-constructors/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I always prefer initializing my class through the use of a constructor like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">Apple</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">Color</span> <span class="n">color</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">Taste</span> <span class="n">taste</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">countries</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">public</span> <span class="nf">Apple</span><span class="p">(</span><span class="n">Color</span> <span class="n">color</span><span class="p">,</span> <span class="n">Taste</span> <span class="n">taste</span><span class="p">,</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">countries</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">color</span> <span class="p">=</span> <span class="n">color</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">taste</span> <span class="p">=</span> <span class="n">taste</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">countries</span> <span class="p">=</span> <span class="n">countries</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">void</span> <span class="nf">DoSomething</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">grownInCountries</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span><span class='line'>  <span class="n">grownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Japan&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">grownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;New Zealand&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">grownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Poland&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">Apple</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Apple</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="n">Green</span><span class="p">,</span> <span class="n">Taste</span><span class="p">.</span><span class="n">Sweet</span><span class="p">,</span> <span class="n">grownInCountries</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">DoStuffWith</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Instead of</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">Apple</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">public</span> <span class="n">Color</span> <span class="n">color</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">public</span> <span class="n">Taste</span> <span class="n">taste</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">countries</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">void</span> <span class="nf">DoSomething</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">Apple</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Apple</span><span class="p">();</span>
+</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">Color</span> <span class="p">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">Green</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">Taste</span> <span class="p">=</span> <span class="n">Taste</span><span class="p">.</span><span class="n">Sweet</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Japan&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;New Zealand&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">a</span><span class="p">.</span><span class="n">GrownInCountries</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;Poland&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">DoStuffWith</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To some, the answer seems obvious: constructors enforce filling in all the fields. To others, it may look like a waste of time and increased complexity to apply the boilerplate: less code = less bugs. Either that or the argument is the class becomes less serialization-friendly.</p>
+
+<p>The C# compiler (or C++ or Java compilers for that matter) provide us with Constructors as a facility to make sure that our fields are all initialized upon construction, besides being able to imply the size required for the data structure to the new operator.</p>
+
+<p>The second example also means that encapsulation has been broken and other classes are free to access the variables within Apple (causing coupling). We could argue that the readonly qualifier could be applied to them, but the &ldquo;countries&rdquo; field is a reference type and still modifiable via its own methods.</p>
+
+<p>This way you can avoid forgetting to initialize a certain set of fields. Whenever a field is added, the constructor should also get a parameter, forcing the implementor to ensure that all places that create instances of this class will have to initialize the new field, eliminating a whole class of bugs related to uninitialized variables.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -872,52 +1031,6 @@ Sometimes code that was written back then may be correct back then, but may not 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/03/11/requesting-code-review/">Requesting Code Review</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-03-11T00:00:00+00:00" pubdate data-updated="true"></time>
-        
-         | <a href="/blog/2009/03/11/requesting-code-review/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>So I&rsquo;ve been working on a memory pool lately as a hobby project, and I&rsquo;ve come across some things that I haven&rsquo;t found a solution that would satisfy my gut yet. But, after reading this:</p>
-
-<p><img src="/images/blogimages/wtfm.jpg"></p>
-
-<p>I started to realize that since I&rsquo;m already on the internet, why not have people examine my code instead? To that effect, I&rsquo;m asking everyone who&rsquo;s not afraid of C and actually reads this blog to comment on my code. It can be found here:</p>
-
-<p><a href="http://bazaar.launchpad.net/~davidsiaw/bpool/trunk/annotate/head%3A/b_pool//b_pool.c"><a href="http://bazaar.launchpad.net/~davidsiaw/bpool/trunk/annotate/head%3A/b_pool//b_pool.c">http://bazaar.launchpad.net/~davidsiaw/bpool/trunk/annotate/head%3A/b_pool//b_pool.c</a></a></p>
-
-<p>This is the center of the code development at the moment. I&rsquo;ll add more comments later on how the pool is actually supposed to work. I&rsquo;d like to know if there are any bad practices catchable from the outset. Thanks!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="4">&larr; Older</a>
@@ -961,11 +1074,15 @@ Sometimes code that was written back then may be correct back then, but may not 
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>hexlife (2)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/philosophy/'>philosophy (1)</a></li><li><a href='/blog/categories/programming/'>programming (32)</a></li><li><a href='/blog/categories/random/'>random (6)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>hexlife (2)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/philosophy/'>philosophy (1)</a></li><li><a href='/blog/categories/programming/'>programming (33)</a></li><li><a href='/blog/categories/random/'>random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2019/08/17/working-with-mruby/">Working with mruby</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/08/16/jepsen-and-docker/">Jepsen and Docker</a>
@@ -981,10 +1098,6 @@ Sometimes code that was written back then may be correct back then, but may not 
     
       <li class="post">
         <a href="/blog/2015/06/12/finding-square-roots/">Finding Square Roots</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac/">Script for setting up FTP to a folder on a Mac</a>
       </li>
     
   </ul>
@@ -1029,7 +1142,7 @@ Sometimes code that was written back then may be correct back then, but may not 
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2018 - davidsiaw -
+  Copyright &copy; 2019 - davidsiaw -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
