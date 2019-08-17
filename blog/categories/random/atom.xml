@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: random | ./home/davidsiaw]]></title>
-  <link href="http://davidsiaw.github.io/blog/categories/random/atom.xml" rel="self"/>
-  <link href="http://davidsiaw.github.io/"/>
-  <updated>2019-08-17T15:32:24+00:00</updated>
-  <id>http://davidsiaw.github.io/</id>
+  <link href="https://davidsiaw.github.io/blog/categories/random/atom.xml" rel="self"/>
+  <link href="https://davidsiaw.github.io/"/>
+  <updated>2019-08-17T15:50:01+00:00</updated>
+  <id>https://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[New Blog]]></title>
-    <link href="http://davidsiaw.github.io/blog/2013/10/12/new-blog/"/>
+    <link href="https://davidsiaw.github.io/blog/2013/10/12/new-blog/"/>
     <updated>2013-10-12T16:03:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2013/10/12/new-blog</id>
+    <id>https://davidsiaw.github.io/blog/2013/10/12/new-blog</id>
     <content type="html"><![CDATA[<p>As all of you may have noticed the theme has changed and the URL seems to have been redirected to Github. I decided to try out this github pages thing and it seems to work pretty well. The static content idea is really attractive to me and really gives me much more power over the pages with a small tradeoff for convenience. But convenience is a non-issue for most programmers who can write tools to make the inconvenient convenient.</p>
 
 <p>What I want to talk about here is actually how I started doing this and why I ended up moving my blog across, along with what I learned along the way about Jekyll-Bootstrap, Octopress, Jekyll, the annoying problems and the process of migrating from a WordPress blog to a Octopress/Disqus duo.</p>
@@ -128,9 +128,9 @@ $ ruby -rubygems -e 'require "jekyll/jekyll-import/wordpressdotcom";
   
   <entry>
     <title type="html"><![CDATA[Nice Visualization of a Cross Product]]></title>
-    <link href="http://davidsiaw.github.io/blog/2012/11/18/nice-visualization-of-a-cross-product/"/>
+    <link href="https://davidsiaw.github.io/blog/2012/11/18/nice-visualization-of-a-cross-product/"/>
     <updated>2012-11-18T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2012/11/18/nice-visualization-of-a-cross-product</id>
+    <id>https://davidsiaw.github.io/blog/2012/11/18/nice-visualization-of-a-cross-product</id>
     <content type="html"><![CDATA[<p><a href="http://www.phy.syr.edu/courses/java-suite/crosspro.html">[This]</a> is a very nice Java applet that allows you to see what a cross product is. The applet shows A x B = C (i.e. C is the cross product of A and B) in 3 dimensions. You can drag A and B around to see the effects on C.</p>
 
 <p>This UI is an example of very good interactivity. It makes it very easy for the user to see what happens and since its interactive, the feedback is instant and a little playing around with it gives the user an intuition of how cross products work (not how they are done).</p>
@@ -141,27 +141,27 @@ $ ruby -rubygems -e 'require "jekyll/jekyll-import/wordpressdotcom";
   
   <entry>
     <title type="html"><![CDATA[GIS data for topography and shorelines and more]]></title>
-    <link href="http://davidsiaw.github.io/blog/2009/03/20/gis-data-for-topography-and-shorelines-and-more/"/>
+    <link href="https://davidsiaw.github.io/blog/2009/03/20/gis-data-for-topography-and-shorelines-and-more/"/>
     <updated>2009-03-20T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2009/03/20/gis-data-for-topography-and-shorelines-and-more</id>
+    <id>https://davidsiaw.github.io/blog/2009/03/20/gis-data-for-topography-and-shorelines-and-more</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve <a href="http://www.ngdc.noaa.gov/mgg/topo/topo.html">found a site </a>recently that provides data for free on the world&rsquo;s shorelines and topography. They have got other datasets too that aren&rsquo;t as complete, but would probably be of interest to those of you who wish to do research on it. For me, when I look at data like this I get the itch to write programs that process and present it. I might just do that eventually. <em>keeps a note to self</em></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Windows blues]]></title>
-    <link href="http://davidsiaw.github.io/blog/2008/10/06/windows-blues/"/>
+    <link href="https://davidsiaw.github.io/blog/2008/10/06/windows-blues/"/>
     <updated>2008-10-06T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2008/10/06/windows-blues</id>
+    <id>https://davidsiaw.github.io/blog/2008/10/06/windows-blues</id>
     <content type="html"><![CDATA[<p>After losing a few games of command and conquer and the computer blue screening when I&rsquo;m just about to win, I am thoroughly convinced that contrary to their ads, Microsoft has never intended to make life easy for anyone. I swear by my keyboard I will make an OS that is actually reliable and usable by everyone someday. UURGH!</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Shaders, where math meets art]]></title>
-    <link href="http://davidsiaw.github.io/blog/2008/09/17/shaders-where-math-meets-art/"/>
+    <link href="https://davidsiaw.github.io/blog/2008/09/17/shaders-where-math-meets-art/"/>
     <updated>2008-09-17T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2008/09/17/shaders-where-math-meets-art</id>
+    <id>https://davidsiaw.github.io/blog/2008/09/17/shaders-where-math-meets-art</id>
     <content type="html"><![CDATA[<p><img src="/images/blogimages/db3.jpg"></p>
 
 <p>Since playing with shaders is so much fun, lets have a little fun looking at what happens when you take an old game, and breathe some new life into it using a crazily reprogrammed pipeline:</p>

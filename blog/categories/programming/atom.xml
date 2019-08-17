@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: programming | ./home/davidsiaw]]></title>
-  <link href="http://davidsiaw.github.io/blog/categories/programming/atom.xml" rel="self"/>
-  <link href="http://davidsiaw.github.io/"/>
-  <updated>2019-08-17T15:32:24+00:00</updated>
-  <id>http://davidsiaw.github.io/</id>
+  <link href="https://davidsiaw.github.io/blog/categories/programming/atom.xml" rel="self"/>
+  <link href="https://davidsiaw.github.io/"/>
+  <updated>2019-08-17T15:50:01+00:00</updated>
+  <id>https://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Working with mruby]]></title>
-    <link href="http://davidsiaw.github.io/blog/2019/08/17/working-with-mruby/"/>
+    <link href="https://davidsiaw.github.io/blog/2019/08/17/working-with-mruby/"/>
     <updated>2019-08-17T13:55:01+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2019/08/17/working-with-mruby</id>
+    <id>https://davidsiaw.github.io/blog/2019/08/17/working-with-mruby</id>
     <content type="html"><![CDATA[<p>Having worked with Lua before and made a <a href="https://github.com/davidsiaw/luacppinterface">LuaCppInterface</a>, I decided about a year ago to start working on a C++ interface for mounting mruby as a scripting language.</p>
 
 <p>To start, I have been developing in Ruby for several years now and I found it to be quite a pleasant language to work with. The particularly attractive thing about Ruby is its ability to create very clean DSLs. I have proceeded to use this to build some <a href="https://github.com/davidsiaw/sumomo">DSLs of</a> <a href="https://github.com/davidsiaw/weaver">my own</a>.</p>
@@ -113,9 +113,9 @@ void mrb_vm_const_set(mrb_state*, mrb_sym, mrb_value);
   
   <entry>
     <title type="html"><![CDATA[Jepsen and Docker]]></title>
-    <link href="http://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker/"/>
+    <link href="https://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker/"/>
     <updated>2018-08-16T00:06:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker</id>
+    <id>https://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker</id>
     <content type="html"><![CDATA[<p>Recently I have been reading a series of very interesting posts by an Aphyr who <a href="https://aphyr.com/tags/jepsen">tests distributed databases</a> and then publishes their performance under <a href="https://aphyr.com/posts/288-the-network-is-reliable">network partition</a> conditions, clock skews, dead nodes and other interesting failure conditions.</p>
 
 <p>The tool he uses is called <a href="https://github.com/jepsen-io/jepsen">Jepsen</a> which he wrote himself, and the repo itself includes the set of tests that he used on various databases. After reading all the posts about how various supposedly industry-standard (I guess this is the industry standard) databases which claim to be quite reliable fail under precisely the conditions they are not supposed to fail under, I decided to try the tool out myself and document the experience.</p>
@@ -312,9 +312,9 @@ inv  knossos.linear.report/time-coords/fn--5143 (report.clj:186)
   
   <entry>
     <title type="html"><![CDATA[Script for setting up FTP to a folder on a Mac]]></title>
-    <link href="http://davidsiaw.github.io/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac/"/>
+    <link href="https://davidsiaw.github.io/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac/"/>
     <updated>2015-01-23T10:34:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac</id>
+    <id>https://davidsiaw.github.io/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac</id>
     <content type="html"><![CDATA[<p>This script came in handy many times when I had to share things with my other laptops or windows users.</p>
 
 <p>On a Mac you should have Ruby installed. Macs normally come with an ftpd whose frontend has been ripped out, so you can only do this on the command line. Basically, write this to a script file (lets call it <code>setftp</code>)</p>
@@ -351,9 +351,9 @@ puts `sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist`
   
   <entry>
     <title type="html"><![CDATA[Using Travis to deploy my blog]]></title>
-    <link href="http://davidsiaw.github.io/blog/2014/10/30/using-travis-to-deploy-my-blog/"/>
+    <link href="https://davidsiaw.github.io/blog/2014/10/30/using-travis-to-deploy-my-blog/"/>
     <updated>2014-10-30T01:07:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2014/10/30/using-travis-to-deploy-my-blog</id>
+    <id>https://davidsiaw.github.io/blog/2014/10/30/using-travis-to-deploy-my-blog</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve been using Travis-CI more and more as a platform from which I can deploy things, due to the fact that we can run any code on it. Today I made it so that this blog is deployed to gh-pages when pushed. I have also set up my personal blog to be pushed this way as well.</p>
 
 <p>Why did I use Travis-CI instead of Shippable or other CI systems for this? Well, its mainly due to the fact that I was already using Travis, and the tools (specifically the Travis gem) are quite mature. Many of the things that are quite troublesome, like generating a key and placing decrypt commands into the .travis.yml, are now covered in simple command line instructions.</p>
@@ -421,9 +421,9 @@ Commit all changes to your .travis.yml.
   
   <entry>
     <title type="html"><![CDATA[Online vs Batch learning]]></title>
-    <link href="http://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning/"/>
+    <link href="https://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning/"/>
     <updated>2013-03-18T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning</id>
+    <id>https://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning</id>
     <content type="html"><![CDATA[<p>While debugging neuron, my new neural network simulation application, I found some (visually) interesting differences between online and batch learning. While batch learning is usually touted as a better form of learning, I found that the two don&rsquo;t seem to make much difference, except for a steppy curve from online learning, as I would expect as the gradient changes differently if you keep calculating the values in a cycle instead of calculating the combined gradient of all the training data.</p>
 
 <p>Here are the results from training a 2-2-1 network with biases with XOR as training data:</p>

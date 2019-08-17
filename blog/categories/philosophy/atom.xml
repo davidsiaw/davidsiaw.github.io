@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: philosophy | ./home/davidsiaw]]></title>
-  <link href="http://davidsiaw.github.io/blog/categories/philosophy/atom.xml" rel="self"/>
-  <link href="http://davidsiaw.github.io/"/>
-  <updated>2019-08-17T15:32:24+00:00</updated>
-  <id>http://davidsiaw.github.io/</id>
+  <link href="https://davidsiaw.github.io/blog/categories/philosophy/atom.xml" rel="self"/>
+  <link href="https://davidsiaw.github.io/"/>
+  <updated>2019-08-17T15:50:01+00:00</updated>
+  <id>https://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[An Utilitarian View on Intelligence]]></title>
-    <link href="http://davidsiaw.github.io/blog/2016/04/09/an-utilitarian-view-on-intelligence/"/>
+    <link href="https://davidsiaw.github.io/blog/2016/04/09/an-utilitarian-view-on-intelligence/"/>
     <updated>2016-04-09T22:56:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2016/04/09/an-utilitarian-view-on-intelligence</id>
+    <id>https://davidsiaw.github.io/blog/2016/04/09/an-utilitarian-view-on-intelligence</id>
     <content type="html"><![CDATA[<p>The recent victories of AlphaGo has been but an interesting demonstration that machines are finally able to outplay masters at a highly complex game. Some may consider this to be the beginning of a real takeover of machines ala The Terminator, which to me is simply a fear of that which we do not understand.</p>
 
 <p>As one of the many traits we can assign to people, intelligence is just one of them. However it seems to be a very valuable and desirable trait to many, and people often seek to measure this &ldquo;intelligence&rdquo; to order people by usefulness. Intelligence is measured in many different ways, from highly formal methods such as IQ tests to empirical rules judging by their personalities or the company they keep.</p>

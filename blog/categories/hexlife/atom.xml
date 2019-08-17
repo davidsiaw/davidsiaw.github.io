@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: hexlife | ./home/davidsiaw]]></title>
-  <link href="http://davidsiaw.github.io/blog/categories/hexlife/atom.xml" rel="self"/>
-  <link href="http://davidsiaw.github.io/"/>
-  <updated>2019-08-17T15:32:24+00:00</updated>
-  <id>http://davidsiaw.github.io/</id>
+  <link href="https://davidsiaw.github.io/blog/categories/hexlife/atom.xml" rel="self"/>
+  <link href="https://davidsiaw.github.io/"/>
+  <updated>2019-08-17T15:50:01+00:00</updated>
+  <id>https://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Hexlife Part 2]]></title>
-    <link href="http://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2/"/>
+    <link href="https://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2/"/>
     <updated>2014-11-22T11:47:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2</id>
+    <id>https://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2</id>
     <content type="html"><![CDATA[<p>Yesterday while fooling around, I wanted to build a tri-star, but I made a mistake and made this instead:</p>
 
 <p><img src="/images/hexlife/semistill-seed.png" alt="Alt text" /></p>
@@ -46,9 +46,9 @@
   
   <entry>
     <title type="html"><![CDATA[Hexlife]]></title>
-    <link href="http://davidsiaw.github.io/blog/2014/11/21/hexlife/"/>
+    <link href="https://davidsiaw.github.io/blog/2014/11/21/hexlife/"/>
     <updated>2014-11-21T10:46:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2014/11/21/hexlife</id>
+    <id>https://davidsiaw.github.io/blog/2014/11/21/hexlife</id>
     <content type="html"><![CDATA[<p>Last week I wrote a simple Game of Life variation that runs on a hexagonal grid after viewing <a href="http://en.wikipedia.org/wiki/Conway's_Game_of_Life#mediaviewer/File:Oscillator.gif">an example on Wikipedia</a>. The cells considered are the immediate neighbours. The rules are:</p>
 
 <ul>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[./home/davidsiaw]]></title>
-  <link href="http://davidsiaw.github.io/atom.xml" rel="self"/>
-  <link href="http://davidsiaw.github.io/"/>
-  <updated>2019-08-17T15:32:24+00:00</updated>
-  <id>http://davidsiaw.github.io/</id>
+  <link href="https://davidsiaw.github.io/atom.xml" rel="self"/>
+  <link href="https://davidsiaw.github.io/"/>
+  <updated>2019-08-17T15:50:01+00:00</updated>
+  <id>https://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Working with mruby]]></title>
-    <link href="http://davidsiaw.github.io/blog/2019/08/17/working-with-mruby/"/>
+    <link href="https://davidsiaw.github.io/blog/2019/08/17/working-with-mruby/"/>
     <updated>2019-08-17T13:55:01+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2019/08/17/working-with-mruby</id>
+    <id>https://davidsiaw.github.io/blog/2019/08/17/working-with-mruby</id>
     <content type="html"><![CDATA[<p>Having worked with Lua before and made a <a href="https://github.com/davidsiaw/luacppinterface">LuaCppInterface</a>, I decided about a year ago to start working on a C++ interface for mounting mruby as a scripting language.</p>
 
 <p>To start, I have been developing in Ruby for several years now and I found it to be quite a pleasant language to work with. The particularly attractive thing about Ruby is its ability to create very clean DSLs. I have proceeded to use this to build some <a href="https://github.com/davidsiaw/sumomo">DSLs of</a> <a href="https://github.com/davidsiaw/weaver">my own</a>.</p>
@@ -148,9 +148,9 @@
   
   <entry>
     <title type="html"><![CDATA[Jepsen and Docker]]></title>
-    <link href="http://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker/"/>
+    <link href="https://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker/"/>
     <updated>2018-08-16T00:06:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker</id>
+    <id>https://davidsiaw.github.io/blog/2018/08/16/jepsen-and-docker</id>
     <content type="html"><![CDATA[<p>Recently I have been reading a series of very interesting posts by an Aphyr who <a href="https://aphyr.com/tags/jepsen">tests distributed databases</a> and then publishes their performance under <a href="https://aphyr.com/posts/288-the-network-is-reliable">network partition</a> conditions, clock skews, dead nodes and other interesting failure conditions.</p>
 
 <p>The tool he uses is called <a href="https://github.com/jepsen-io/jepsen">Jepsen</a> which he wrote himself, and the repo itself includes the set of tests that he used on various databases. After reading all the posts about how various supposedly industry-standard (I guess this is the industry standard) databases which claim to be quite reliable fail under precisely the conditions they are not supposed to fail under, I decided to try the tool out myself and document the experience.</p>
@@ -178,7 +178,7 @@
 
 <p>And then it goes off and builds a bunch of containers from scratch.</p>
 
-<p><img src="http://davidsiaw.github.io/images/blogimages/notlike.png" alt="Alt text" /></p>
+<p><img src="https://davidsiaw.github.io/images/blogimages/notlike.png" alt="Alt text" /></p>
 
 <p>Then at the very end (after maybe 15 mins of downloading and installing) it goes</p>
 
@@ -429,9 +429,9 @@
   
   <entry>
     <title type="html"><![CDATA[An Utilitarian View on Intelligence]]></title>
-    <link href="http://davidsiaw.github.io/blog/2016/04/09/an-utilitarian-view-on-intelligence/"/>
+    <link href="https://davidsiaw.github.io/blog/2016/04/09/an-utilitarian-view-on-intelligence/"/>
     <updated>2016-04-09T22:56:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2016/04/09/an-utilitarian-view-on-intelligence</id>
+    <id>https://davidsiaw.github.io/blog/2016/04/09/an-utilitarian-view-on-intelligence</id>
     <content type="html"><![CDATA[<p>The recent victories of AlphaGo has been but an interesting demonstration that machines are finally able to outplay masters at a highly complex game. Some may consider this to be the beginning of a real takeover of machines ala The Terminator, which to me is simply a fear of that which we do not understand.</p>
 
 <p>As one of the many traits we can assign to people, intelligence is just one of them. However it seems to be a very valuable and desirable trait to many, and people often seek to measure this &ldquo;intelligence&rdquo; to order people by usefulness. Intelligence is measured in many different ways, from highly formal methods such as IQ tests to empirical rules judging by their personalities or the company they keep.</p>
@@ -462,9 +462,9 @@
   
   <entry>
     <title type="html"><![CDATA[Rotating Integrals]]></title>
-    <link href="http://davidsiaw.github.io/blog/2015/12/22/rotating-integrals/"/>
+    <link href="https://davidsiaw.github.io/blog/2015/12/22/rotating-integrals/"/>
     <updated>2015-12-22T01:11:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2015/12/22/rotating-integrals</id>
+    <id>https://davidsiaw.github.io/blog/2015/12/22/rotating-integrals</id>
     <content type="html"><![CDATA[<p><em>This post assumes you know some trigonometry and can do some integral calculus on it.</em></p>
 
 <p>My little brother in college complained about sines and cosines in an indefinite integral today. Specifically, an integration that he was annoyed with was:</p>
@@ -723,12 +723,12 @@
   
   <entry>
     <title type="html"><![CDATA[Finding Square Roots]]></title>
-    <link href="http://davidsiaw.github.io/blog/2015/06/12/finding-square-roots/"/>
+    <link href="https://davidsiaw.github.io/blog/2015/06/12/finding-square-roots/"/>
     <updated>2015-06-12T01:36:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2015/06/12/finding-square-roots</id>
+    <id>https://davidsiaw.github.io/blog/2015/06/12/finding-square-roots</id>
     <content type="html"><![CDATA[<p>Most of us has at some point in our lives used the <code>Math.sqrt()</code> function. We would even know that \(\sqrt{2} = 1.414\ldots\). However, we never really give how it is implemented a second thought. Thus is the power of a tight abstraction. For those of us who lived in the age of calculators, finding square roots has always been a source of mystery. For me during my teenage years, calculating a square root has really just been about looking up a numeric table.</p>
 
-<p><img src="http://davidsiaw.github.io/images/log8.jpg" alt="Table of Square Roots" /></p>
+<p><img src="https://davidsiaw.github.io/images/log8.jpg" alt="Table of Square Roots" /></p>
 
 <p>Obviously this very simple problem would have been solved close to the beginnings of civilization, and blazingly fast methods must already exist. But for sake of exploration, let us examine how we would implement a square root function should we need to.</p>
 
@@ -736,15 +736,15 @@
 
 <p>Since square roots of negative numbers are really just square roots of positive numbers times the square root of a negative number, let us focus our efforts on finding just the square roots of positive real numbers.</p>
 
-<p><img src="http://davidsiaw.github.io/images/square.png" alt="y=x^2" /></p>
+<p><img src="https://davidsiaw.github.io/images/square.png" alt="y=x^2" /></p>
 
 <p>One way to find a square root is by looking at this graph of \(y=x^2\). Simply drawing a horizontal line from the y-axis from whose square root we desire to the graph line, and then find the intersect on the x-axis. So say we want \(\sqrt{30}\).</p>
 
-<p><img src="http://davidsiaw.github.io/images/sqrt30.png" alt="find sqrt 30" /></p>
+<p><img src="https://davidsiaw.github.io/images/sqrt30.png" alt="find sqrt 30" /></p>
 
 <p>We simply draw a line from the y-axis at 30 to the graph and find that it is located somewhere between 5.4 and 5.6 along the x-axis, but closer to 5.4. This makes sense. A quick glance at <a href="https://www.google.co.jp/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#q=sqrt(30">google</a>) shows \(\sqrt{30} = 5.4772255\)</p>
 
-<p><img src="http://davidsiaw.github.io/images/binaryguessing.png" alt="find sqrt 30" /></p>
+<p><img src="https://davidsiaw.github.io/images/binaryguessing.png" alt="find sqrt 30" /></p>
 
 <p>This in-betweenness tells us something about square roots. Besides the nice square roots, the ugly ones don&rsquo;t seem to have any end to their decimals. Hence, they are always in between two numbers that we know. This means that we can keep making educated guesses about where the square root is until we get close enough.</p>
 
@@ -1103,9 +1103,9 @@
   
   <entry>
     <title type="html"><![CDATA[Script for setting up FTP to a folder on a Mac]]></title>
-    <link href="http://davidsiaw.github.io/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac/"/>
+    <link href="https://davidsiaw.github.io/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac/"/>
     <updated>2015-01-23T10:34:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac</id>
+    <id>https://davidsiaw.github.io/blog/2015/01/23/script-for-setting-up-ftp-to-a-folder-on-a-mac</id>
     <content type="html"><![CDATA[<p>This script came in handy many times when I had to share things with my other laptops or windows users.</p>
 
 <p>On a Mac you should have Ruby installed. Macs normally come with an ftpd whose frontend has been ripped out, so you can only do this on the command line. Basically, write this to a script file (lets call it <code>setftp</code>)</p>
@@ -1161,20 +1161,20 @@
   
   <entry>
     <title type="html"><![CDATA[Hexlife Part 2]]></title>
-    <link href="http://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2/"/>
+    <link href="https://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2/"/>
     <updated>2014-11-22T11:47:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2</id>
+    <id>https://davidsiaw.github.io/blog/2014/11/22/hexlife-part-2</id>
     <content type="html"><![CDATA[<p>Yesterday while fooling around, I wanted to build a tri-star, but I made a mistake and made this instead:</p>
 
-<p><img src="http://davidsiaw.github.io/images/hexlife/semistill-seed.png" alt="Alt text" /></p>
+<p><img src="https://davidsiaw.github.io/images/hexlife/semistill-seed.png" alt="Alt text" /></p>
 
 <p>But to my surprise I did not find a tri-star, instead this grew out of it:</p>
 
-<p><img src="http://davidsiaw.github.io/images/hexlife/Y-semistill.png" alt="Alt text" /></p>
+<p><img src="https://davidsiaw.github.io/images/hexlife/Y-semistill.png" alt="Alt text" /></p>
 
 <p>Since I had made changes to tint different generations with different colors, I wanted to test it. Wondering if I had introduced bugs, I went through my git history to make sure everything was fine. After reverting, it turned out I hadn&rsquo;t. It was just a variation I had never tried.</p>
 
-<p>In my <a href="http://davidsiaw.github.io/blog/2014/11/21/hexlife/">earlier post</a>, I said that still lifes could not exist under the rules because cells could not live long enough, but these structures persisted. In other words, they were non-transient cells.</p>
+<p>In my <a href="https://davidsiaw.github.io/blog/2014/11/21/hexlife/">earlier post</a>, I said that still lifes could not exist under the rules because cells could not live long enough, but these structures persisted. In other words, they were non-transient cells.</p>
 
 <p>It turns out that most of the cells here had 3 neighbours, and that gave them a long lease on life. Also, all the way along the columns, there were no dead cells that had 2 cell neighbours, meaning that the cells would never die because of their spawn.</p>
 
@@ -1182,7 +1182,7 @@
 
 <p>Armed with this knowledge, I set out to create a simpler column.</p>
 
-<p><img src="http://davidsiaw.github.io/images/hexlife/I-semistill.png" alt="Alt text" /></p>
+<p><img src="https://davidsiaw.github.io/images/hexlife/I-semistill.png" alt="Alt text" /></p>
 
 <p>I call this kind of life form a Semi-still life, since a large proportion of it can be unchanging, but must be supported by oscillation.</p>
 
@@ -1192,9 +1192,9 @@
   
   <entry>
     <title type="html"><![CDATA[Hexlife]]></title>
-    <link href="http://davidsiaw.github.io/blog/2014/11/21/hexlife/"/>
+    <link href="https://davidsiaw.github.io/blog/2014/11/21/hexlife/"/>
     <updated>2014-11-21T10:46:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2014/11/21/hexlife</id>
+    <id>https://davidsiaw.github.io/blog/2014/11/21/hexlife</id>
     <content type="html"><![CDATA[<p>Last week I wrote a simple Game of Life variation that runs on a hexagonal grid after viewing <a href="http://en.wikipedia.org/wiki/Conway's_Game_of_Life#mediaviewer/File:Oscillator.gif">an example on Wikipedia</a>. The cells considered are the immediate neighbours. The rules are:</p>
 
 <ul>
@@ -1221,51 +1221,51 @@
 </thead>
 <tbody>
 <tr>
-<td><img src="http://davidsiaw.github.io/images/hexlife/2cell.png" alt="Alt text" />        </td>
+<td><img src="https://davidsiaw.github.io/images/hexlife/2cell.png" alt="Alt text" />        </td>
 <td> The <strong>2cell</strong> is the simplest and most common oscillator. It is left behind by almost any unstable life.</td>
 </tr>
 <tr>
-<td><img src="http://davidsiaw.github.io/images/hexlife/spinner.png" alt="Alt text" />      </td>
+<td><img src="https://davidsiaw.github.io/images/hexlife/spinner.png" alt="Alt text" />      </td>
 <td> The <strong>Spinner</strong> is another common oscillator that has a period of 2. It simply looks like it is spinning.</td>
 </tr>
 <tr>
-<td><img src="http://davidsiaw.github.io/images/hexlife/mouth.png" alt="Alt text" />        </td>
+<td><img src="https://davidsiaw.github.io/images/hexlife/mouth.png" alt="Alt text" />        </td>
 <td> The <strong>Mouth</strong> looks like a spinner but instead of 2nd level adjacent, they are 3rd level adjacent, so it looks like it is always opening and closing</td>
 </tr>
 <tr>
-<td><img src="http://davidsiaw.github.io/images/hexlife/needle.png" alt="Alt text" />       </td>
+<td><img src="https://davidsiaw.github.io/images/hexlife/needle.png" alt="Alt text" />       </td>
 <td> The <strong>Needle</strong> has a period of 2 and flips back and forth.</td>
 </tr>
 <tr>
-<td><img src="http://davidsiaw.github.io/images/hexlife/dancer.png" alt="Alt text" />       </td>
+<td><img src="https://davidsiaw.github.io/images/hexlife/dancer.png" alt="Alt text" />       </td>
 <td> The <strong>Dancer</strong> has a period of 2 and looks like its swinging back and forth.</td>
 </tr>
 <tr>
-<td><img src="http://davidsiaw.github.io/images/hexlife/star.png" alt="Alt text" />         </td>
+<td><img src="https://davidsiaw.github.io/images/hexlife/star.png" alt="Alt text" />         </td>
 <td> The <strong>Star</strong> looks like a twinkling star. It is quite peculiar in the sense that it has a period of 3.</td>
 </tr>
 <tr>
-<td><img src="http://davidsiaw.github.io/images/hexlife/rotator.png" alt="Alt text" />      </td>
+<td><img src="https://davidsiaw.github.io/images/hexlife/rotator.png" alt="Alt text" />      </td>
 <td> The <strong>Rotator</strong> has a period of 4 and looks like it is spinning in a weird way.</td>
 </tr>
 <tr>
-<td><img src="http://davidsiaw.github.io/images/hexlife/bat.png" alt="Alt text" />          </td>
+<td><img src="https://davidsiaw.github.io/images/hexlife/bat.png" alt="Alt text" />          </td>
 <td> The <strong>Bat</strong> is perhaps the most common 4-period oscillator you get from random starts.</td>
 </tr>
 <tr>
-<td><img src="http://davidsiaw.github.io/images/hexlife/snake.png" alt="Alt text" />        </td>
+<td><img src="https://davidsiaw.github.io/images/hexlife/snake.png" alt="Alt text" />        </td>
 <td> The <strong>Snake</strong> is a period-4 oscillator that looks like a snake that wiggles around</td>
 </tr>
 <tr>
-<td><img src="http://davidsiaw.github.io/images/hexlife/morpher.png" alt="Alt text" />      </td>
+<td><img src="https://davidsiaw.github.io/images/hexlife/morpher.png" alt="Alt text" />      </td>
 <td> The <strong>Morpher</strong> is really simple but really interesting-looking oscillator. It has got a period of 12 and transforms into all its possible orientations. This means that even though it has no symmetry, it does not matter which way you orient it, it will achieve the same configurations. I call this temporal homogeneity.</td>
 </tr>
 <tr>
-<td><img src="http://davidsiaw.github.io/images/hexlife/tristar.png" alt="Alt text" />      </td>
+<td><img src="https://davidsiaw.github.io/images/hexlife/tristar.png" alt="Alt text" />      </td>
 <td> The <strong>Tristar</strong> is a period-12 oscillator that twinkles in a more elaborate way than the star.</td>
 </tr>
 <tr>
-<td><img src="http://davidsiaw.github.io/images/hexlife/swimmer.png" alt="Alt text" />      </td>
+<td><img src="https://davidsiaw.github.io/images/hexlife/swimmer.png" alt="Alt text" />      </td>
 <td> The <strong>Swimmer</strong> is an oscillator with a period of 48. You can actually find it on the Wikipedia page I linked. It seems like a lost fish swimming back and forth.</td>
 </tr>
 </tbody>
@@ -1278,9 +1278,9 @@
   
   <entry>
     <title type="html"><![CDATA[Using Travis to deploy my blog]]></title>
-    <link href="http://davidsiaw.github.io/blog/2014/10/30/using-travis-to-deploy-my-blog/"/>
+    <link href="https://davidsiaw.github.io/blog/2014/10/30/using-travis-to-deploy-my-blog/"/>
     <updated>2014-10-30T01:07:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2014/10/30/using-travis-to-deploy-my-blog</id>
+    <id>https://davidsiaw.github.io/blog/2014/10/30/using-travis-to-deploy-my-blog</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve been using Travis-CI more and more as a platform from which I can deploy things, due to the fact that we can run any code on it. Today I made it so that this blog is deployed to gh-pages when pushed. I have also set up my personal blog to be pushed this way as well.</p>
 
 <p>Why did I use Travis-CI instead of Shippable or other CI systems for this? Well, its mainly due to the fact that I was already using Travis, and the tools (specifically the Travis gem) are quite mature. Many of the things that are quite troublesome, like generating a key and placing decrypt commands into the .travis.yml, are now covered in simple command line instructions.</p>
@@ -1383,9 +1383,9 @@
   
   <entry>
     <title type="html"><![CDATA[New Blog]]></title>
-    <link href="http://davidsiaw.github.io/blog/2013/10/12/new-blog/"/>
+    <link href="https://davidsiaw.github.io/blog/2013/10/12/new-blog/"/>
     <updated>2013-10-12T16:03:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2013/10/12/new-blog</id>
+    <id>https://davidsiaw.github.io/blog/2013/10/12/new-blog</id>
     <content type="html"><![CDATA[<p>As all of you may have noticed the theme has changed and the URL seems to have been redirected to Github. I decided to try out this github pages thing and it seems to work pretty well. The static content idea is really attractive to me and really gives me much more power over the pages with a small tradeoff for convenience. But convenience is a non-issue for most programmers who can write tools to make the inconvenient convenient.</p>
 
 <p>What I want to talk about here is actually how I started doing this and why I ended up moving my blog across, along with what I learned along the way about Jekyll-Bootstrap, Octopress, Jekyll, the annoying problems and the process of migrating from a WordPress blog to a Octopress/Disqus duo.</p>
@@ -1483,7 +1483,7 @@
 
 <p>One big headache with Octopress was that its syntax highlighting was not part of the theme, and that the default theme was the Solarize theme which was fairly ugly and bluish. It also wasn&rsquo;t straightforward to configure. It turned out that the syntax configuration is in sass/<em>syntax.scss and the variables in it are stored in sass/</em>solarized.scss.</p>
 
-<p><img src="http://davidsiaw.github.io/images/blogimages/solarized.png"></p>
+<p><img src="https://davidsiaw.github.io/images/blogimages/solarized.png"></p>
 
 <p>In order to solve this problem, some googling turned up some people solving this issue by <a href="http://blog.codebykat.com/2013/05/23/gorgeous-octopress-codeblocks-with-coderay/">switching the markdown generator to CodeRay</a>. But it did not change the theme for me and it seemed like a very messy change to have, so I decided to roll my sleeves up and edit the scss files myself, which came out pretty well.</p>
 
@@ -1526,9 +1526,9 @@
   
   <entry>
     <title type="html"><![CDATA[Online vs Batch learning]]></title>
-    <link href="http://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning/"/>
+    <link href="https://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning/"/>
     <updated>2013-03-18T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning</id>
+    <id>https://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning</id>
     <content type="html"><![CDATA[<p>While debugging neuron, my new neural network simulation application, I found some (visually) interesting differences between online and batch learning. While batch learning is usually touted as a better form of learning, I found that the two don&rsquo;t seem to make much difference, except for a steppy curve from online learning, as I would expect as the gradient changes differently if you keep calculating the values in a cycle instead of calculating the combined gradient of all the training data.</p>
 
 <p>Here are the results from training a 2-2-1 network with biases with XOR as training data:</p>
@@ -1559,9 +1559,9 @@ double wh2 = 1.1;</p>
   
   <entry>
     <title type="html"><![CDATA[This seems to make Cappuccino faster...]]></title>
-    <link href="http://davidsiaw.github.io/blog/2012/12/19/this-seems-to-make-cappuccino-faster/"/>
+    <link href="https://davidsiaw.github.io/blog/2012/12/19/this-seems-to-make-cappuccino-faster/"/>
     <updated>2012-12-19T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2012/12/19/this-seems-to-make-cappuccino-faster</id>
+    <id>https://davidsiaw.github.io/blog/2012/12/19/this-seems-to-make-cappuccino-faster</id>
     <content type="html"><![CDATA[<p>My lack of knowledge about Cappuccino&rsquo;s implementation details may play a role, but</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1575,9 +1575,9 @@ double wh2 = 1.1;</p>
   
   <entry>
     <title type="html"><![CDATA[The Identity of an Array]]></title>
-    <link href="http://davidsiaw.github.io/blog/2012/12/12/the-identity-of-an-array/"/>
+    <link href="https://davidsiaw.github.io/blog/2012/12/12/the-identity-of-an-array/"/>
     <updated>2012-12-12T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2012/12/12/the-identity-of-an-array</id>
+    <id>https://davidsiaw.github.io/blog/2012/12/12/the-identity-of-an-array</id>
     <content type="html"><![CDATA[<p>Given two arrays of integers: a and b, what does (a == b) mean?</p>
 
 <p>Most of us will say, it depends on the programming language you are using, and that is true. In the case of C, it means a and b are the pointers to the start of the same array. In Java and C# it means the arrays are Reference Equal, basically meaning that the pointer to the arrays a and b are the same.</p>
@@ -1661,9 +1661,9 @@ double wh2 = 1.1;</p>
   
   <entry>
     <title type="html"><![CDATA[Exceptionless Programming]]></title>
-    <link href="http://davidsiaw.github.io/blog/2012/11/28/exceptionless-programming/"/>
+    <link href="https://davidsiaw.github.io/blog/2012/11/28/exceptionless-programming/"/>
     <updated>2012-11-28T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2012/11/28/exceptionless-programming</id>
+    <id>https://davidsiaw.github.io/blog/2012/11/28/exceptionless-programming</id>
     <content type="html"><![CDATA[<p>I am a big fan of writing code that generates no runtime errors. This is an implementation of a function that takes the first element of an array.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1741,9 +1741,9 @@ double wh2 = 1.1;</p>
   
   <entry>
     <title type="html"><![CDATA[Nice Visualization of a Cross Product]]></title>
-    <link href="http://davidsiaw.github.io/blog/2012/11/18/nice-visualization-of-a-cross-product/"/>
+    <link href="https://davidsiaw.github.io/blog/2012/11/18/nice-visualization-of-a-cross-product/"/>
     <updated>2012-11-18T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2012/11/18/nice-visualization-of-a-cross-product</id>
+    <id>https://davidsiaw.github.io/blog/2012/11/18/nice-visualization-of-a-cross-product</id>
     <content type="html"><![CDATA[<p><a href="http://www.phy.syr.edu/courses/java-suite/crosspro.html">[This]</a> is a very nice Java applet that allows you to see what a cross product is. The applet shows A x B = C (i.e. C is the cross product of A and B) in 3 dimensions. You can drag A and B around to see the effects on C.</p>
 
 <p>This UI is an example of very good interactivity. It makes it very easy for the user to see what happens and since its interactive, the feedback is instant and a little playing around with it gives the user an intuition of how cross products work (not how they are done).</p>
@@ -1754,9 +1754,9 @@ double wh2 = 1.1;</p>
   
   <entry>
     <title type="html"><![CDATA[Blurred Text Effect]]></title>
-    <link href="http://davidsiaw.github.io/blog/2012/08/13/blurred-text-effect/"/>
+    <link href="https://davidsiaw.github.io/blog/2012/08/13/blurred-text-effect/"/>
     <updated>2012-08-13T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2012/08/13/blurred-text-effect</id>
+    <id>https://davidsiaw.github.io/blog/2012/08/13/blurred-text-effect</id>
     <content type="html"><![CDATA[<p>I came across a strange site that blurred the text of answers and asked the reader to sign up to see it. It was strange because the text was already there, just blurred via css. I thought it was an interesting little snippet so I decided to record it.</p>
 
 <p><span style="color:transparent; text-shadow:0 0 7px #777">This is how it blurs</span>.</p>
@@ -1776,9 +1776,9 @@ double wh2 = 1.1;</p>
   
   <entry>
     <title type="html"><![CDATA[Regex Escapees]]></title>
-    <link href="http://davidsiaw.github.io/blog/2011/11/22/regex-escapees/"/>
+    <link href="https://davidsiaw.github.io/blog/2011/11/22/regex-escapees/"/>
     <updated>2011-11-22T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2011/11/22/regex-escapees</id>
+    <id>https://davidsiaw.github.io/blog/2011/11/22/regex-escapees</id>
     <content type="html"><![CDATA[<p>Sometimes when one writes regexes, Its hard to know what needs to be escaped and what doesn&rsquo;t. But I&rsquo;ve solved that problem while I was writing a program that generated my regexes for me. Now I have a snippet that both humans and programs can use to write regexes!</p>
 
 <p>This is for the .NET flavor of Regex.</p>
@@ -1826,9 +1826,9 @@ double wh2 = 1.1;</p>
   
   <entry>
     <title type="html"><![CDATA[Making Color From Alpha, Hue, Saturation and Brightness]]></title>
-    <link href="http://davidsiaw.github.io/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness/"/>
+    <link href="https://davidsiaw.github.io/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness/"/>
     <updated>2011-11-22T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness</id>
+    <id>https://davidsiaw.github.io/blog/2011/11/22/making-color-from-alpha-hue-saturation-and-brightness</id>
     <content type="html"><![CDATA[<p>I find myself wanting to do this sometimes, so here&rsquo;s a bit of code (I&rsquo;m sure I stole this code from somewhere else);</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1962,9 +1962,9 @@ double wh2 = 1.1;</p>
   
   <entry>
     <title type="html"><![CDATA[OpenGL weirdness]]></title>
-    <link href="http://davidsiaw.github.io/blog/2011/10/06/opengl-weirdness/"/>
+    <link href="https://davidsiaw.github.io/blog/2011/10/06/opengl-weirdness/"/>
     <updated>2011-10-06T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2011/10/06/opengl-weirdness</id>
+    <id>https://davidsiaw.github.io/blog/2011/10/06/opengl-weirdness</id>
     <content type="html"><![CDATA[<p>Try this:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -2055,9 +2055,9 @@ double wh2 = 1.1;</p>
   
   <entry>
     <title type="html"><![CDATA[Help! GLEW compiles but doesn't link!]]></title>
-    <link href="http://davidsiaw.github.io/blog/2011/10/06/help-glew-compiles-but-doesnt-link/"/>
+    <link href="https://davidsiaw.github.io/blog/2011/10/06/help-glew-compiles-but-doesnt-link/"/>
     <updated>2011-10-06T00:00:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2011/10/06/help-glew-compiles-but-doesnt-link</id>
+    <id>https://davidsiaw.github.io/blog/2011/10/06/help-glew-compiles-but-doesnt-link</id>
     <content type="html"><![CDATA[<p>When you compile the glew_static project from glew on Visual Studio and link it with your program, you may get something like this:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>

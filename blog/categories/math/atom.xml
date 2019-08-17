@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: math | ./home/davidsiaw]]></title>
-  <link href="http://davidsiaw.github.io/blog/categories/math/atom.xml" rel="self"/>
-  <link href="http://davidsiaw.github.io/"/>
-  <updated>2019-08-17T15:32:24+00:00</updated>
-  <id>http://davidsiaw.github.io/</id>
+  <link href="https://davidsiaw.github.io/blog/categories/math/atom.xml" rel="self"/>
+  <link href="https://davidsiaw.github.io/"/>
+  <updated>2019-08-17T15:50:01+00:00</updated>
+  <id>https://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Rotating Integrals]]></title>
-    <link href="http://davidsiaw.github.io/blog/2015/12/22/rotating-integrals/"/>
+    <link href="https://davidsiaw.github.io/blog/2015/12/22/rotating-integrals/"/>
     <updated>2015-12-22T01:11:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2015/12/22/rotating-integrals</id>
+    <id>https://davidsiaw.github.io/blog/2015/12/22/rotating-integrals</id>
     <content type="html"><![CDATA[<p><em>This post assumes you know some trigonometry and can do some integral calculus on it.</em></p>
 
 <p>My little brother in college complained about sines and cosines in an indefinite integral today. Specifically, an integration that he was annoyed with was:</p>
@@ -276,9 +276,9 @@
   
   <entry>
     <title type="html"><![CDATA[Finding Square Roots]]></title>
-    <link href="http://davidsiaw.github.io/blog/2015/06/12/finding-square-roots/"/>
+    <link href="https://davidsiaw.github.io/blog/2015/06/12/finding-square-roots/"/>
     <updated>2015-06-12T01:36:00+00:00</updated>
-    <id>http://davidsiaw.github.io/blog/2015/06/12/finding-square-roots</id>
+    <id>https://davidsiaw.github.io/blog/2015/06/12/finding-square-roots</id>
     <content type="html"><![CDATA[<p>Most of us has at some point in our lives used the <code>Math.sqrt()</code> function. We would even know that \(\sqrt{2} = 1.414\ldots\). However, we never really give how it is implemented a second thought. Thus is the power of a tight abstraction. For those of us who lived in the age of calculators, finding square roots has always been a source of mystery. For me during my teenage years, calculating a square root has really just been about looking up a numeric table.</p>
 
 <p><img src="/images/log8.jpg" alt="Table of Square Roots" /></p>
