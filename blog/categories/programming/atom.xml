@@ -4,7 +4,7 @@
   <title><![CDATA[Category: programming | ./home/davidsiaw]]></title>
   <link href="https://davidsiaw.github.io/blog/categories/programming/atom.xml" rel="self"/>
   <link href="https://davidsiaw.github.io/"/>
-  <updated>2019-08-17T15:54:24+00:00</updated>
+  <updated>2020-05-04T09:28:41+00:00</updated>
   <id>https://davidsiaw.github.io/</id>
   <author>
     <name><![CDATA[davidsiaw]]></name>
@@ -12,6 +12,280 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Adjacency in a Grid]]></title>
+    <link href="https://davidsiaw.github.io/blog/2020/05/04/adjacency-in-a-grid/"/>
+    <updated>2020-05-04T04:07:56+00:00</updated>
+    <id>https://davidsiaw.github.io/blog/2020/05/04/adjacency-in-a-grid</id>
+    <content type="html"><![CDATA[<p>Many times when I have to deal with grids and adjacency, I always come up with a solution that results in difficult to understand code that makes no sense to anyone who uses it. Here I will try and explain my system to defining adjacency in a square grid and why I use it.</p>
+
+<p>Consider a grid where you stand on AA and you want the coordinates for the things around you.</p>
+
+<pre><code>00 00 00
+00 AA 00
+00 00 00
+</code></pre>
+
+<p>I will for this thing assume you have a simple expression to convert your xy coordinates to position in an array</p>
+
+<pre><code>pos = y * width + x;
+</code></pre>
+
+<p>Lets not consider the diagonals for now and concentrate on just the sides. I usually set numbers to define directions:</p>
+
+<pre><code>LEFT  = 0
+RIGHT = 1
+UP    = 2
+DOWN  = 3
+</code></pre>
+
+<p>These numbers seem arbitrary but there is a reason to them, in binary these numbers are</p>
+
+<pre><code>LEFT  = 00
+RIGHT = 01
+UP    = 10
+DOWN  = 11
+</code></pre>
+
+<p>When you do this its now possible to get adjacent cells like this:</p>
+
+<pre><code>int oper = dir &lt;&lt; 1;
+int d[2] = {0, 0};
+d[oper &gt;&gt; 2] = (oper &amp; 10) - 1;
+diff = d[0] + d[1] * width;
+</code></pre>
+
+<p>Let&rsquo;s unpack that. The numbers we chose for each direction lets us assign a meaning to each of the bits, so we have one bit for direction, and one bit for dimension:</p>
+
+<pre><code>00 &lt;- direction bit
+^
+dimension bit
+</code></pre>
+
+<p>Using this arrangement, first we assume we are on the X axis, and if its a 1 we want to move forward and if its 0 we want to move backwards. This means we have to convert 0 to -1 and 1 to 1. We can do this by subtracting 1 from 2 times the direction bit.</p>
+
+<pre><code>int dx = (2 * dir &amp; 1) - 1;
+</code></pre>
+
+<p>Next, we want to use the dimension bit to choose a dimension. This is straightforward because we simply create an array with two elements, and use the dimension bit to index the array.</p>
+
+<pre><code>int d[2] = {0, 0};
+d[dir &gt;&gt; 1] = dx;
+</code></pre>
+
+<p>Since we are walking a one dimensional array, we can simply substitute each bit of the directions int our array:</p>
+
+<pre><code>diff = d[0] + d[1] * width;
+</code></pre>
+
+<p>Putting it all together, we have</p>
+
+<pre><code>int dx = (2 * dir &amp; 1) - 1;
+int d[2] = {0, 0};
+d[dir &gt;&gt; 1] = dx;
+diff = d[0] + d[1] * width;
+</code></pre>
+
+<p>We realize that anything multiplied by two is just a left shift, so we first of all shift the entire number up one bit. (I will show why we do the entire number instead of the direction bit later)</p>
+
+<pre><code>int oper = dir &lt;&lt; 1;
+</code></pre>
+
+<p>And then <code>dx</code> simply becomes</p>
+
+<pre><code>int oper = dir &lt;&lt; 1;
+int dx = (oper &amp; 10) - 1;
+</code></pre>
+
+<p>Lets get rid of <code>dx</code> since its so simple now, and we can use oper as well with a down shift of 2, but it doesn&rsquo;t really matter. Both are equally fast.</p>
+
+<pre><code>int oper = dir &lt;&lt; 1;
+int d[2] = {0, 0};
+d[oper &gt;&gt; 2] = (oper &amp; 10) - 1;
+diff = d[0] + d[1] * width;
+</code></pre>
+
+<p>By making this a function, we can use it to produce an amount we can move in the array to where we want to be:</p>
+
+<pre><code>int pos_of(Dir dir)
+{
+  int oper = dir &lt;&lt; 1;
+  int d[2] = {0, 0};
+  d[oper &gt;&gt; 2] = (oper &amp; 10) - 1;
+  return d[0] + d[1] * width;
+}
+</code></pre>
+
+<p>Using this, say we have the position somewhere in the array</p>
+
+<pre><code>us = arr[x];
+</code></pre>
+
+<h2>Usage</h2>
+
+<p>We can simply add our movement into the position to give us the say, cell below ours:</p>
+
+<pre><code>below = arr[x + pos_of(LEFT)];
+</code></pre>
+
+<p>If we wanted to access all the side cells, we just have to loop through all of the 4 numbers.</p>
+
+<pre><code>for(int i = 0; i &lt; 4; i++)
+{
+  arr[x + pos_of(4)] = 0; /* Set all adjacent cells to 0 */
+}
+</code></pre>
+
+<h2>Diagonals</h2>
+
+<p>Say we want to also do diagonals, then we modify our map to this</p>
+
+<pre><code>111 010 101
+000 AAA 001
+100 011 110
+</code></pre>
+
+<p>I usually set a bunch of values for this:</p>
+
+<pre><code>LEFT UP    -&gt; 10 00 -&gt; 100
+RIGHT DOWN -&gt; 11 01 -&gt; 101
+RIGHT UP   -&gt; 10 01 -&gt; 110
+LEFT DOWN  -&gt; 11 00 -&gt; 111
+</code></pre>
+
+<p>This way we can add to our directions enum:</p>
+
+<pre><code>TOPLEFT     = 4
+BOTTOMRIGHT = 5
+TOPRIGHT    = 6
+BOTTOMLEFT  = 7
+</code></pre>
+
+<p>Our function then becomes:</p>
+
+<pre><code>int oper = (dir &amp; 3) &lt;&lt; 1;
+int d[2] = {0, 0};
+int idx = (oper &gt;&gt; 2);
+int diag = (dir &gt;&gt; 2);
+int second = (oper &amp; 10) ^ (dir &amp; 10);
+d[idx] = (oper &amp; 10) - 1;
+d[~idx &amp; 1] = (second - 1) * diag;
+diff = d[0] + d[1] * width;
+</code></pre>
+
+<p>Now, lets analyze this again. First of all, notice that the new directions all have an extra bit set, this bit is what I call the diagonal bit. We first of all need to remove this diagonal bit from our original <code>oper</code> variable, because it will cause a buffer overflow.</p>
+
+<pre><code>int oper = (dir &amp; 3) &lt;&lt; 1;
+int d[2] = {0, 0};
+d[oper &gt;&gt; 2] = (oper &amp; 10) - 1;
+diff = d[0] + d[1] * width;
+</code></pre>
+
+<p>By masking out our <code>oper</code> bit, now the function behaves as if it was</p>
+
+<pre><code>TOPLEFT     = LEFT
+BOTTOMRIGHT = RIGHT
+TOPRIGHT    = TOP
+BOTTOMLEFT  = BOTTOM
+</code></pre>
+
+<p>However, since these are diagonals, we need to set the other dimension&rsquo;s diff as well. The missing directions then are:</p>
+
+<pre><code>TOPLEFT     = LEFT    TOP
+BOTTOMRIGHT = RIGHT   BOTTOM
+TOPRIGHT    = TOP     RIGHT
+BOTTOMLEFT  = BOTTOM  LEFT
+</code></pre>
+
+<p>Since our second directions are <code>-1, 1, 1, -1</code> respectively, we need to use the XOR operator to produce them. Recall that <code>dir</code> values are</p>
+
+<pre><code>100
+101
+110
+111
+</code></pre>
+
+<p>Using an XOR operator on the bottom two bits, we can create</p>
+
+<pre><code>100 -&gt; 0
+101 -&gt; 1
+110 -&gt; 1
+111 -&gt; 0
+</code></pre>
+
+<p>Now we can go</p>
+
+<pre><code>int secondbit = ((dir &amp; 1) ^ ((dir &amp; 10) &gt;&gt; 1));
+</code></pre>
+
+<p>And then applying the <code>(x * 2) - 1</code> trick, we can essentially make that</p>
+
+<pre><code>100 -&gt; 0 -&gt; -1
+101 -&gt; 1 -&gt;  1
+110 -&gt; 1 -&gt;  1
+111 -&gt; 0 -&gt; -1
+</code></pre>
+
+<p>By just applying</p>
+
+<pre><code>int second = secondbit * 2 - 1;
+</code></pre>
+
+<p>However, since we know that <code>oper</code> is <code>dir</code> shifted up one, we can instead just let <code>secondbit</code> operate in the 2nd bit field, without having to mask and shift <code>dir</code> down by one, we can just use it where it is, along with <code>oper</code>.</p>
+
+<pre><code>int second = (oper &amp; 10) ^ (dir &amp; 10);
+</code></pre>
+
+<p>Now that we have our second bit, all we need to do is assign it to the dimension that was not assigned to.</p>
+
+<pre><code>int oper = (dir &amp; 3) &lt;&lt; 1;
+int d[2] = {0, 0};
+int second = (oper &amp; 10) ^ (dir &amp; 10);
+d[oper &gt;&gt; 2] = (oper &amp; 10) - 1;
+d[~(oper &gt;&gt; 2) &amp; 1] = second - 1;
+diff = d[0] + d[1] * width;
+</code></pre>
+
+<p>But we aren&rsquo;t done yet, we only need the second dimension to be filled if the diagonal bit is set, so we need to do this:</p>
+
+<pre><code>int diag = (dir &gt;&gt; 2);
+</code></pre>
+
+<p>And simply multiply the diagonal bit in, to mask it out.</p>
+
+<pre><code>int oper = (dir &amp; 3) &lt;&lt; 1;
+int d[2] = {0, 0};
+int diag = (dir &gt;&gt; 2)
+int second = (oper &amp; 10) ^ (dir &amp; 10);
+d[oper &gt;&gt; 2] = (oper &amp; 10) - 1;
+d[~(oper &gt;&gt; 2) &amp; 1] = (second - 1) * diag;
+diff = d[0] + d[1] * width;
+</code></pre>
+
+<p>We are also repeating ourselves by going <code>oper &gt;&gt; 2</code> so we go</p>
+
+<pre><code>int oper = (dir &amp; 3) &lt;&lt; 1;
+int d[2] = {0, 0};
+int diag = (dir &gt;&gt; 2)
+int second = (oper &amp; 10) ^ (dir &amp; 10);
+int idx = oper &gt;&gt; 2;
+d[idx] = (oper &amp; 10) - 1;
+d[~(idx) &amp; 1] = (second - 1) * diag;
+diff = d[0] + d[1] * width;
+</code></pre>
+
+<p>Now you can use this to access all 8 squares around by iterating from 0 to 7, or simply iterate from 0 to 4 to get adjacent squares only.</p>
+
+<pre><code>for(int i = 0; i &lt; 8; i++)
+{
+  arr[x + pos_of(i)] = 0; /* set all 8 surrounding squares */
+}
+</code></pre>
+
+<p>Obviously this is very much a toy example and you will still have to check bounds and manage datatypes yourself, but it gives a very nice set of shortcuts to anyone who wishes to work easily on a grid, and hopefully will go some way to explaining the bit twiddling I do when I work on grids.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Working with mruby]]></title>
@@ -416,39 +690,6 @@ Commit all changes to your .travis.yml.
 </code></pre>
 
 <p>With this, my website gets updated everytime I push my changes to <a href="https://github.com/davidsiaw/davidsiaw.github.io.source">https://github.com/davidsiaw/davidsiaw.github.io.source</a>, Travis will automatically update my blog.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Online vs Batch learning]]></title>
-    <link href="https://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning/"/>
-    <updated>2013-03-18T00:00:00+00:00</updated>
-    <id>https://davidsiaw.github.io/blog/2013/03/18/online-vs-batch-learning</id>
-    <content type="html"><![CDATA[<p>While debugging neuron, my new neural network simulation application, I found some (visually) interesting differences between online and batch learning. While batch learning is usually touted as a better form of learning, I found that the two don&rsquo;t seem to make much difference, except for a steppy curve from online learning, as I would expect as the gradient changes differently if you keep calculating the values in a cycle instead of calculating the combined gradient of all the training data.</p>
-
-<p>Here are the results from training a 2-2-1 network with biases with XOR as training data:</p>
-
-<p><a href="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron2.jpg" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron2-500x81.jpg" alt="" title="Picture" width="500" height="81" class="alignnone size-medium wp-image-1204" /></a></p>
-
-<p>with the weights initialized to:</p>
-
-<p>double[] wx0 = { 0.1, 0.2 };
-double[] wx1 = { 0.3, 0.4 };
-double[] wx2 = { 0.5, 0.6 };</p>
-
-<p>double wh0 = 0.7;
-double wh1 = 0.9;
-double wh2 = 1.1;</p>
-
-<p>Where wx are the values between the input and hidden layer and wh are the values between the hidden and output layer.</p>
-
-<p>Here is the network topography:</p>
-
-<p><a href="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron1.jpg" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-neuron1-500x361.jpg" alt="" title="Picture" width="500" height="361" class="alignnone size-medium wp-image-1204" /></a></p>
-
-<p>Here is the training error:</p>
-
-<p><a href="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-chart_1-1.png" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2013/03/wpid-chart_1-1-500x272.png" alt="" title="Picture" width="500" height="272" class="alignnone size-medium wp-image-1204" /></a></p>
 ]]></content>
   </entry>
   

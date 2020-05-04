@@ -9,7 +9,7 @@
   <meta name="author" content="davidsiaw">
 
   
-  <meta name="description" content="While debugging neuron, my new neural network simulation application, I found some (visually) interesting differences between online and batch &hellip;">
+  <meta name="description" content="As all of you may have noticed the theme has changed and the URL seems to have been redirected to Github. I decided to try out this github pages &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -106,6 +106,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/12/new-blog/">New Blog</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-12T16:03:00+00:00" pubdate data-updated="true"></time>
+        
+         | <a href="/blog/2013/10/12/new-blog/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As all of you may have noticed the theme has changed and the URL seems to have been redirected to Github. I decided to try out this github pages thing and it seems to work pretty well. The static content idea is really attractive to me and really gives me much more power over the pages with a small tradeoff for convenience. But convenience is a non-issue for most programmers who can write tools to make the inconvenient convenient.</p>
+
+<p>What I want to talk about here is actually how I started doing this and why I ended up moving my blog across, along with what I learned along the way about Jekyll-Bootstrap, Octopress, Jekyll, the annoying problems and the process of migrating from a WordPress blog to a Octopress/Disqus duo.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/10/12/new-blog/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -897,60 +942,6 @@ double wh2 = 1.1;</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/06/help-glew-compiles-but-doesnt-link/">Help! GLEW Compiles but Doesn't Link!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-06T00:00:00+00:00" pubdate data-updated="true"></time>
-        
-         | <a href="/blog/2011/10/06/help-glew-compiles-but-doesnt-link/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When you compile the glew_static project from glew on Visual Studio and link it with your program, you may get something like this:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>app_init.obj : error LNK2001: unresolved external symbol __imp__glewInit
-</span><span class='line'>worldscene.obj : error LNK2001: unresolved external symbol __imp____glewBufferSubData
-</span><span class='line'>worldscene.obj : error LNK2001: unresolved external symbol __imp____glewBufferData
-</span><span class='line'>worldscene.obj : error LNK2001: unresolved external symbol __imp____glewBindBuffer
-</span><span class='line'>worldscene.obj : error LNK2001: unresolved external symbol __imp____glewGenBuffers</span></code></pre></td></tr></table></div></figure>
-
-
-<p><a href="http://labs.astrobunny.net/wp-content/uploads/2011/10/wpid-glewstatic.jpg" rel="lightbox"><img src="http://labs.astrobunny.net/wp-content/uploads/2011/10/wpid-glewstatic.jpg" alt="" title="Picture" width="487" height="359" class="alignnone size-medium wp-image-1204" /></a></p>
-
-<p>It&rsquo;s easy to fix. Just add GLEW_STATIC to the preprocessor definitions and you&rsquo;re done. This is because without it the header specifies dllimport instead of just extern, which is needed for static linkage.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="3">&larr; Older</a>
@@ -994,11 +985,15 @@ double wh2 = 1.1;</p>
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/graphics/'>graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>hexlife (2)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/philosophy/'>philosophy (1)</a></li><li><a href='/blog/categories/programming/'>programming (33)</a></li><li><a href='/blog/categories/random/'>random (6)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/graphics/'>graphics (5)</a></li><li><a href='/blog/categories/hexlife/'>hexlife (2)</a></li><li><a href='/blog/categories/math/'>math (2)</a></li><li><a href='/blog/categories/philosophy/'>philosophy (1)</a></li><li><a href='/blog/categories/programming/'>programming (34)</a></li><li><a href='/blog/categories/random/'>random (6)</a></li></ul>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2020/05/04/adjacency-in-a-grid/">Adjacency in a Grid</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2019/08/17/working-with-mruby/">Working with mruby</a>
@@ -1014,10 +1009,6 @@ double wh2 = 1.1;</p>
     
       <li class="post">
         <a href="/blog/2015/12/22/rotating-integrals/">Rotating Integrals</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/12/finding-square-roots/">Finding Square Roots</a>
       </li>
     
   </ul>
@@ -1062,7 +1053,7 @@ double wh2 = 1.1;</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2019 - davidsiaw -
+  Copyright &copy; 2020 - davidsiaw -
   <span class="credit">Powered by <a href="https://octopress.org">Octopress</a></span>
 </p>
 
