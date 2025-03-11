@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<!-- Generated using weaver: https://github.com/davidsiaw/weaver -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Jepsen and Docker</title>
+
+    <link href="../../../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../../font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../../../../css/plugins/iCheck/custom.css" rel="stylesheet">
+
+      <link href="../../../../css/style-dark.css" rel="stylesheet">
+
+
+    <link href="../../../../css/animate.css" rel="stylesheet">
+
+    <link href="../../../../css/dracula.css" rel="stylesheet">
+
+    <link href="../../../../css/ourown.css" rel="stylesheet">
+
+
+
+
+</head>
+
+<body class=' fixed-sidebar'>
+
+<div id="background" style="z-index: -999; position:absolute; left:0px; right:0px; width:100%; height:100%">
+
+</div>
+
+<div id="content" style="z-index: 0">
+
+	<div id="wrapper">
+
+		<nav class="navbar-default navbar-static-side" role="navigation">
+			<div class="sidebar-collapse">
+				<ul class="nav" id="side-menu">
+
+
+	                <li>
+	                    <a href="https://davidsiaw.github.io/"><i class="fa fa-home"></i> <span class="nav-label">Home</span> <span class="label label-primary pull-right"></span></a>
+	                </li>
+
+<li ><a href="https://davidsiaw.github.io/categories/Random"><i class="fa fa-folder-open"></i><span class="nav-label">Random</span></a></li><li ><a href="https://davidsiaw.github.io/categories/Programming"><i class="fa fa-folder-open"></i><span class="nav-label">Programming</span></a></li><li ><a href="https://davidsiaw.github.io/categories/Philosophy"><i class="fa fa-folder-open"></i><span class="nav-label">Philosophy</span></a></li><li ><a href="https://davidsiaw.github.io/categories/Math"><i class="fa fa-folder-open"></i><span class="nav-label">Math</span></a></li><li ><a href="https://davidsiaw.github.io/categories/Hexlife"><i class="fa fa-folder-open"></i><span class="nav-label">Hexlife</span></a></li><li ><a href="https://davidsiaw.github.io/categories/Graphics"><i class="fa fa-folder-open"></i><span class="nav-label">Graphics</span></a></li><li ><a href="https://davidsiaw.github.io/#"><i class="fa fa-calendar"></i><span class="nav-label">History</span><span class="fa arrow"></span></a><ul class="nav nav-second-level "><li ><a href="https://davidsiaw.github.io/2025/03/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2025/03 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2020/05/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2020/05 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2019/08/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2019/08 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2018/08/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2018/08 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2016/04/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2016/04 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2015/12/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2015/12 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2015/06/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2015/06 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2015/01/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2015/01 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2014/11/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2014/11 (2)</span></a></li><li ><a href="https://davidsiaw.github.io/2014/10/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2014/10 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2013/10/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2013/10 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2013/03/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2013/03 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2012/12/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2012/12 (2)</span></a></li><li ><a href="https://davidsiaw.github.io/2012/11/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2012/11 (2)</span></a></li><li ><a href="https://davidsiaw.github.io/2012/08/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2012/08 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2011/11/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2011/11 (2)</span></a></li><li ><a href="https://davidsiaw.github.io/2011/10/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2011/10 (2)</span></a></li><li ><a href="https://davidsiaw.github.io/2011/09/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2011/09 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2011/07/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2011/07 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2010/08/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2010/08 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2010/06/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2010/06 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2009/12/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2009/12 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2009/11/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2009/11 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2009/05/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2009/05 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2009/04/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2009/04 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2009/03/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2009/03 (4)</span></a></li><li ><a href="https://davidsiaw.github.io/2009/02/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2009/02 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2009/01/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2009/01 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2008/11/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2008/11 (3)</span></a></li><li ><a href="https://davidsiaw.github.io/2008/10/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2008/10 (3)</span></a></li><li ><a href="https://davidsiaw.github.io/2008/09/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2008/09 (3)</span></a></li><li ><a href="https://davidsiaw.github.io/2008/08/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2008/08 (2)</span></a></li></ul></li><li ><a href="https://davidsiaw.github.io/#"><i class="fa fa-tags"></i><span class="nav-label">Tags</span><span class="fa arrow"></span></a><ul class="nav nav-second-level "><li ><a href="https://davidsiaw.github.io/tags/c++/"><i class="fa fa-tag"></i><span class="nav-label">c++ (6)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/opengl/"><i class="fa fa-tag"></i><span class="nav-label">opengl (4)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/programming/"><i class="fa fa-tag"></i><span class="nav-label">programming (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/performance/"><i class="fa fa-tag"></i><span class="nav-label">performance (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/snippet/"><i class="fa fa-tag"></i><span class="nav-label">snippet (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/intermediate mode/"><i class="fa fa-tag"></i><span class="nav-label">intermediate mode (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/hexagonal grid/"><i class="fa fa-tag"></i><span class="nav-label">hexagonal grid (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/game of life/"><i class="fa fa-tag"></i><span class="nav-label">game of life (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/ca/"><i class="fa fa-tag"></i><span class="nav-label">ca (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/cellular automata/"><i class="fa fa-tag"></i><span class="nav-label">cellular automata (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/blogging/"><i class="fa fa-tag"></i><span class="nav-label">blogging (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/blog/"><i class="fa fa-tag"></i><span class="nav-label">blog (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/client/"><i class="fa fa-tag"></i><span class="nav-label">client (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/bunnyblogger/"><i class="fa fa-tag"></i><span class="nav-label">bunnyblogger (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/beta/"><i class="fa fa-tag"></i><span class="nav-label">beta (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/populate/"><i class="fa fa-tag"></i><span class="nav-label">populate (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/constructor/"><i class="fa fa-tag"></i><span class="nav-label">constructor (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/wysiwyg/"><i class="fa fa-tag"></i><span class="nav-label">wysiwyg (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/destructor/"><i class="fa fa-tag"></i><span class="nav-label">destructor (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/exception/"><i class="fa fa-tag"></i><span class="nav-label">exception (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/throw/"><i class="fa fa-tag"></i><span class="nav-label">throw (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/will it happen/"><i class="fa fa-tag"></i><span class="nav-label">will it happen (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/simple/"><i class="fa fa-tag"></i><span class="nav-label">simple (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/visual studio/"><i class="fa fa-tag"></i><span class="nav-label">visual studio (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/unresolved/"><i class="fa fa-tag"></i><span class="nav-label">unresolved (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/symbol/"><i class="fa fa-tag"></i><span class="nav-label">symbol (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/msvc/"><i class="fa fa-tag"></i><span class="nav-label">msvc (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/glew/"><i class="fa fa-tag"></i><span class="nav-label">glew (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/external/"><i class="fa fa-tag"></i><span class="nav-label">external (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/2010/"><i class="fa fa-tag"></i><span class="nav-label">2010 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/tight loop/"><i class="fa fa-tag"></i><span class="nav-label">tight loop (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/glbegin/"><i class="fa fa-tag"></i><span class="nav-label">glbegin (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/display list/"><i class="fa fa-tag"></i><span class="nav-label">display list (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/saturation/"><i class="fa fa-tag"></i><span class="nav-label">saturation (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/glsl/"><i class="fa fa-tag"></i><span class="nav-label">glsl (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/example/"><i class="fa fa-tag"></i><span class="nav-label">example (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/vertex/"><i class="fa fa-tag"></i><span class="nav-label">vertex (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/vbo/"><i class="fa fa-tag"></i><span class="nav-label">vbo (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/objects/"><i class="fa fa-tag"></i><span class="nav-label">objects (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/enhancement/"><i class="fa fa-tag"></i><span class="nav-label">enhancement (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/buffer/"><i class="fa fa-tag"></i><span class="nav-label">buffer (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/sdl/"><i class="fa fa-tag"></i><span class="nav-label">sdl (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/2d/"><i class="fa fa-tag"></i><span class="nav-label">2d (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/tree/"><i class="fa fa-tag"></i><span class="nav-label">tree (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/structure/"><i class="fa fa-tag"></i><span class="nav-label">structure (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/rbsptree/"><i class="fa fa-tag"></i><span class="nav-label">rbsptree (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/packing/"><i class="fa fa-tag"></i><span class="nav-label">packing (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/lightmap/"><i class="fa fa-tag"></i><span class="nav-label">lightmap (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/demo/"><i class="fa fa-tag"></i><span class="nav-label">demo (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/data/"><i class="fa fa-tag"></i><span class="nav-label">data (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/bsp/"><i class="fa fa-tag"></i><span class="nav-label">bsp (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/algorithm/"><i class="fa fa-tag"></i><span class="nav-label">algorithm (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/string.join/"><i class="fa fa-tag"></i><span class="nav-label">string.join (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/separator/"><i class="fa fa-tag"></i><span class="nav-label">separator (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/better way/"><i class="fa fa-tag"></i><span class="nav-label">better way (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/shortening/"><i class="fa fa-tag"></i><span class="nav-label">shortening (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/loop/"><i class="fa fa-tag"></i><span class="nav-label">loop (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/for/"><i class="fa fa-tag"></i><span class="nav-label">for (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/rgb/"><i class="fa fa-tag"></i><span class="nav-label">rgb (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/languages/"><i class="fa fa-tag"></i><span class="nav-label">languages (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/identity/"><i class="fa fa-tag"></i><span class="nav-label">identity (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/compiler/"><i class="fa fa-tag"></i><span class="nav-label">compiler (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/array/"><i class="fa fa-tag"></i><span class="nav-label">array (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/timer/"><i class="fa fa-tag"></i><span class="nav-label">timer (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/javascript/"><i class="fa fa-tag"></i><span class="nav-label">javascript (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/cappuccino/"><i class="fa fa-tag"></i><span class="nav-label">cappuccino (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/online/"><i class="fa fa-tag"></i><span class="nav-label">online (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/neural/"><i class="fa fa-tag"></i><span class="nav-label">neural (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/network/"><i class="fa fa-tag"></i><span class="nav-label">network (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/batch/"><i class="fa fa-tag"></i><span class="nav-label">batch (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/jekyll-bootstrap/"><i class="fa fa-tag"></i><span class="nav-label">jekyll-bootstrap (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/github-pages/"><i class="fa fa-tag"></i><span class="nav-label">github-pages (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/wordpress/"><i class="fa fa-tag"></i><span class="nav-label">wordpress (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/jekyll/"><i class="fa fa-tag"></i><span class="nav-label">jekyll (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/octopress/"><i class="fa fa-tag"></i><span class="nav-label">octopress (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/travis/"><i class="fa fa-tag"></i><span class="nav-label">travis (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/etcd/"><i class="fa fa-tag"></i><span class="nav-label">etcd (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/testing/"><i class="fa fa-tag"></i><span class="nav-label">testing (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/database/"><i class="fa fa-tag"></i><span class="nav-label">database (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/mruby/"><i class="fa fa-tag"></i><span class="nav-label">mruby (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/bittwiddling/"><i class="fa fa-tag"></i><span class="nav-label">bittwiddling (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/c/"><i class="fa fa-tag"></i><span class="nav-label">c (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/random/"><i class="fa fa-tag"></i><span class="nav-label">random (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/hue/"><i class="fa fa-tag"></i><span class="nav-label">hue (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/convert/"><i class="fa fa-tag"></i><span class="nav-label">convert (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/color/"><i class="fa fa-tag"></i><span class="nav-label">color (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/brightness/"><i class="fa fa-tag"></i><span class="nav-label">brightness (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/alpha/"><i class="fa fa-tag"></i><span class="nav-label">alpha (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/ahsb/"><i class="fa fa-tag"></i><span class="nav-label">ahsb (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/regex/"><i class="fa fa-tag"></i><span class="nav-label">regex (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/escape/"><i class="fa fa-tag"></i><span class="nav-label">escape (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/characters/"><i class="fa fa-tag"></i><span class="nav-label">characters (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/.net/"><i class="fa fa-tag"></i><span class="nav-label">.net (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/text/"><i class="fa fa-tag"></i><span class="nav-label">text (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/style/"><i class="fa fa-tag"></i><span class="nav-label">style (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/span/"><i class="fa fa-tag"></i><span class="nav-label">span (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/effect/"><i class="fa fa-tag"></i><span class="nav-label">effect (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/css/"><i class="fa fa-tag"></i><span class="nav-label">css (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/blur/"><i class="fa fa-tag"></i><span class="nav-label">blur (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/visualization/"><i class="fa fa-tag"></i><span class="nav-label">visualization (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/java/"><i class="fa fa-tag"></i><span class="nav-label">java (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/cross product/"><i class="fa fa-tag"></i><span class="nav-label">cross product (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/applet/"><i class="fa fa-tag"></i><span class="nav-label">applet (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/practice/"><i class="fa fa-tag"></i><span class="nav-label">practice (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/exceptionless/"><i class="fa fa-tag"></i><span class="nav-label">exceptionless (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/unit types/"><i class="fa fa-tag"></i><span class="nav-label">unit types (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/type safety/"><i class="fa fa-tag"></i><span class="nav-label">type safety (1)</span></a></li></ul></li>
+
+				</ul>
+			</div>
+		</nav>
+		<div id="page-wrapper" class="gray-bg">
+			<div class="row border-bottom">
+		        <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
+					<div class="navbar-header">
+					    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+					</div>
+		            <ul class="nav navbar-top-links navbar-right">
+		                <!-- NAV RIGHT -->
+		            </ul>
+		        </nav>
+	        </div>
+	<div class="row wrapper white-bg page-heading" style="">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h1>Jepsen and Docker</h1><h6>August 16, 2018 00:06</h6><hr  />
+  </div>
+
+	</div>
+	<div class="row " style="">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <p><span class="dropcap">R</span>ecently I have been reading a series of very interesting posts by an Aphyr who <a href="https://aphyr.com/tags/jepsen">tests distributed databases</a> and then publishes their performance under <a href="https://aphyr.com/posts/288-the-network-is-reliable">network partition</a> conditions, clock skews, dead nodes and other interesting failure conditions.</p>
+
+<p>The tool he uses is called <a href="https://github.com/jepsen-io/jepsen">Jepsen</a> which he wrote himself, and the repo itself includes the set of tests that he used on various databases. After reading all the posts about how various supposedly industry-standard (I guess this is the industry standard) databases which claim to be quite reliable fail under precisely the conditions they are not supposed to fail under, I decided to try the tool out myself and document the experience.</p>
+
+<p>My first thought about this tool was that it would be a great application of Docker, and it turns out he had already written a <a href="https://github.com/jepsen-io/jepsen/tree/master/docker">Docker harness for Jepsen</a>. This was great since you could do all sorts of things in the container environment of Docker and still simulate network partitions and all those nasty things without needing too much hardware.</p>
+
+<p>I checked out Jepsen and ran the scripts the way it told me to.</p>
+
+<pre><code class="ruby">$ sh up.sh
+[INFO] Generating key pair
+Generating public/private rsa key pair.
+Your identification has been saved in ./secret/id_rsa.
+.
+.
+.
+
+</code></pre>
+
+<p>And then it goes off and builds a bunch of containers from scratch.</p>
+
+<p><img src="/images/blogimages/notlike.png" alt="Alt text"></p>
+
+<p>Then at the very end (after maybe 15 mins of downloading and installing) it goes</p>
+
+<pre><code class="bash">.
+.
+.
+jepsen-control | Please run `docker exec -it jepsen-control bash` in another terminal to proceed.
+
+</code></pre>
+
+<p>Excellent I can run it now! </p>
+
+<p>So I open another terminal and type it in and instantly I&#39;m transported to where I should be to start working with Jepsen. Hooray!</p>
+
+<pre><code class="bash">$ docker exec -it jepsen-control bash
+Welcome to Jepsen on Docker
+===========================
+
+This container runs the Jepsen tests in sub-containers.
+
+You are currently in the base dir of the git repo for Jepsen.
+If you modify the core jepsen library make sure you &quot;lein install&quot; it so other tests can access.
+
+To run a test:
+   cd etcd &amp;&amp; lein run test --concurrency 10
+root@control:/jepsen# 
+
+</code></pre>
+
+<p>Let&#39;s try the next command. It looks to me like I should try running the test on etcd with 10 clients?</p>
+
+<pre><code class="bash"># cd etcd &amp;&amp; lein run test --concurrency 10
+</code></pre>
+
+<p>It then goes off and spews a large amount of output</p>
+
+<pre><code class="bash">16:09:00.452 [main] INFO  jepsen.cli - Test options:
+ {:concurrency 10,
+ :test-count 1,
+ :time-limit 60,
+ :nodes [&quot;n1&quot; &quot;n2&quot; &quot;n3&quot; &quot;n4&quot; &quot;n5&quot;],
+ :ssh
+ {:username &quot;root&quot;,
+  :password &quot;root&quot;,
+  :strict-host-key-checking false,
+  :private-key-path nil}}
+.
+.
+.
+</code></pre>
+
+<p>It basically goes off and does a large number of reads and writes. At the very end, it comes back with this:</p>
+
+<pre><code class="bash">Analysis invalid! (ﾉಥ益ಥ）ﾉ ┻━┻
+</code></pre>
+
+<p>Wow that was quick. I did not expect to run into an etcd problem so fast. I did not even specify any failures.</p>
+
+<p>Seems like I had some code to read. After fumbling around I discovered the <a href="https://github.com/jepsen-io/jepsen/blob/master/etcd/src/jepsen/etcd.clj#L159">source file</a>.</p>
+
+<p>Aha.</p>
+
+<pre><code class="clojure">...
+(merge tests/noop-test
+         {:name &quot;etcd&quot;
+          :os debian/os
+          :db (db &quot;v3.1.5&quot;)
+          :client (client nil)
+          :nemesis (nemesis/partition-random-halves)
+          :model  (model/cas-register)
+...
+</code></pre>
+
+<p>Looks like the Jepsen nemesis was baked into the test script. Well thats fine for now.</p>
+
+<h2>Knossos</h2>
+
+<p>The next step basically to me was to find out what was wrong. There was a large amount of data output so there must be a tool of some sort that can tell me what was wrong. (Or so I imagined)</p>
+
+<p>After a bit of googling I came across another project called <a href="https://github.com/jepsen-io/knossos">Knossos</a>.</p>
+
+<p>I didn&#39;t know very much about Clojure so I just followed through the README anyway. So first I cloned knossos</p>
+
+<pre><code class="bash"># git clone https://github.com/jepsen-io/knossos
+# cd knossos
+</code></pre>
+
+<p>I dug around to find the .edn file from my Jepsen run and discovered it in /jepsen/etcd/store/latest/history.edn </p>
+
+<p>Then I ran the command in the README</p>
+
+<pre><code class="bash"># lein run --model cas-register /jepsen/etcd/store/latest/history.edn 
+/jepsen/etcd/store/latest/history.edn   false
+</code></pre>
+
+<p>Excellent. Yes. I knew that.</p>
+
+<p>Scrolling down a little in the README I discovered it could generate the linearizability graph too. That was cool so I tried, by following the code in the README</p>
+
+<pre><code class="bash">root@control:/knossos# lein repl
+nREPL server started on port 37400 on host 127.0.0.1 - nrepl://127.0.0.1:37400
+REPL-y 0.3.7, nREPL 0.2.12
+Clojure 1.8.0
+OpenJDK 64-Bit Server VM 1.8.0_181-8u181-b13-0ubuntu0.16.04.1-b13
+    Docs: (doc function-name-here)
+          (find-doc &quot;part-of-name-here&quot;)
+  Source: (source function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+    Exit: Control+D or (exit) or (quit)
+ Results: Stored in vars *1, *2, *3, an exception in *e
+</code></pre>
+
+<p>I am then dropped into the Clojure prompt, where I try clumsily to guess how things are done:</p>
+
+<pre><code class="clojure">knossos.cli=&gt; (def h (read-history &quot;/jepsen/etcd/store/latest/history.edn&quot;))
+#&#39;knossos.cli/h
+knossos.cli=&gt; (def a (competition/analysis (model/cas-register) h))
+#&#39;knossos.cli/a
+knossos.cli=&gt; (require &#39;[knossos.linear.report :as report])
+nil
+knossos.cli=&gt; (report/render-analysis! h a &quot;linear.svg&quot;)
+AssertionError Assert failed: No invocation for op {:process 2, :type :ok, :f :read, :value [0 4], :index 12, :time 421990474}
+inv  knossos.linear.report/time-coords/fn--5143 (report.clj:186)
+</code></pre>
+
+<p>Okay, I had no idea what that meant. Looks like there are still kinks.</p>
+
+<h2>Thoughts</h2>
+
+<p>In short I have a few thoughts:</p>
+
+<ol>
+<li>Using docker for this is way cool</li>
+<li>The analysis tool sucks</li>
+<li>This can be so much more general</li>
+</ol>
+
+<h3>Using docker is way cool</h3>
+
+<p>While Aphyr says that he uses his own LXC stuff to work with, I think its cool that he does provide a Docker interface. However he isn&#39;t taking advantage of a few things docker can do:</p>
+
+<p>a. Prebuilt docker containers
+b. Networking in docker that can be used to simulate faults
+c. Skewing clocks in the container
+d. Adding and removing new containers, simulating scaling effects and changing configuration</p>
+
+<p>It is probably because the tool is in its early stages of development, and really he knows how to use it the best, so he can do his stuff the best. But I can&#39;t help but feel he himself would benefit from some improvement in this domain. Perhaps he does not use it right now, or maybe he does in another way. I&#39;ve only sat with this code for the last 4 hours.</p>
+
+<h3>The analysis tool sucks</h3>
+
+<p>It needs to recover from weird errors nicely and maybe still present some amount of information. Unfortunately it doesn&#39;t, so I will need to spend some time figuring out what I did wrong. Once I get it then I will be able to truly start analysing databases myself.</p>
+
+<h3>This can be so much more general</h3>
+
+<p>All in all it looks like a large amount of the code done here is still quite research quality and tests, while composable seemed like they had to be baked into the testing code still. On the surface it felt to me that skew clocks, network failures, network delays and failing environments were things that did not have to be part of the test and could be external. </p>
+
+<p>** None of this makes any of Jepsen less cool **</p>
+
+<p>In my opinion all one should really need to do is specify what to do in order to perform a read, write or CAS, and the testing tool should attempt a combination of the three to figure out how a database puts up with it.</p>
+
+<p>Its also likely to be the case because different databases are different. Some are queues, some are data structures, some are RDBMS and some are key value stores. However they all should have the same idea that storing data stores, and automated analysis that shows if it is CP or AP and how would be incredible. This is something I might work on in a later post when I have time.</p>
+
+<h2>Conclusions</h2>
+
+<p>The world needs more of these. This run was an eye-opener to real simulations of faults, and also the idea that distributed databases are actually extremely hard to understand and build. It also has shown me how one person who makes an effort to do something advanced and difficult and documents it in a clear manner can so quickly change the landscape of a field. </p>
+
+<p>Thanks to him I am sure I and a large number of people now understand the definitions and jargon behind distributed databases which have been hidden behind walls of text in white papers and difficult to read (read longwinded) articles, and this really opens the door to helping people build better and more resilient systems.</p>
+
+<p>This probably will not be the last post on distributed databases on the blog as I, as are many others, interested in how things can scale safely. We have more or less solved it for webservers, but scaling databases, that is clearly a different beast.</p>
+
+  </div>
+
+	</div>
+	<div class="row " style="">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    
+  </div>
+
+	</div>
+	<div class="row " style="">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <hr  /><br  /><br  /><script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+  </div>
+
+	</div>
+
+		</div>
+	</div>
+
+</div>
+
+    <!-- Mainly scripts -->
+    <script src="../../../../js/jquery-3.1.1.min.js"></script>
+    <script src="../../../../js/jquery-ui-1.10.4.min.js"></script>
+    <script src="../../../../js/bootstrap.min.js"></script>
+    <script src="../../../../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../../../../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			asciimath2jax: {
+				delimiters: [['$$$MATH$$$','$$$ENDMATH$$$']]
+			}
+		});
+	</script>
+    <script src="../../../../js/MathJax/MathJax.js?config=AM_HTMLorMML-full" async></script>
+
+    <script src="../../../../js/highlight.min.js"></script>
+
+
+
+    <!-- Custom and plugin javascript -->
+    <script src="../../../../js/weaver.js"></script>
+    <script src='../../../../js/plugins/pace/pace.min.js'></script>
+
+    <script>
+
+
+
+$( document ).ready(function() {
+
+hljs.highlightAll();
+
+
+
+});
+    </script>
+
+
+
+</body>
+
+</html>
+

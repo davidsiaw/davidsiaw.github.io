@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<!-- Generated using weaver: https://github.com/davidsiaw/weaver -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rotating Integrals</title>
+
+    <link href="../../../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../../font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../../../../css/plugins/iCheck/custom.css" rel="stylesheet">
+
+      <link href="../../../../css/style-dark.css" rel="stylesheet">
+
+
+    <link href="../../../../css/animate.css" rel="stylesheet">
+
+    <link href="../../../../css/dracula.css" rel="stylesheet">
+
+    <link href="../../../../css/ourown.css" rel="stylesheet">
+
+
+
+
+</head>
+
+<body class=' fixed-sidebar'>
+
+<div id="background" style="z-index: -999; position:absolute; left:0px; right:0px; width:100%; height:100%">
+
+</div>
+
+<div id="content" style="z-index: 0">
+
+	<div id="wrapper">
+
+		<nav class="navbar-default navbar-static-side" role="navigation">
+			<div class="sidebar-collapse">
+				<ul class="nav" id="side-menu">
+
+
+	                <li>
+	                    <a href="https://davidsiaw.github.io/"><i class="fa fa-home"></i> <span class="nav-label">Home</span> <span class="label label-primary pull-right"></span></a>
+	                </li>
+
+<li ><a href="https://davidsiaw.github.io/categories/Random"><i class="fa fa-folder-open"></i><span class="nav-label">Random</span></a></li><li ><a href="https://davidsiaw.github.io/categories/Programming"><i class="fa fa-folder-open"></i><span class="nav-label">Programming</span></a></li><li ><a href="https://davidsiaw.github.io/categories/Philosophy"><i class="fa fa-folder-open"></i><span class="nav-label">Philosophy</span></a></li><li ><a href="https://davidsiaw.github.io/categories/Math"><i class="fa fa-folder-open"></i><span class="nav-label">Math</span></a></li><li ><a href="https://davidsiaw.github.io/categories/Hexlife"><i class="fa fa-folder-open"></i><span class="nav-label">Hexlife</span></a></li><li ><a href="https://davidsiaw.github.io/categories/Graphics"><i class="fa fa-folder-open"></i><span class="nav-label">Graphics</span></a></li><li ><a href="https://davidsiaw.github.io/#"><i class="fa fa-calendar"></i><span class="nav-label">History</span><span class="fa arrow"></span></a><ul class="nav nav-second-level "><li ><a href="https://davidsiaw.github.io/2025/03/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2025/03 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2020/05/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2020/05 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2019/08/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2019/08 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2018/08/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2018/08 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2016/04/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2016/04 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2015/12/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2015/12 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2015/06/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2015/06 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2015/01/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2015/01 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2014/11/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2014/11 (2)</span></a></li><li ><a href="https://davidsiaw.github.io/2014/10/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2014/10 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2013/10/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2013/10 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2013/03/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2013/03 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2012/12/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2012/12 (2)</span></a></li><li ><a href="https://davidsiaw.github.io/2012/11/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2012/11 (2)</span></a></li><li ><a href="https://davidsiaw.github.io/2012/08/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2012/08 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2011/11/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2011/11 (2)</span></a></li><li ><a href="https://davidsiaw.github.io/2011/10/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2011/10 (2)</span></a></li><li ><a href="https://davidsiaw.github.io/2011/09/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2011/09 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2011/07/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2011/07 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2010/08/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2010/08 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2010/06/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2010/06 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2009/12/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2009/12 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2009/11/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2009/11 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2009/05/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2009/05 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2009/04/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2009/04 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2009/03/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2009/03 (4)</span></a></li><li ><a href="https://davidsiaw.github.io/2009/02/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2009/02 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2009/01/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2009/01 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/2008/11/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2008/11 (3)</span></a></li><li ><a href="https://davidsiaw.github.io/2008/10/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2008/10 (3)</span></a></li><li ><a href="https://davidsiaw.github.io/2008/09/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2008/09 (3)</span></a></li><li ><a href="https://davidsiaw.github.io/2008/08/"><i class="fa fa-calendar-minus-o"></i><span class="nav-label">2008/08 (2)</span></a></li></ul></li><li ><a href="https://davidsiaw.github.io/#"><i class="fa fa-tags"></i><span class="nav-label">Tags</span><span class="fa arrow"></span></a><ul class="nav nav-second-level "><li ><a href="https://davidsiaw.github.io/tags/c++/"><i class="fa fa-tag"></i><span class="nav-label">c++ (6)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/opengl/"><i class="fa fa-tag"></i><span class="nav-label">opengl (4)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/programming/"><i class="fa fa-tag"></i><span class="nav-label">programming (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/performance/"><i class="fa fa-tag"></i><span class="nav-label">performance (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/snippet/"><i class="fa fa-tag"></i><span class="nav-label">snippet (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/intermediate mode/"><i class="fa fa-tag"></i><span class="nav-label">intermediate mode (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/hexagonal grid/"><i class="fa fa-tag"></i><span class="nav-label">hexagonal grid (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/game of life/"><i class="fa fa-tag"></i><span class="nav-label">game of life (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/ca/"><i class="fa fa-tag"></i><span class="nav-label">ca (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/cellular automata/"><i class="fa fa-tag"></i><span class="nav-label">cellular automata (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/blogging/"><i class="fa fa-tag"></i><span class="nav-label">blogging (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/blog/"><i class="fa fa-tag"></i><span class="nav-label">blog (2)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/client/"><i class="fa fa-tag"></i><span class="nav-label">client (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/bunnyblogger/"><i class="fa fa-tag"></i><span class="nav-label">bunnyblogger (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/beta/"><i class="fa fa-tag"></i><span class="nav-label">beta (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/populate/"><i class="fa fa-tag"></i><span class="nav-label">populate (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/constructor/"><i class="fa fa-tag"></i><span class="nav-label">constructor (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/wysiwyg/"><i class="fa fa-tag"></i><span class="nav-label">wysiwyg (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/destructor/"><i class="fa fa-tag"></i><span class="nav-label">destructor (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/exception/"><i class="fa fa-tag"></i><span class="nav-label">exception (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/throw/"><i class="fa fa-tag"></i><span class="nav-label">throw (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/will it happen/"><i class="fa fa-tag"></i><span class="nav-label">will it happen (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/simple/"><i class="fa fa-tag"></i><span class="nav-label">simple (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/visual studio/"><i class="fa fa-tag"></i><span class="nav-label">visual studio (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/unresolved/"><i class="fa fa-tag"></i><span class="nav-label">unresolved (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/symbol/"><i class="fa fa-tag"></i><span class="nav-label">symbol (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/msvc/"><i class="fa fa-tag"></i><span class="nav-label">msvc (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/glew/"><i class="fa fa-tag"></i><span class="nav-label">glew (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/external/"><i class="fa fa-tag"></i><span class="nav-label">external (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/2010/"><i class="fa fa-tag"></i><span class="nav-label">2010 (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/tight loop/"><i class="fa fa-tag"></i><span class="nav-label">tight loop (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/glbegin/"><i class="fa fa-tag"></i><span class="nav-label">glbegin (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/display list/"><i class="fa fa-tag"></i><span class="nav-label">display list (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/saturation/"><i class="fa fa-tag"></i><span class="nav-label">saturation (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/glsl/"><i class="fa fa-tag"></i><span class="nav-label">glsl (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/example/"><i class="fa fa-tag"></i><span class="nav-label">example (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/vertex/"><i class="fa fa-tag"></i><span class="nav-label">vertex (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/vbo/"><i class="fa fa-tag"></i><span class="nav-label">vbo (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/objects/"><i class="fa fa-tag"></i><span class="nav-label">objects (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/enhancement/"><i class="fa fa-tag"></i><span class="nav-label">enhancement (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/buffer/"><i class="fa fa-tag"></i><span class="nav-label">buffer (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/sdl/"><i class="fa fa-tag"></i><span class="nav-label">sdl (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/2d/"><i class="fa fa-tag"></i><span class="nav-label">2d (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/tree/"><i class="fa fa-tag"></i><span class="nav-label">tree (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/structure/"><i class="fa fa-tag"></i><span class="nav-label">structure (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/rbsptree/"><i class="fa fa-tag"></i><span class="nav-label">rbsptree (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/packing/"><i class="fa fa-tag"></i><span class="nav-label">packing (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/lightmap/"><i class="fa fa-tag"></i><span class="nav-label">lightmap (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/demo/"><i class="fa fa-tag"></i><span class="nav-label">demo (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/data/"><i class="fa fa-tag"></i><span class="nav-label">data (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/bsp/"><i class="fa fa-tag"></i><span class="nav-label">bsp (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/algorithm/"><i class="fa fa-tag"></i><span class="nav-label">algorithm (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/string.join/"><i class="fa fa-tag"></i><span class="nav-label">string.join (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/separator/"><i class="fa fa-tag"></i><span class="nav-label">separator (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/better way/"><i class="fa fa-tag"></i><span class="nav-label">better way (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/shortening/"><i class="fa fa-tag"></i><span class="nav-label">shortening (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/loop/"><i class="fa fa-tag"></i><span class="nav-label">loop (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/for/"><i class="fa fa-tag"></i><span class="nav-label">for (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/rgb/"><i class="fa fa-tag"></i><span class="nav-label">rgb (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/languages/"><i class="fa fa-tag"></i><span class="nav-label">languages (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/identity/"><i class="fa fa-tag"></i><span class="nav-label">identity (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/compiler/"><i class="fa fa-tag"></i><span class="nav-label">compiler (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/array/"><i class="fa fa-tag"></i><span class="nav-label">array (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/timer/"><i class="fa fa-tag"></i><span class="nav-label">timer (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/javascript/"><i class="fa fa-tag"></i><span class="nav-label">javascript (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/cappuccino/"><i class="fa fa-tag"></i><span class="nav-label">cappuccino (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/online/"><i class="fa fa-tag"></i><span class="nav-label">online (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/neural/"><i class="fa fa-tag"></i><span class="nav-label">neural (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/network/"><i class="fa fa-tag"></i><span class="nav-label">network (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/batch/"><i class="fa fa-tag"></i><span class="nav-label">batch (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/jekyll-bootstrap/"><i class="fa fa-tag"></i><span class="nav-label">jekyll-bootstrap (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/github-pages/"><i class="fa fa-tag"></i><span class="nav-label">github-pages (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/wordpress/"><i class="fa fa-tag"></i><span class="nav-label">wordpress (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/jekyll/"><i class="fa fa-tag"></i><span class="nav-label">jekyll (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/octopress/"><i class="fa fa-tag"></i><span class="nav-label">octopress (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/travis/"><i class="fa fa-tag"></i><span class="nav-label">travis (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/etcd/"><i class="fa fa-tag"></i><span class="nav-label">etcd (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/testing/"><i class="fa fa-tag"></i><span class="nav-label">testing (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/database/"><i class="fa fa-tag"></i><span class="nav-label">database (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/mruby/"><i class="fa fa-tag"></i><span class="nav-label">mruby (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/bittwiddling/"><i class="fa fa-tag"></i><span class="nav-label">bittwiddling (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/c/"><i class="fa fa-tag"></i><span class="nav-label">c (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/random/"><i class="fa fa-tag"></i><span class="nav-label">random (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/hue/"><i class="fa fa-tag"></i><span class="nav-label">hue (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/convert/"><i class="fa fa-tag"></i><span class="nav-label">convert (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/color/"><i class="fa fa-tag"></i><span class="nav-label">color (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/brightness/"><i class="fa fa-tag"></i><span class="nav-label">brightness (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/alpha/"><i class="fa fa-tag"></i><span class="nav-label">alpha (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/ahsb/"><i class="fa fa-tag"></i><span class="nav-label">ahsb (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/regex/"><i class="fa fa-tag"></i><span class="nav-label">regex (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/escape/"><i class="fa fa-tag"></i><span class="nav-label">escape (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/characters/"><i class="fa fa-tag"></i><span class="nav-label">characters (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/.net/"><i class="fa fa-tag"></i><span class="nav-label">.net (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/text/"><i class="fa fa-tag"></i><span class="nav-label">text (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/style/"><i class="fa fa-tag"></i><span class="nav-label">style (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/span/"><i class="fa fa-tag"></i><span class="nav-label">span (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/effect/"><i class="fa fa-tag"></i><span class="nav-label">effect (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/css/"><i class="fa fa-tag"></i><span class="nav-label">css (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/blur/"><i class="fa fa-tag"></i><span class="nav-label">blur (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/visualization/"><i class="fa fa-tag"></i><span class="nav-label">visualization (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/java/"><i class="fa fa-tag"></i><span class="nav-label">java (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/cross product/"><i class="fa fa-tag"></i><span class="nav-label">cross product (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/applet/"><i class="fa fa-tag"></i><span class="nav-label">applet (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/practice/"><i class="fa fa-tag"></i><span class="nav-label">practice (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/exceptionless/"><i class="fa fa-tag"></i><span class="nav-label">exceptionless (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/unit types/"><i class="fa fa-tag"></i><span class="nav-label">unit types (1)</span></a></li><li ><a href="https://davidsiaw.github.io/tags/type safety/"><i class="fa fa-tag"></i><span class="nav-label">type safety (1)</span></a></li></ul></li>
+
+				</ul>
+			</div>
+		</nav>
+		<div id="page-wrapper" class="gray-bg">
+			<div class="row border-bottom">
+		        <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
+					<div class="navbar-header">
+					    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+					</div>
+		            <ul class="nav navbar-top-links navbar-right">
+		                <!-- NAV RIGHT -->
+		            </ul>
+		        </nav>
+	        </div>
+	<div class="row wrapper white-bg page-heading" style="">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h1>Rotating Integrals</h1><h6>December 22, 2015 01:11</h6><hr  />
+  </div>
+
+	</div>
+	<div class="row " style="">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <p><em>This post assumes you know some trigonometry and can do some integral calculus on it.</em></p>
+
+<p><span class="dropcap">M</span>y little brother in college complained about sines and cosines in an indefinite integral today. Specifically, an integration that he was annoyed with was:</p>
+
+<p>\[\int{x^3\,sin(x)\,dx}\]</p>
+
+<p>It sounded like a whine at first but upon closer inspection, his complaints are not unwarranted. This is indeed a troublesome kind of indefinite integral. There is a trick to doing it quickly, but let us try and perform this particular integration normally first:</p>
+
+<p>Since this is integration of the product of two functions, we perform integration by parts.</p>
+
+<p>\[\int{u\,dv} = uv\, - \int{v\,du}\]</p>
+
+<p>I choose \(u = x^3\) and \(dv = sin(x)\,dx\) mostly to avoid having to integrate the \(x^3\) and have fractions mess up my working.</p>
+
+<p>This results in:</p>
+
+<p>\[
+\begin{aligned}
+ u &amp; = x^3 \cr
+ du &amp; = 3x^2\,dx \cr
+ dv &amp; = sin(x)\,dx \cr
+ v &amp; = -cos(x)
+\end{aligned} 
+\]</p>
+
+<p>Hence:</p>
+
+<p>\[
+\begin{aligned}
+ \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
+ &amp; = -x^3\,cos(x)\, - \int{–3x^2 cos(x)\,dx} \cr
+ &amp; = -x^3\,cos(x) + \int{3x^2 cos(x)\,dx} 
+\end{aligned} 
+\]</p>
+
+<p>We seem to have ended up with another integral to solve: \(\int{cos(x)(3x^2)\,dx}\), so we shall proceed to solve it.</p>
+
+<p>\[
+\begin{array}{cc}
+ \begin{aligned}
+  \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
+  \int{3x^2 cos(x)\,dx} &amp; = 3x^2 sin(x)\, - \int{6x\,sin(x)\,dx}
+ \end{aligned} &amp;
+ \begin{aligned}
+  u &amp; = 3x^2 \cr
+  du &amp; = 6x\,dx \cr
+  dv &amp; = cos(x)\,dx \cr
+  v &amp; = sin(x)
+ \end{aligned} 
+\end{array}
+\]</p>
+
+<p>How vexing. We have yet another integral to solve. Let us proceed anyway.</p>
+
+<p>\[
+\begin{array}{cc}
+ \begin{aligned}
+  \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
+  \int{6x\,sin(x)\,dx} &amp; = -6x\,cos(x)\, - \int{-6\,cos(x)\,dx} \cr
+  \int{6x\,sin(x)\,dx} &amp; = -6x\,cos(x) + \int{6\,cos(x)\,dx}
+ \end{aligned} &amp;
+ \begin{aligned}
+  u &amp; = 6x \cr
+  du &amp; = 6\,dx \cr
+  dv &amp; = sin(x)\,dx \cr
+  v &amp; = -cos(x)
+ \end{aligned} 
+\end{array}
+\]</p>
+
+<p>Once again, we have to solve another integral. This one seems to be the last though, because the x term has withered away into oblivion, it becomes a trivial integral.</p>
+
+<p>\[
+\begin{aligned}
+ \int{6x\,sin(x)\,dx} &amp; = -6x\,cos(x) + \int{6\,cos(x)\,dx} \cr
+ &amp; = -6x\,cos(x) + 6\int{cos(x)\,dx} \cr
+ &amp; = -6x\,cos(x) + 6\,sin(x)
+\end{aligned} 
+\]</p>
+
+<p>Bringing it all together, we have:</p>
+
+<p>\[
+\begin{aligned}
+ \int{x^3\,sin(x)\,dx} &amp; = -x^3\,cos(x) + \int{3x^2 cos(x)\,dx} \cr
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, - \int{6x\,sin(x)\,dx} \cr
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, - [-6x\,cos(x) + \int{6\,cos(x)\,dx}] \cr
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, - [-6x\,cos(x) + 6\,sin(x)] \cr
+ &amp; = -x^3\,cos(x) + 3x^2 sin(x)\, + 6x\,cos(x) - 6\,sin(x) 
+\end{aligned} 
+\]</p>
+
+<p>Phew! Basically due to the fact that you have to integrate by parts as many times as the <em>power of x</em>, the amount of integration you have to do increases proportionally to x&#39;s power, making it troublesome.</p>
+
+<h2>A Closer Look</h2>
+
+<p>However, if you have been following the working closely, you will notice that all we are really doing when we integrate by parts is performing a derivative of both parts over and over again. Notice how the \(sin(x)\) term keeps flipping between \(sin(x)\) and \(cos(x)\).</p>
+
+<p>Better yet, if you differentiate \(sin(x)\) 4 times, the entire thing rotates back to \(sin(x)\) again. Since we integrated \(sin(x)\) 4 times in this example, that is exactly what happened. I call this kind of integral a <strong>Rotating Integral</strong> because the trigonometric term constantly rotates between the four combinations of negative and positive, \(sin(x)\) and \(cos(x)\).</p>
+
+<p>Notice also that the \(u\) term we chose right at the beginning was differentiated at every step until it became a constant:</p>
+
+<p>\[x^3\,\rightarrow\,3x^2\,\rightarrow\,6x\,\rightarrow\,6\] </p>
+
+<p>If we factorize the result, we get the following:</p>
+
+<p>\[
+ -x^3\,cos(x) + 3x^2 sin(x)\, + 6x\,cos(x) - 6\,sin(x) = (-x^3 + 6x)\,cos(x) + (3x^2 - 6)\,sin(x) 
+\]</p>
+
+<p>Notice how there is a negative term in both the \(sin(x)\) and \(cos(x)\) groups. Since the starting \(u\) we chose was positive, we can see the \(sin(x)\) go through </p>
+
+<p>\[-cos(x)\,\rightarrow\,-sin(x)\,\rightarrow\,cos(x)\,\rightarrow\,sin(x)\]</p>
+
+<p>We can see a pattern of repeating derivatives distributed among the \(sin(x)\) and \(cos(x)\) groups. If we recognize that </p>
+
+<p>\[
+\begin{array}{cc}
+ x^3 &amp;\rightarrow\,3x^2 &amp;\rightarrow\,6x &amp;\rightarrow\,6 \cr
+ f &amp;\rightarrow\,f^\prime &amp;\rightarrow\,f^{\prime \prime} &amp;\rightarrow\,f^{\prime \prime \prime} \cr
+\end{array} 
+\]</p>
+
+<p>And from our rearranged result,</p>
+
+<p>\[
+(-f + f^{\prime \prime})\,cos(x) + (f^\prime - f^{\prime \prime \prime})\,sin(x) 
+\]</p>
+
+<p>This peaked my interest, and I decided to check the results of other powers of x:</p>
+
+<p>\[
+\begin{array}{cc}
+3 &amp; (-x^3 + 6x)\,cos(x) &amp; + (3x^2 - 6)\,sin(x) \cr
+4 &amp; (-x^4 + 12x^2 - 24)\,cos(x) &amp; + (4x^3 - 24x)\,sin(x) \cr
+5 &amp; (-x^5 + 20x^3 - 120x)\,cos(x) &amp; + (5x^4 - 60x^2 + 120)\,sin(x) \cr
+6 &amp; (-x^6 + 30x^4 - 360x^2 + 720)\,cos(x) &amp; + (6x^5 - 120x^3 + 720x)\,sin(x) \cr
+7 &amp; (-x^7 + 42x^5 - 840x^3 + 5040x)\,cos(x) &amp; + (7x^6 - 210x^4 + 2520x^2 - 5040)\,sin(x)
+\end{array} 
+\]</p>
+
+<h2>The Solution!</h2>
+
+<p>After doing some more wolframming, I found that we have a general solution of:</p>
+
+<p>\[
+\int{f\,sin(x)\,dx} = (- f + f^{\prime \prime} - f^{\prime \prime \prime \prime} + \cdots - f^{\prime2n})\,cos(x) + (f^{\prime} - f^{\prime \prime \prime} + f^{\prime \prime \prime \prime \prime} - \cdots + f^{\prime2n+1})\,sin(x)
+\]</p>
+
+<p>Where odd numbered differentials are on the \(sin(x)\) group and even numbered differentials are on the \(cos(x)\) group, and each differential alternates between negative and positive signs. The \(sin(x)\) group starts with a positive sign while the \(cos(x)\) starts with a negative sign.</p>
+
+<p>Of course, the same rule slightly modified works for the \(cos(x)\) form:</p>
+
+<p>\[
+\int{f\,cos(x)\,dx} = (f - f^{\prime \prime} + f^{\prime \prime \prime \prime} - \cdots + f^{\prime2n})\,sin(x) + (f^{\prime} - f^{\prime \prime \prime} + f^{\prime \prime \prime \prime \prime} - \cdots + f^{\prime2n+1})\,cos(x)
+\]</p>
+
+<p>Note that this only works if \(f\) eventually derives into 0, and if the trigonometric function is \(sin(x)\) or \(cos(x)\). Otherwise you will need another method of finding the solution. </p>
+
+<h2>Weird Application</h2>
+
+<p>With this we can try and verify that what I said was true by trying to use it on a very special function that does not change even when under differentiation: \(e^x\). Even though I said this only works if it eventually derives to zero, let us try anyway:</p>
+
+<p>So for this let us try the following function:</p>
+
+<p>\[\int{e^x\,sin(x)\,dx}\]</p>
+
+<p>This should give us</p>
+
+<p>\[
+\begin{align}
+ \int{e^x\,sin(x)\,dx} &amp; = (- e^x + e^x - e^x + \cdots)\,cos(x) + (e^x - e^x + e^x - \cdots)\,sin(x) &amp; \cr
+  &amp; = (- e^x + e^x - e^x + \cdots)\,cos(x) - (-e^x + e^x - e^x + \cdots)\,sin(x) &amp; \text{If we flip the sign}\cr
+  &amp; = (- e^x + e^x - e^x + \cdots)(cos(x) - sin(x)) &amp; \text{Hence} \cr
+  &amp; = (-1+1-1+\cdots)(e^x)(cos(x) - sin(x)) &amp;
+\end{align}
+\]</p>
+
+<p>We are left with a strange, almost nonsensical looking sum that looks like it should evaluate to zero, but does it?</p>
+
+<p>\[
+\begin{align}
+ S &amp; = -1+1-1+1-1+1\cdots \cr
+ S &amp; = -1-S \cr
+ 2S &amp; = -1 \cr
+ S &amp; = -\frac{1}{2} \cr
+\end{align}
+\]</p>
+
+<p>Oh so that infinite sum actually evaluates to \(-\frac{1}{2}\). This may seem dubious but proving that is outside the scope of this post. (Lots of people have done it anyway.) This just means that our thing above should look like this:</p>
+
+<p>\[
+\begin{align}
+ \int{e^x\,sin(x)\,dx}&amp; = (-1+1-1+\cdots)(e^x)(cos(x) - sin(x)) \cr
+ &amp; = -\frac{1}{2}(e^x)(cos(x) - sin(x)) \cr
+ &amp; = \frac{1}{2}(e^x)(sin(x)-cos(x)) \cr
+\end{align}
+\]</p>
+
+<p>But is this correct? We must try and check again that we did not just stumble on nonsense.</p>
+
+<h2>Verifying again</h2>
+
+<p>To verify, let us perform it again with good ol&#39; integration by parts.</p>
+
+<p>\[\int{e^x\,sin(x)\,dx}\]</p>
+
+<p>\[
+\begin{array}{cc}
+ \begin{aligned}
+  \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
+  \int{sin(x)(e^x)\,dx} &amp; =  sin(x)(e^x)\, - \int{e^x\,cos(x)\,dx}
+ \end{aligned} &amp;
+ \begin{aligned}
+  u &amp; = sin(x) \cr
+  du &amp; = cos(x)\,dx \cr
+  dv &amp; = e^x\,dx \cr
+  v &amp; = e^x
+ \end{aligned} 
+\end{array}
+\]</p>
+
+<p>We have to do this integration again for \(cos(x)\), so let us do so.</p>
+
+<p>\[
+\begin{array}{cc}
+ \begin{aligned}
+  \int{u\,dv} &amp; = uv\, - \int{v\,du} \cr
+  \int{e^x\,cos(x)\,dx} &amp; =  cos(x)(e^x)\, + \int{e^x\,sin(x)\,dx}
+ \end{aligned} &amp;
+ \begin{aligned}
+  u &amp; = cos(x) \cr
+  du &amp; = -sin(x)\,dx \cr
+  dv &amp; = e^x\,dx \cr
+  v &amp; = e^x
+ \end{aligned} 
+\end{array}
+\]</p>
+
+<p>Substituting back, we get:</p>
+
+<p>\[
+\begin{aligned}
+ \int{sin(x)(e^x)\,dx} &amp; = sin(x)(e^x)\, - \int{e^x\,cos(x)\,dx} \cr
+ &amp; = sin(x)(e^x)\, - cos(x)(e^x)\, - \int{e^x\,sin(x)\,dx} \cr
+ 2\int{sin(x)(e^x)\,dx} &amp; = sin(x)(e^x)\, - cos(x)(e^x) \cr
+ \int{sin(x)(e^x)\,dx} &amp; = \frac{1}{2}(e^x)(sin(x)-cos(x))
+\end{aligned} 
+\]</p>
+
+<p>Which is the same result we got before, proving that we didn&#39;t screw up.</p>
+
+<p>With this, you can find the indefinite integral of expressions of this form by simply differentiating the non-trigonometric side. You can also use identities, factorizations and other ways to rearrange an expression into this form to use this technique to integrate this otherwise troublesome class of <strong>Rotating Integrals</strong>.</p>
+
+  </div>
+
+	</div>
+	<div class="row " style="">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    
+  </div>
+
+	</div>
+	<div class="row " style="">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <hr  /><br  /><br  /><script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+  </div>
+
+	</div>
+
+		</div>
+	</div>
+
+</div>
+
+    <!-- Mainly scripts -->
+    <script src="../../../../js/jquery-3.1.1.min.js"></script>
+    <script src="../../../../js/jquery-ui-1.10.4.min.js"></script>
+    <script src="../../../../js/bootstrap.min.js"></script>
+    <script src="../../../../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../../../../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			asciimath2jax: {
+				delimiters: [['$$$MATH$$$','$$$ENDMATH$$$']]
+			}
+		});
+	</script>
+    <script src="../../../../js/MathJax/MathJax.js?config=AM_HTMLorMML-full" async></script>
+
+    <script src="../../../../js/highlight.min.js"></script>
+
+
+
+    <!-- Custom and plugin javascript -->
+    <script src="../../../../js/weaver.js"></script>
+    <script src='../../../../js/plugins/pace/pace.min.js'></script>
+
+    <script>
+
+
+
+$( document ).ready(function() {
+
+hljs.highlightAll();
+
+
+
+});
+    </script>
+
+
+
+</body>
+
+</html>
+
