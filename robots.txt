@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: https://davidsiaw.github.io/sitemap.xml 
