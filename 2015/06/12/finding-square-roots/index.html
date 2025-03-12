@@ -71,7 +71,7 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <p><span class="dropcap">M</span>ost of us has at some point in our lives used the <code>Math.sqrt()</code> function. We would even know that \(\sqrt{2} = 1.414\ldots\). However, we never really give how it is implemented a second thought. Thus is the power of a tight abstraction. For those of us who lived in the age of calculators, finding square roots has always been a source of mystery. For me during my teenage years, calculating a square root has really just been about looking up a numeric table.</p>
 
-<p><img src="/images/log8.jpg" alt="Table of Square Roots"></p>
+<p><img src="/images/log8.jpg" alt="Table of Square Roots" title="" class="img-responsive"></p>
 
 <p>Obviously this very simple problem would have been solved close to the beginnings of civilization, and blazingly fast methods must already exist. But for sake of exploration, let us examine how we would implement a square root function should we need to.</p>
 
@@ -79,15 +79,15 @@
 
 <p>Since square roots of negative numbers are really just square roots of positive numbers times the square root of a negative number, let us focus our efforts on finding just the square roots of positive real numbers.</p>
 
-<p><img src="/images/square.png" alt="y=x^2"></p>
+<p><img src="/images/square.png" alt="y=x^2" title="" class="img-responsive"></p>
 
 <p>One way to find a square root is by looking at this graph of \(y=x^2\). Simply drawing a horizontal line from the y-axis from whose square root we desire to the graph line, and then find the intersect on the x-axis. So say we want \(\sqrt{30}\). </p>
 
-<p><img src="/images/sqrt30.png" alt="find sqrt 30"></p>
+<p><img src="/images/sqrt30.png" alt="find sqrt 30" title="" class="img-responsive"></p>
 
 <p>We simply draw a line from the y-axis at 30 to the graph and find that it is located somewhere between 5.4 and 5.6 along the x-axis, but closer to 5.4. This makes sense. A quick glance at <a href="https://www.google.co.jp/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=sqrt(30)">google</a> shows \(\sqrt{30} = 5.4772255\)</p>
 
-<p><img src="/images/binaryguessing.png" alt="find sqrt 30"></p>
+<p><img src="/images/binaryguessing.png" alt="find sqrt 30" title="" class="img-responsive"></p>
 
 <p>This in-betweenness tells us something about square roots. Besides the nice square roots, the ugly ones don&#39;t seem to have any end to their decimals. Hence, they are always in between two numbers that we know. This means that we can keep making educated guesses about where the square root is until we get close enough. </p>
 
